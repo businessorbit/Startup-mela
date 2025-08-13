@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 } */
+/* Add this to your App.css file */
+
+/* Enable smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add padding to sections to account for fixed navbar */
+section {
+  scroll-margin-top: 80px; /* Adjust this value based on your navbar height */
+}
+
+/* Optional: Improve scroll performance */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Ensure sections have proper spacing */
+section {
+  min-height: fit-content;
+  position: relative;
+}
