@@ -115,9 +115,12 @@
 
 import React, { useState } from 'react';
 import { Menu, X, Calendar, Users, BookOpen, MessageCircle, Mic } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { setUserId } from 'firebase/analytics';
 
 const EventNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
     { name: 'Home', icon: Calendar, href: '#home' },
@@ -196,14 +199,18 @@ const EventNavbar = () => {
             {/* Register Button & Mobile Menu */}
             <div className="flex items-center space-x-4">
               {/* Register Button */}
-              <button className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+              <button 
+              onClick={() => navigate('./login')}
+              className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                 <span className="relative z-10 flex items-center space-x-2">
                   <Users className="w-4 h-4" />
                   <span>Login</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
-              <button className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+              <button 
+              onClick={() => navigate('./register')}
+              className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                 <span className="relative z-10 flex items-center space-x-2">
                   <Users className="w-4 h-4" />
                   <span>Register</span>
