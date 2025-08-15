@@ -73,9 +73,9 @@ import Presence from './components/Presence'
 import Contact from './components/Contact'
 // Fixed imports - make sure these paths match your actual file structure
 // import LoginPage from './components/auth/login' // or './components/auth/login/index' if it's in a folder
+import Login from './components/Login'
 import Register from './components/Register'
 
-// Create a HomePage component that contains all your main sections
 function HomePage() {
   return (
     <>
@@ -107,7 +107,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/login" element={<LoginPage />} /> Fixed component name */}
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
