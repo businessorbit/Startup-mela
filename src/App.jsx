@@ -75,6 +75,7 @@ import Contact from './components/Contact'
 // import LoginPage from './components/auth/login' // or './components/auth/login/index' if it's in a folder
 import Login from './components/Login'
 import Register from './components/Register'
+import PastEvents from './components/PastEvents'
 
 function HomePage() {
   return (
@@ -109,6 +110,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/pastevent" element={<PastEvents />} />
       </Routes>
     </Router>
   )

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Calendar, Clock, MapPin, Users, Play, Star, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const NextEventPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Header Section */}
@@ -12,6 +14,11 @@ const NextEventPage = () => {
             <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
               <Calendar className="w-4 h-10 mr-2" />
               Next Event
+            </div>
+            <div className="inline-flex items-center mx-5 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold"
+            onClick={() => {navigate('./pastevent')}}>
+              <Calendar className="w-4 h-10 mr-2" />
+              Past Events
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
               Tech Innovation Summit 2025
