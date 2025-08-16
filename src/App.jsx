@@ -66,16 +66,15 @@ import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import NextEvent from './components/NextEvent'
 import Sponsors from './components/Sponsors'
-import Speakers from './components/Speakers'
-import Blogs from './components/Blogs'
-import Paid from './components/Paid'
-import Presence from './components/Presence'
-import Contact from './components/Contact'
-// Fixed imports - make sure these paths match your actual file structure
-// import LoginPage from './components/auth/login' // or './components/auth/login/index' if it's in a folder
 import Login from './components/Login'
 import Register from './components/Register'
 import PastEvents from './components/PastEvents'
+import RegistrationPage from './components/Registration'
+import LegacyPage from './components/Legacy'
+import TeamPage from './components/Team'
+import ExperiencePage from './components/Experience'
+import FAQPage from './components/Faq'
+import TestimonialsPage from './components/Testinomials'
 
 function HomePage() {
   return (
@@ -85,18 +84,35 @@ function HomePage() {
       </section>
       <section id="events">
         <NextEvent/>
-        <Sponsors/>
-        <Paid/>
-        <Presence/>
+        {/* <Presence/> */}
       </section>
       <section id="speaker">
-        <Speakers/>
+        {/* <Speakers/> */}
+      </section>
+      <section id="tickets">
+        <RegistrationPage/>
+      </section>
+      <section id="experience">
+        <ExperiencePage/>
+      </section>
+      <section id="sponsors">
+        <Sponsors/>
+      </section>
+      <section id="legacy">
+        <LegacyPage/>
+      </section>
+      <section id="team">
+        <TeamPage/>
       </section>
       <section id="blogs">
-        <Blogs/>
+        {/* <Blogs/> */}
       </section>
       <section id="contact">
-        <Contact/>
+        {/* <Contact/> */}
+      </section>
+      <section id="faqs">
+        <FAQPage/>
+        <TestimonialsPage/>
       </section>
     </>
   )

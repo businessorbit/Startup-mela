@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Calendar, Users, BookOpen, MessageCircle, Mic } from 'lucide-react';
+import { Menu, X, Calendar, Users, BookOpen, MessageCircle, Mic, Info, Ticket, FileText, Trophy, Heart, Award, UserCheck, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { setUserId } from 'firebase/analytics';
 
@@ -9,10 +9,14 @@ const EventNavbar = () => {
 
   const navItems = [
     { name: 'Home', icon: Calendar, href: '#home' },
-    { name: 'Events', icon: Calendar, href: '#events' },
-    { name: 'Blogs', icon: BookOpen, href: '#blogs' },
-    { name: 'Contact', icon: MessageCircle, href: '#contact' },
-    { name: 'Speaker', icon: Mic, href: '#speaker' }
+    // { name: 'About Us', icon: Info, href: '#about' },
+    { name: 'Event Details', icon: FileText, href: '#events' },
+    { name: 'Registration', icon: Ticket, href: '#tickets' },
+    { name: 'Experience', icon: Heart, href: '#experience' },
+    { name: 'Sponsors', icon: Trophy, href: '#sponsors' },
+    { name: 'Our Legacy', icon: Award, href: '#legacy' },
+    { name: 'Team', icon: Users, href: '#team' },
+    { name: 'FAQs', icon: HelpCircle, href: '#faqs' }
   ];
 
   // Smooth scroll function
@@ -51,15 +55,15 @@ const EventNavbar = () => {
               </div>
               <div className="ml-3">
                 <h1 className="text-xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                  EventHub
+                  Startup Mela
                 </h1>
-                <p className="text-xs text-purple-300">College Events</p>
+                {/* <p className="text-xs text-purple-300">College Even</p> */}
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-1">
+            <div className="hidden lg:block">
+              <div className="ml-10 flex items-baseline space-x-0 overflow-x-auto">
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
                   return (
@@ -67,11 +71,11 @@ const EventNavbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={(e) => handleSmoothScroll(e, item.href)}
-                      className="group relative px-4 py-2 rounded-lg text-gray-300 hover:text-white transition-all duration-300 ease-in-out cursor-pointer"
+                      className="group relative px-3 py-2 rounded-lg text-gray-300 hover:text-white transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap"
                     >
-                      <div className="flex items-center space-x-2">
-                        <Icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                        <span className="font-medium">{item.name}</span>
+                      <div className="flex items-center space-x-1">
+                        <Icon className="w-3 h-3 group-hover:scale-110 transition-transform duration-300" />
+                        <span className="font-medium text-sm">{item.name}</span>
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
@@ -86,25 +90,25 @@ const EventNavbar = () => {
               {/* Register Button */}
               <button 
               onClick={() => navigate('/login')}
-              className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+              className="hidden lg:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                 <span className="relative z-10 flex items-center space-x-2">
-                  <Users className="w-4 h-4" />
-                  <span>Login</span>
+                  <UserCheck className="w-4 h-4" />
+                  <span>Login/Register</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
-              <button 
+              {/* <button 
               onClick={() => navigate('/register')}
-              className="hidden md:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+              className="hidden lg:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                 <span className="relative z-10 flex items-center space-x-2">
                   <Users className="w-4 h-4" />
                   <span>Register</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
+              </button> */}
 
               {/* Mobile menu button */}
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-purple-800/50 transition-colors duration-300"
@@ -117,8 +121,8 @@ const EventNavbar = () => {
         </div>
 
         {/* Mobile Navigation Menu */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/95 backdrop-blur-md border-t border-purple-500/20">
+        <div className={`lg:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/95 backdrop-blur-md border-t border-purple-500/20 max-h-80 overflow-y-auto">
             {navItems.map((item, index) => {
               const Icon = item.icon;
               return (
@@ -134,8 +138,16 @@ const EventNavbar = () => {
               );
             })}
             
-            {/* Mobile Register Button */}
-            <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2">
+            {/* Mobile Login & Register Buttons */}
+            <button 
+            onClick={() => navigate('/login')}
+            className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2">
+              <UserCheck className="w-4 h-4" />
+              <span>Login</span>
+            </button>
+            <button 
+            onClick={() => navigate('/register')}
+            className="w-full mt-2 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2">
               <Users className="w-4 h-4" />
               <span>Register</span>
             </button>
