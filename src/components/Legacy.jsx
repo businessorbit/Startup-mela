@@ -113,7 +113,7 @@ const LegacyPage = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="mt-12 text-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-8 text-white">
+          <div className="mt-12 text-center bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to Create Your Next Success Story?</h3>
             <p className="text-lg mb-6 opacity-90">
               Let our proven expertise in <span className="font-semibold">startup events</span>, 

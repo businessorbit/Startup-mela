@@ -223,7 +223,8 @@ const EventDetailsPage = () => {
                   <p>🏢 Expansive venue with ample space for stalls, stages, and networking zones</p>
                   <p>♿ Centrally located and easily accessible</p>
                 </div>
-                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300">
+                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                onClick={() => {navigate('./contact')}}>
                   Get Directions
                 </button>
               </div>
@@ -292,10 +293,11 @@ const EventDetailsPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            onClick={() => {navigate('./register')}}>
+            onClick={() => {navigate('./contact')}}>
               Register Now
             </button>
             <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300"
+            onClick={() => {navigate('./contact')}}
             >
               View Ticket Options
             </button>

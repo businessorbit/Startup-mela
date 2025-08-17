@@ -162,7 +162,7 @@ const HeroSection = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
               { value: '500+', label: 'Startups & Investors', color: 'from-yellow-400 to-orange-500', icon: Star },
               { value: '50+', label: 'Industry Speakers', color: 'from-blue-400 to-cyan-500', icon: Users },
@@ -178,7 +178,7 @@ const HeroSection = () => {
                 <div className="text-slate-600 font-medium">{stat.label}</div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* CTA Buttons */}
           

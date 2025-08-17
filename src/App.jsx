@@ -75,6 +75,8 @@ import TeamPage from './components/Team'
 import ExperiencePage from './components/Experience'
 import FAQPage from './components/Faq'
 import TestimonialsPage from './components/Testinomials'
+import ContactPage from './components/Contact'
+import Footer from './components/Footer'
 
 function HomePage() {
   return (
@@ -113,6 +115,7 @@ function HomePage() {
       <section id="faqs">
         <FAQPage/>
         <TestimonialsPage/>
+        <Footer/>
       </section>
     </>
   )
@@ -127,6 +130,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/pastevent" element={<PastEvents />} />
+        <Route path="/contact" element={<ContactPage />} />
+        
       </Routes>
     </Router>
   )

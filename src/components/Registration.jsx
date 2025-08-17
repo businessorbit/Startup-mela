@@ -4,6 +4,20 @@ import { Calendar, Clock, MapPin, Users, Play, Star, ArrowRight, Building, Targe
 const RegistrationPage = () => {
     const [selectedPass, setSelectedPass] = useState(null);
 
+    const handleSmoothScroll = (targetId) => {
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            const navbarHeight = 64; // h-16 = 64px
+            const targetPosition = targetElement.offsetTop - navbarHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     const ticketOptions = [
         {
             id: 'general',
@@ -370,11 +384,13 @@ const RegistrationPage = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button
                             className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                            onClick={() => {navigate('./contact')}}
                             disabled={!selectedPass}
                         >
                             {selectedPass ? 'Register Now & Secure Your Spot' : 'Select a Pass to Continue'}
                         </button>
-                        <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300"
+                        onClick={() => {navigate('./contact')}}>
                             View Event Details
                         </button>
                     </div>

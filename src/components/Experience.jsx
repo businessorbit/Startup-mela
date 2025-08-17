@@ -1,7 +1,8 @@
 import React from 'react';
 import { Users, Mic, Lightbulb, MapPin, Calendar, Star, ChevronRight } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const ExperiencePage = () => {
+  const navigate = useNavigate();
   const zones = [
     {
       id: 1,
@@ -167,10 +168,12 @@ const ExperiencePage = () => {
             Experience unparalleled networking opportunities, pitch to top investors, and accelerate your business growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-indigo-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+            <button className="bg-white text-indigo-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+            onClick={() => {navigate('./contact')}}>
               Register for Startup Mela
             </button>
-            <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-indigo-600 transition-colors duration-200">
+            <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-indigo-600 transition-colors duration-200"
+            onClick={() => {navigate('./contact')}}>
               Investor Registration
             </button>
           </div>

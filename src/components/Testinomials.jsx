@@ -1,7 +1,8 @@
 import React from 'react';
 import { Star, Users, TrendingUp, MessageCircle } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const TestimonialsPage = () => {
+  const navigate = useNavigate();
   const testimonials = [
     {
       id: 1,
@@ -142,17 +143,19 @@ const TestimonialsPage = () => {
             investor connections, and business pitching opportunities that drive real results.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+            <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+            onClick={() => {navigate('/contact')}}>
               Register for Next Event
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+            <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+            onClick={() => {navigate('/contact')}}>
               View Event Schedule
             </button>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-20 text-center">
+        {/* <div className="mt-20 text-center">
           <div className="max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold text-gray-900 mb-6">
               Why Choose Our Startup Events?
@@ -181,7 +184,7 @@ const TestimonialsPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
