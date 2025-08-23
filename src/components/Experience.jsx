@@ -51,41 +51,47 @@ const ExperiencePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-[#FDF9F3]">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
+      <div className="relative overflow-hidden bg-[#FDF9F3]">
+        <div className="absolute inset-0 opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+          <div className="text-left">
+            <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 tracking-tight"
+            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               The Experience
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-blue-100 mb-8">
+            <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4"
+            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Three Zones of Opportunity
             </h2>
-            <div className="max-w-4xl mx-auto">
-              <p className="text-xl text-blue-50 mb-8 leading-relaxed">
-                A Three-Day Journey Through Innovation: The Ultimate Business Networking Event
+            <div className="max-w-4xl">
+              <p className="text-xl text-black leading-relaxed">
+                A Three-Day Journey Through Innovation:
               </p>
-              <p className="text-lg text-blue-100 leading-relaxed">
-                Startup Mela is structured into three distinct, high-energy zones, each offering a unique 
-                experience for entrepreneurs, investors, and business leaders to network, pitch, and grow.
+              <p className="text-xl text-black mb-8 leading-relaxed">
+                The Ultimate Business Networking Event
               </p>
+              <div className="relative left-[350px] bottom-[92px]">
+                <p className="text-lg text-black leading-relaxed text-right">
+                  Startup Mela is structured into three distinct, high-energy zones, each offering a unique
+                </p>
+                <p className="text-lg text-black leading-relaxed text-right">
+                  experience for entrepreneurs, investors, and business leaders to network, pitch, and grow.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        
-        {/* Decorative Elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-white opacity-10 rounded-full"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white opacity-5 rounded-full"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-300 opacity-20 rounded-full"></div>
+
+
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative bottom-20">
           <div className="text-center">
             <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
             <div className="text-gray-600">Startup Participants</div>
@@ -107,40 +113,52 @@ const ExperiencePage = () => {
         {/* Zones Section */}
         <div className="space-y-12">
           {zones.map((zone, index) => (
-            <div key={zone.id} className={`rounded-3xl p-8 shadow-lg border-2 ${zone.color} ${zone.accent} transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}>
+            <div
+              key={zone.id}
+              className="rounded-3xl p-8 shadow-lg border-2 border-gray-300 bg-gradient-to-br from-indigo-50 to-purple-50 hover:shadow-xl hover:scale-[1.02]"
+            >
               <div className="flex flex-col lg:flex-row gap-8">
-                
+
                 {/* Zone Header */}
                 <div className="lg:w-1/3">
                   <div className="flex items-center gap-4 mb-6">
                     {zone.icon}
                     <div>
-                      <h3 className="text-3xl font-bold text-gray-800">Zone {zone.id}: {zone.title}</h3>
-                      <p className="text-lg text-gray-600 font-medium">({zone.subtitle})</p>
+                      <h3 className="text-3xl font-bold text-black"
+                      style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                        Zone {zone.id}: {zone.title}
+                      </h3>
+                      <p className="text-lg text-gray-800 font-medium"
+                      style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                        ({zone.subtitle})
+                      </p>
                     </div>
                   </div>
-                  
+
                   {/* Zone number badge */}
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-md mb-6">
-                    <span className="text-2xl font-bold text-gray-700">{zone.id}</span>
+                    <span className="text-2xl font-bold text-black">{zone.id}</span>
                   </div>
                 </div>
 
                 {/* Zone Content */}
                 <div className="lg:w-2/3">
-                  <p className="text-gray-700 text-lg leading-relaxed mb-8">
+                  <p className="text-black text-lg leading-relaxed mb-8">
                     {zone.description}
                   </p>
 
                   {/* Features */}
                   <div className="space-y-4">
                     {zone.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3 bg-white bg-opacity-70 p-4 rounded-xl">
+                      <div
+                        key={idx}
+                        className="flex items-start gap-3 bg-[#DCDCDC] bg-opacity-70 p-4 rounded-xl"
+                      >
                         <ChevronRight className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
                         <div>
                           {feature.includes(':') ? (
                             <div>
-                              <span className="font-semibold text-gray-800">
+                              <span className="font-semibold text-black">
                                 {feature.split(':')[0]}:
                               </span>
                               <span className="text-gray-700 ml-1">
@@ -148,7 +166,7 @@ const ExperiencePage = () => {
                               </span>
                             </div>
                           ) : (
-                            <span className="text-gray-700">{feature}</span>
+                            <span className="text-black">{feature}</span>
                           )}
                         </div>
                       </div>
@@ -160,20 +178,21 @@ const ExperiencePage = () => {
           ))}
         </div>
 
+
         {/* Call to Action Section */}
         <div className="mt-20 bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-12 text-center text-white">
           <h3 className="text-3xl font-bold mb-6">Ready to Transform Your Business Network?</h3>
           <p className="text-xl mb-8 opacity-90">
-            Join hundreds of entrepreneurs, investors, and industry leaders at this premier startup event. 
+            Join hundreds of entrepreneurs, investors, and industry leaders at this premier startup event.
             Experience unparalleled networking opportunities, pitch to top investors, and accelerate your business growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-indigo-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
-            onClick={() => {navigate('./contact')}}>
+              onClick={() => { navigate('./contact') }}>
               Register for Startup Mela
             </button>
             <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-indigo-600 transition-colors duration-200"
-            onClick={() => {navigate('./contact')}}>
+              onClick={() => { navigate('./contact') }}>
               Investor Registration
             </button>
           </div>
@@ -185,17 +204,17 @@ const ExperiencePage = () => {
             Why Startup Mela is the Premier Business Networking Event
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
+            <div className="text-center p-6 bg-[#DCDCDC] rounded-xl shadow-lg">
               <Lightbulb className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Innovation Showcase</h4>
               <p className="text-gray-600">Connect with cutting-edge startups and experience the future of business firsthand</p>
             </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
+            <div className="text-center p-6 bg-[#DCDCDC] rounded-xl shadow-lg">
               <Users className="w-12 h-12 text-blue-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Elite Networking</h4>
               <p className="text-gray-600">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
             </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
+            <div className="text-center p-6 bg-[#DCDCDC]  rounded-xl shadow-lg">
               <Star className="w-12 h-12 text-purple-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Pitching Excellence</h4>
               <p className="text-gray-600">Perfect your pitch and secure funding from top-tier investors and VCs</p>

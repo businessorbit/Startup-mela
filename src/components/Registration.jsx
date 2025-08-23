@@ -278,32 +278,32 @@ const RegistrationPage = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-lg">
+                        <div className="bg-[#DCDCDC] p-8 rounded-2xl shadow-lg">
                             <h3 className="text-xl font-bold text-gray-900 mb-6">Why Startup Mela?</h3>
                             <div className="space-y-4">
                                 <div className="flex items-center space-x-3">
                                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                                         <Users className="w-4 h-4 text-blue-600" />
                                     </div>
-                                    <p className="text-gray-700">500+ Attendees</p>
+                                    <p className="text-black">500+ Attendees</p>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                                         <Building className="w-4 h-4 text-green-600" />
                                     </div>
-                                    <p className="text-gray-700">100+ Startups</p>
+                                    <p className="text-black">100+ Startups</p>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                                         <Target className="w-4 h-4 text-purple-600" />
                                     </div>
-                                    <p className="text-gray-700">50+ Investors</p>
+                                    <p className="text-black">50+ Investors</p>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
                                         <Star className="w-4 h-4 text-orange-600" />
                                     </div>
-                                    <p className="text-gray-700">3 Days of Innovation</p>
+                                    <p className="text-black">3 Days of Innovation</p>
                                 </div>
                             </div>
                         </div>
@@ -311,23 +311,24 @@ const RegistrationPage = () => {
                 </div>
 
                 <div className="text-center mt-16 mb-10">
-                    <div className="bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose Our Startup Networking Event?</h3>
+                    <div className="bg-[#DCDCDC] rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-6"
+                        style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>Why Choose Our Startup Networking Event?</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-6">
                             <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">🚀 Investor Networking Opportunities</h4>
+                                <h4 className="font-semibold text-gray-900 mb-2">• Investor Networking Opportunities</h4>
                                 <p className="text-gray-600 text-sm">Connect directly with angel investors, venture capitalists, and business funding experts actively seeking innovative startups and business ventures.</p>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">💼 Business Pitching Excellence</h4>
+                                <h4 className="font-semibold text-gray-900 mb-2">• Business Pitching Excellence</h4>
                                 <p className="text-gray-600 text-sm">Perfect your startup pitch through structured pitching sessions, investor feedback, and networking with successful entrepreneurs and business mentors.</p>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">🌐 Startup Community Network</h4>
+                                <h4 className="font-semibold text-gray-900 mb-2">• Startup Community Network</h4>
                                 <p className="text-gray-600 text-sm">Join a thriving startup ecosystem with fellow entrepreneurs, business innovators, and networking professionals building the future of business.</p>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">📈 Business Growth Acceleration</h4>
+                                <h4 className="font-semibold text-gray-900 mb-2">• Business Growth Acceleration</h4>
                                 <p className="text-gray-600 text-sm">Access investor connections, business partnerships, startup mentoring, and networking opportunities essential for scaling your business venture.</p>
                             </div>
                         </div>
@@ -335,7 +336,7 @@ const RegistrationPage = () => {
                             <strong>Register now</strong> for India's premier startup networking event featuring investor pitching, business exhibitions, entrepreneur meetups, and exclusive networking sessions designed to accelerate your startup journey.
                         </p>
                         <p className="text-blue-600 text-lg font-semibold">
-                            🎉 Early bird discounts on all networking passes! Limited startup event seats available.
+                            Early bird discounts on all networking passes! Limited startup event seats available.
                         </p>
                     </div>
                 </div>
