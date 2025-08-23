@@ -140,16 +140,18 @@ const RegistrationPage = () => {
                             </div>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight text-left"
+                        <div className="relative right-[20px]">
+                            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight text-left"
                             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                             Choose Your Pass
                         </h1>
-                        <h1 className="text-4xl md:text-6xl font-bold !leading-snug text-gray-900 leading-tight text-left !mt-0"
+                        <h1 className="text-4xl md:text-6xl font-bold !leading-snug text-gray-900  text-left !mt-0"
                             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                             Unlock Your Opportunity
                         </h1>
+                        </div>
 
-                        <div className="text-right max-w-xl relative left-[700px] bottom-[95px]">
+                        <div className="text-right max-w-xl relative left-[650px] bottom-[95px]">
                             <p className="text-xl text-gray-600 leading-relaxed !mb-0">
                                 We Offer several ticket options designed to provide the best
                             </p>

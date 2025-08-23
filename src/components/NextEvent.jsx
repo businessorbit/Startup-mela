@@ -41,7 +41,7 @@ const EventDetailsPage = () => {
               Biggest Startup Event
             </h1>
 
-            <div className="text-right max-w-xl relative left-[700px] bottom-[87px]">
+            <div className="text-right max-w-xl relative left-[650px] bottom-[87px]">
               <p className="text-xl text-gray-600 leading-relaxed !mb-0">
                 This section provides all the essential information for anyone
               </p>
