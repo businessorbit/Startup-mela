@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Users, Play, Star, ArrowRight, Building, Target, Network, Award, TrendingUp, Handshake, CheckCircle, Crown, Zap } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Play, Star, Mic, ArrowRight, Building, Target, Network, Award, TrendingUp, Handshake, CheckCircle, Crown, Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
     const [selectedPass, setSelectedPass] = useState(null);
 
     const handleSmoothScroll = (targetId) => {
@@ -85,6 +87,23 @@ const RegistrationPage = () => {
             ]
         },
         {
+            id: 'stall-stage-lounge',
+            name: 'Stall + Stage Lounge Pass',
+            price: '₹40,000',
+            icon: Mic,  // you can swap for a better icon
+            color: 'pink',
+            gradient: 'from-pink-500 to-rose-500',
+            bgColor: 'bg-pink-50',
+            borderColor: 'border-pink-200',
+            whoFor: 'Startups who want both strong customer presence and high visibility on stage',
+            features: [
+                'Everything in the Stall + Lounge Pass',
+                'A confirmed slot on the Spotlight Stage for product demo / announcement',
+                'Priority branding in the Marketplace and event promotions',
+                'Two additional team passes (one with Lounge access)'
+            ]
+        },
+        {
             id: 'vip-all-access',
             name: 'All-Access VIP Pass',
             price: '₹50,000',
@@ -106,41 +125,53 @@ const RegistrationPage = () => {
         }
     ];
 
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="min-h-screen bg-[#FDF9F3]">
             {/* Header Section */}
             <div className="relative overflow-hidden bg-white">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-50"></div>
+                <div className="absolute inset-0 bg-[#FDF9F3] "></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div className="text-center space-y-6">
-                        <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
-                            <Calendar className="w-4 h-4 mr-2" />
-                            Tickets & Registration
+                    <div className="space-y-6">
+                        <div className="text-center">
+                            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                                <Calendar className="w-4 h-4 mr-2" />
+                                Tickets & Registration
+                            </div>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                            Choose Your Pass. Unlock Your Opportunity.
+
+                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight text-left"
+                            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                            Choose Your Pass
                         </h1>
-                        <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                            We offer a range of ticket options designed to provide the best experience for every attendee,
-                            from curious visitors to ambitious founders. Find the perfect pass for your goals.
-                        </p>
+                        <h1 className="text-4xl md:text-6xl font-bold !leading-snug text-gray-900 leading-tight text-left !mt-0"
+                            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                            Unlock Your Opportunity
+                        </h1>
+
+                        <div className="text-right max-w-xl relative left-[700px] bottom-[95px]">
+                            <p className="text-xl text-gray-600 leading-relaxed !mb-0">
+                                We Offer several ticket options designed to provide the best
+                            </p>
+                            <p className="text-xl text-gray-600 !mt-0">
+                                experience to all from curious visitors to ambitious founders
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Decorative Elements */}
-                <div className="absolute top-10 right-10 w-20 h-20 bg-blue-200/30 rounded-full blur-xl"></div>
-                <div className="absolute bottom-10 left-10 w-16 h-16 bg-indigo-200/40 rounded-full blur-lg"></div>
+
             </div>
 
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
 
                 {/* Ticket Options */}
-                <div className="space-y-12">
+                <div className="space-y-12 relative bottom-[30px]">
                     <div className="text-center space-y-4">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Select Your Experience</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Select Your Pass</h2>
                         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                            Each pass is carefully crafted to maximize your event experience and ROI. Choose the one that aligns with your goals.
+                            Each pass is carefully crafted to maximize your event experience and ROI
                         </p>
                     </div>
 
@@ -279,44 +310,6 @@ const RegistrationPage = () => {
                     </div>
                 </div>
 
-                {/* Special Offers */}
-                <div className="bg-white rounded-3xl shadow-lg p-8">
-                    <div className="text-center space-y-8">
-                        <div className="space-y-4">
-                            <h2 className="text-3xl font-bold text-gray-900">Special Offers</h2>
-                            <p className="text-lg text-gray-600">Limited time offers to make your registration even more valuable</p>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
-                                <div className="space-y-4">
-                                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto">
-                                        <Users className="w-6 h-6 text-blue-600" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-gray-900">Group Discount</h3>
-                                    <p className="text-gray-700">Register 5 or more General Entry passes and get 20% off</p>
-                                    <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold inline-block">
-                                        Save ₹20 per pass
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
-                                <div className="space-y-4">
-                                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto">
-                                        <Zap className="w-6 h-6 text-green-600" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-gray-900">Early Bird Special</h3>
-                                    <p className="text-gray-700">Register before December 31st and get an exclusive welcome kit</p>
-                                    <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold inline-block">
-                                        Limited Time
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div className="text-center mt-16 mb-10">
                     <div className="bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                         <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose Our Startup Networking Event?</h3>
@@ -346,29 +339,6 @@ const RegistrationPage = () => {
                         </p>
                     </div>
                 </div>
-
-                {/* Contact Information */}
-                <div className="text-center space-y-8">
-                    <div className="space-y-4">
-                        <h2 className="text-3xl font-bold text-gray-900">Need Help with Registration?</h2>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Our team is here to help you choose the right pass and answer any questions about the event.
-                        </p>
-                    </div>
-
-                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-md mx-auto">
-                        <div className="space-y-4">
-                            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                                <MapPin className="w-8 h-8 text-blue-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900">Contact Support</h3>
-                            <div className="space-y-2 text-gray-600">
-                                <p>📧 contact@businessorbit.org</p>
-                                <p>📞 +91 76968 34279</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             {/* CTA Section */}
@@ -384,13 +354,13 @@ const RegistrationPage = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button
                             className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                            onClick={() => {navigate('./contact')}}
+                            onClick={() => { navigate('./contact') }}
                             disabled={!selectedPass}
                         >
                             {selectedPass ? 'Register Now & Secure Your Spot' : 'Select a Pass to Continue'}
                         </button>
                         <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300"
-                        onClick={() => {navigate('./contact')}}>
+                            onClick={() => { navigate('./contact') }}>
                             View Event Details
                         </button>
                     </div>
