@@ -66,13 +66,8 @@ const ExperiencePage = () => {
               Three Zones of Opportunity
             </h2>
             <div className="max-w-4xl">
-              <p className="text-xl text-black leading-relaxed">
-                A Three-Day Journey Through Innovation:
-              </p>
-              <p className="text-xl text-black mb-8 leading-relaxed">
-                The Ultimate Business Networking Event
-              </p>
-              <div className="relative left-[350px] bottom-[92px]">
+              
+              <div className="relative left-[350px] bottom-[80px]">
                 <p className="text-lg text-black leading-relaxed text-right">
                   Startup Mela is structured into three distinct, high-energy zones, each offering a unique
                 </p>
@@ -152,7 +147,7 @@ const ExperiencePage = () => {
                     {zone.features.map((feature, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-3 bg-[#DCDCDC] bg-opacity-70 p-4 rounded-xl"
+                        className="flex items-start gap-3 bg-[#E8E8E8] bg-opacity-70 p-4 rounded-xl"
                       >
                         <ChevronRight className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
                         <div>
@@ -180,7 +175,7 @@ const ExperiencePage = () => {
 
 
         {/* Call to Action Section */}
-        <div className="mt-20 bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-12 text-center text-white">
+        {/* <div className="mt-20 bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-12 text-center text-white">
           <h3 className="text-3xl font-bold mb-6">Ready to Transform Your Business Network?</h3>
           <p className="text-xl mb-8 opacity-90">
             Join hundreds of entrepreneurs, investors, and industry leaders at this premier startup event.
@@ -196,7 +191,7 @@ const ExperiencePage = () => {
               Investor Registration
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Key Benefits */}
         <div className="mt-20">

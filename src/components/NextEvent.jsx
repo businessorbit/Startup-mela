@@ -112,13 +112,13 @@ const EventDetailsPage = () => {
                 Startup Mela is the biggest and most dynamic startup festival and business conference in the Tricity region. It's a comprehensive platform featuring:
               </p>
               <div className="space-y-4">
-                <div className="bg-[#DCDCDC] p-4 rounded-xl shadow-sm border border-gray-100">
+                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
                   <p className="text-black">🏢 A massive exhibition for tech and non-tech startups to showcase their products</p>
                 </div>
-                <div className="bg-[#DCDCDC] p-4 rounded-xl shadow-sm border border-gray-100">
+                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
                   <p className="text-black">💼 An exclusive investor lounge for high-stakes networking and startup funding opportunities</p>
                 </div>
-                <div className="bg-[#DCDCDC] p-4 rounded-xl shadow-sm border border-gray-100">
+                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
                   <p className="text-black">🎯 A center stage for product launches, D2C fashion shows, and influencer meetups</p>
                 </div>
               </div>
@@ -146,7 +146,7 @@ const EventDetailsPage = () => {
               <p className="text-lg text-gray-700 leading-relaxed">
                 Mark your calendars for three full days packed with opportunities, innovation, and networking experiences.
               </p>
-              <div className="bg-[#DCDCDC] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
+              <div className="bg-[#E8E8E8] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                     <Calendar className="w-6 h-6 text-blue-600" />
@@ -208,7 +208,7 @@ const EventDetailsPage = () => {
         {/* Where Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <div className="relative bg-[#DCDCDC] rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-500">
+            <div className="relative bg-[#E8E8E8] rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-500">
               <div className="aspect-[5/4] bg-gradient-to-br from-purple-100 to-pink-200 flex items-center justify-center relative">
                 {/* Mock venue visual */}
                 <div className="absolute inset-4 bg-white/20 rounded-2xl backdrop-blur-sm"></div>
@@ -254,7 +254,7 @@ const EventDetailsPage = () => {
                 The event will be held at the Sector 34 Exhibition Ground, Chandigarh. Centrally located and easily accessible,
                 this expansive venue provides the perfect backdrop for a large-scale festival of innovation.
               </p>
-              <div className="bg-[#DCDCDC] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
+              <div className="bg-[#E8E8E8] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <h4 className="font-semibold text-gray-900 text-lg">Sector 34 Exhibition Ground</h4>
                 <div className="space-y-3 text-black">
                   <p>📍 Sector 34, Chandigarh, India</p>
@@ -297,7 +297,7 @@ const EventDetailsPage = () => {
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Card 1 */}
-              <div className="bg-[#DCDCDC] p-8 rounded-2xl shadow-lg 
+              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
                       transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                   <Building className="w-8 h-8 text-blue-600" />
@@ -311,7 +311,7 @@ const EventDetailsPage = () => {
               </div>
 
               {/* Card 2 */}
-              <div className="bg-[#DCDCDC] p-8 rounded-2xl shadow-lg 
+              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
                       transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                   <Target className="w-8 h-8 text-green-600" />
@@ -325,7 +325,7 @@ const EventDetailsPage = () => {
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#DCDCDC] p-8 rounded-2xl shadow-lg 
+              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
                       transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
                   <Network className="w-8 h-8 text-purple-600" />
@@ -343,7 +343,7 @@ const EventDetailsPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-green-600 to-emerald-700 py-16">
+      {/* <div className="bg-gradient-to-r from-green-600 to-emerald-700 py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Be Part of Chandigarh's Biggest Startup Event?
@@ -363,7 +363,7 @@ const EventDetailsPage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -79,7 +79,7 @@ const FAQPage = () => {
   const categories = [...new Set(faqs.map(faq => faq.category))];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-[#FDF9F3]">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
         <div className="absolute inset-0 bg-black opacity-10"></div>
