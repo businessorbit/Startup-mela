@@ -3,7 +3,7 @@ import React from 'react';
 
 const LegacyPage = () => {
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <div className="bg-[#FDF9F3] min-h-screen">
       <div className="container mx-auto px-6 py-12 max-w-6xl">
         
         {/* Header Section */}
@@ -111,19 +111,7 @@ const LegacyPage = () => {
               </p>
             </div>
           </div>
-
-          {/* Call to Action */}
-          <div className="mt-12 text-center bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Ready to Create Your Next Success Story?</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Let our proven expertise in <span className="font-semibold">startup events</span>, 
-              <span className="font-semibold"> business networking</span>, and 
-              <span className="font-semibold"> investor pitching</span> platforms elevate your event to new heights.
-            </p>
-            <button className="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg">
-              Partner With Us
-            </button>
-          </div>
+          
         </div>
 
         {/* Footer */}

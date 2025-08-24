@@ -81,26 +81,28 @@ const FAQPage = () => {
   return (
     <div className="min-h-screen bg-[#FDF9F3]">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative overflow-hidden bg-[#FDF9F3] pt-20">
+        <div className="absolute inset-0 bg-[#FDF9F3]"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <HelpCircle className="w-16 h-16 text-white" />
+              <HelpCircle className="w-16 h-16 text-blue-600" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            <h1 className="text-left text-5xl md:text-6xl font-bold text-black mb-6 tracking-tight"
+            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Frequently Asked Questions
             </h1>
-            <p className="text-xl text-blue-50 mb-8 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-left text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl "
+            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Everything you need to know about Startup Mela - the premier business networking event 
               connecting entrepreneurs, investors, and industry leaders
             </p>
-            <div className="flex flex-wrap justify-center gap-3 text-sm">
-              <span className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full">Networking</span>
-              <span className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full">Pitching</span>
-              <span className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full">Startup Event</span>
-              <span className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full">Business</span>
-              <span className="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full">Investors</span>
+            <div className="flex flex-wrap gap-2 text-sm">
+              <span className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full">Networking</span>
+              <span className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full">Pitching</span>
+              <span className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full">Startup Event</span>
+              <span className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full">Business</span>
+              <span className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full">Investors</span>
             </div>
           </div>
         </div>
@@ -113,19 +115,19 @@ const FAQPage = () => {
       {/* Quick Stats */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div className="text-center bg-white rounded-xl p-6 shadow-lg">
+          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
             <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
             <div className="text-gray-600 text-sm">Startups Networking</div>
           </div>
-          <div className="text-center bg-white rounded-xl p-6 shadow-lg">
+          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
             <div className="text-3xl font-bold text-green-600 mb-2">100+</div>
             <div className="text-gray-600 text-sm">Investors Attending</div>
           </div>
-          <div className="text-center bg-white rounded-xl p-6 shadow-lg">
+          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
             <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
             <div className="text-gray-600 text-sm">Pitching Sessions</div>
           </div>
-          <div className="text-center bg-white rounded-xl p-6 shadow-lg">
+          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
             <div className="text-3xl font-bold text-indigo-600 mb-2">3</div>
             <div className="text-gray-600 text-sm">Days of Business</div>
           </div>
@@ -136,7 +138,7 @@ const FAQPage = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Browse by Category</h2>
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category, index) => (
-              <span key={index} className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
+              <span key={index} className="bg-[#E8E8E8] text-black px-4 py-2 rounded-full text-sm border border-blue-200">
                 {category}
               </span>
             ))}
@@ -188,7 +190,7 @@ const FAQPage = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-20 bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-10 text-center text-white">
+        <div className="mt-20 bg-[#E8E8E8] rounded-3xl p-10 text-center text-black">
           <h3 className="text-3xl font-bold mb-6">Still Have Questions About Our Startup Event?</h3>
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
             Our business networking event team is here to help! Whether you're a startup founder, investor, 
@@ -196,18 +198,18 @@ const FAQPage = () => {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
-            <div className="flex items-center justify-center gap-3 bg-white bg-opacity-20 rounded-xl p-4">
+            <div className="border border-black flex items-center justify-center gap-3 bg-white bg-opacity-20 rounded-xl p-4">
               <Mail className="w-6 h-6" />
               <div>
                 <div className="font-semibold">Email Support</div>
-                <div className="text-blue-100">contact@businessorbit.org</div>
+                <div className="text-blue-800">contact@businessorbit.org</div>
               </div>
             </div>
-            <div className="flex items-center justify-center gap-3 bg-white bg-opacity-20 rounded-xl p-4">
+            <div className="border border-black flex items-center justify-center gap-3 bg-white bg-opacity-20 rounded-xl p-4">
               <MapPin className="w-6 h-6" />
               <div>
                 <div className="font-semibold">Event Location</div>
-                <div className="text-blue-100">Sector 34 Ground</div>
+                <div className="text-blue-800">Sector 34 Ground</div>
               </div>
             </div>
           </div>
@@ -217,7 +219,7 @@ const FAQPage = () => {
             onClick={() => {navigate('/contact')}}>
               Contact Event Team
             </button>
-            <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-blue-600 transition-colors duration-200"
+            <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
             onClick={() => {navigate('/contact')}}>
               Register for Networking
             </button>

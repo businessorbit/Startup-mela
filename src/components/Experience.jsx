@@ -110,7 +110,7 @@ const ExperiencePage = () => {
           {zones.map((zone, index) => (
             <div
               key={zone.id}
-              className="rounded-3xl p-8 shadow-lg border-2 border-gray-300 bg-gradient-to-br from-indigo-50 to-purple-50 hover:shadow-xl hover:scale-[1.02]"
+              className="rounded-3xl p-8 shadow-lg border-2 border-gray-300 bg-[#E8E8E8] hover:shadow-xl hover:scale-[1.02]"
             >
               <div className="flex flex-col lg:flex-row gap-8">
 
@@ -177,23 +177,40 @@ const ExperiencePage = () => {
           <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
             Why Startup Mela is the Premier Business Networking Event
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-[#DCDCDC] rounded-xl shadow-lg">
+          <div className="grid grid-cols-1 md:grid-cols-3">
+            <div className="text-center p-6 hover:bg-gray-300 bg-[#E8E8E8]">
               <Lightbulb className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Innovation Showcase</h4>
               <p className="text-gray-600">Connect with cutting-edge startups and experience the future of business firsthand</p>
             </div>
-            <div className="text-center p-6 bg-[#DCDCDC] rounded-xl shadow-lg">
+            <div className="text-center p-6 hover:bg-gray-300 bg-[#E8E8E8] ">
               <Users className="w-12 h-12 text-blue-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Elite Networking</h4>
               <p className="text-gray-600">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
             </div>
-            <div className="text-center p-6 bg-[#DCDCDC]  rounded-xl shadow-lg">
+            <div className="text-center p-6 hover:bg-gray-300 bg-[#E8E8E8] ">
               <Star className="w-12 h-12 text-purple-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Pitching Excellence</h4>
               <p className="text-gray-600">Perfect your pitch and secure funding from top-tier investors and VCs</p>
             </div>
           </div>
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div className="text-center p-6 bg-[#E8E8E8] rounded-xl shadow-lg">
+              <Lightbulb className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800 mb-3">Innovation Showcase</h4>
+              <p className="text-gray-600">Connect with cutting-edge startups and experience the future of business firsthand</p>
+            </div>
+            <div className="text-center p-6 bg-[#E8E8E8] rounded-xl shadow-lg">
+              <Users className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800 mb-3">Elite Networking</h4>
+              <p className="text-gray-600">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
+            </div>
+            <div className="text-center p-6 bg-[#E8E8E8]  rounded-xl shadow-lg">
+              <Star className="w-12 h-12 text-purple-500 mx-auto mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800 mb-3">Pitching Excellence</h4>
+              <p className="text-gray-600">Perfect your pitch and secure funding from top-tier investors and VCs</p>
+            </div>
+          </div> */}
         </div>
       </div>
     </div>

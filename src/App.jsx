@@ -37,9 +37,9 @@ function HomePage() {
       <section id="sponsors">
         <Sponsors/>
       </section>
-      <section id="legacy">
+      {/* <section id="legacy">
         <LegacyPage/>
-      </section>
+      </section> */}
       <section id="team">
         <TeamPage/>
       </section>

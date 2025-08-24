@@ -36,7 +36,7 @@ const SpeakersPage = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen bg-[#FDF9F3] relative overflow-hidden">
       {/* Holographic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-300 via-pink-200 to-blue-300 opacity-80"></div>
       <div className="absolute inset-0 bg-gradient-to-tl from-cyan-200 via-transparent to-purple-200 opacity-60"></div>

@@ -97,7 +97,7 @@ const EventDetailsPage = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h2
-                className="text-5xl font-bold text-yellow-500"
+                className="text-5xl font-medium text-black"
                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}
               >
                 What
@@ -134,7 +134,7 @@ const EventDetailsPage = () => {
           <div className="space-y-8 lg:order-1">
             <div className="space-y-4">
               <h2
-                className="text-5xl font-bold text-yellow-500"
+                className="text-5xl font-medium text-black"
                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}
               >
                 When
@@ -241,7 +241,7 @@ const EventDetailsPage = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h2
-                className="text-5xl font-bold text-yellow-500"
+                className="text-5xl font-medium text-black"
                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}
               >
                 Where
@@ -277,13 +277,13 @@ const EventDetailsPage = () => {
           <div className="text-left space-y-8">
             <div className="space-y-4">
               <h2
-                className="text-6xl font-bold text-green-500"
+                className="text-6xl font-medium text-black"
                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}
               >
                 Why
               </h2>
               <h3
-                className="text-4xl font-semibold text-gray-900"
+                className="text-4xl  text-gray-900"
                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}
               >
                 Why Should You Be at Startup Mela?
@@ -295,10 +295,9 @@ const EventDetailsPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3">
               {/* Card 1 */}
-              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
-                      transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
+              <div className="bg-[#E8E8E8] hover:bg-gray-300 p-8">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                   <Building className="w-8 h-8 text-blue-600" />
                 </div>
@@ -311,12 +310,11 @@ const EventDetailsPage = () => {
               </div>
 
               {/* Card 2 */}
-              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
-                      transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
+              <div className="bg-[#E8E8E8] hover:bg-gray-300 p-8">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                   <Target className="w-8 h-8 text-green-600" />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">For Investors</h4>
+                <h4 className="text-xl  font-bold text-gray-900 mb-4">For Investors</h4>
                 <p className="text-gray-700">
                   Discover a curated pipeline of high-potential, vetted startups from
                   across North India. Connect with the next generation of innovative
@@ -325,8 +323,9 @@ const EventDetailsPage = () => {
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
-                      transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]">
+              {/* <div className="bg-[#E8E8E8] p-8 rounded-2xl shadow-lg 
+                      transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:bg-[#E6E6E6]"> */}
+              <div className="bg-[#E8E8E8] hover:bg-gray-300 p-8">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
                   <Network className="w-8 h-8 text-purple-600" />
                 </div>
