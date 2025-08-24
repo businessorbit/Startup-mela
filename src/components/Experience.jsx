@@ -67,7 +67,7 @@ const ExperiencePage = () => {
             </h2>
             <div className="max-w-4xl">
               
-              <div className="relative left-[350px] bottom-[80px]">
+              <div className="relative left-[300px] bottom-[80px]">
                 <p className="text-lg text-black leading-relaxed text-right">
                   Startup Mela is structured into three distinct, high-energy zones, each offering a unique
                 </p>
@@ -173,27 +173,6 @@ const ExperiencePage = () => {
           ))}
         </div>
 
-
-        {/* Call to Action Section */}
-        {/* <div className="mt-20 bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-12 text-center text-white">
-          <h3 className="text-3xl font-bold mb-6">Ready to Transform Your Business Network?</h3>
-          <p className="text-xl mb-8 opacity-90">
-            Join hundreds of entrepreneurs, investors, and industry leaders at this premier startup event.
-            Experience unparalleled networking opportunities, pitch to top investors, and accelerate your business growth.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-indigo-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
-              onClick={() => { navigate('./contact') }}>
-              Register for Startup Mela
-            </button>
-            <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-indigo-600 transition-colors duration-200"
-              onClick={() => { navigate('./contact') }}>
-              Investor Registration
-            </button>
-          </div>
-        </div> */}
-
-        {/* Key Benefits */}
         <div className="mt-20">
           <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
             Why Startup Mela is the Premier Business Networking Event
