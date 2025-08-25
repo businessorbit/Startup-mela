@@ -19,7 +19,7 @@ function HomePage() {
   return (
     <>
 
-      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
+      <div className="max-w-[1400px] mx-auto px-8 bg-white">
         <section id="home">
           <HeroSection />
         </section>
@@ -52,23 +52,13 @@ function HomePage() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
-        
-        
         {/* <section id="legacy">
         <LegacyPage/>
       </section> */}
-        
-        <section id="blogs">
-          {/* <Blogs/> */}
-        </section>
-        <section id="contact">
-          {/* <Contact/> */}
-        </section>
         <section id="faqs">
           <FAQPage />
         </section>
       </div>
-
       <Footer />
     </>
   )
