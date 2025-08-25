@@ -27,7 +27,7 @@ const EventDetailsPage = () => {
             </div> */}
 
             {/* Left aligned heading */}
-            
+
             <h1 className="text-3xl md:text-4xl text-gray-900 leading-tight text-left"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               All You Need to Know About
@@ -111,20 +111,24 @@ const EventDetailsPage = () => {
               <p className="text-lg text-gray-700 leading-relaxed">
                 Startup Mela is the biggest and most dynamic startup festival and business conference in the Tricity region. It's a comprehensive platform featuring:
               </p>
-              <div className="">
-                <div className="bg-[#E8E8E8] p-4 border border-gray-100">
-                  <p className="text-black"> A massive exhibition for tech and non-tech startups to showcase their products</p>
+              <div className="rounded-2xl shadow-lg">
+                <div className="bg-[#E8E8E8] p-4 border">
+                  <p className="text-black">
+                    ●  A massive exhibition for tech and non-tech startups to showcase their products
+                  </p>
                 </div>
-                <div className="bg-[#E8E8E8] p-4  border border-gray-100">
-                  <p className="text-black"> An exclusive investor lounge for high-stakes networking and startup funding opportunities</p>
+                <div className="bg-[#E8E8E8] p-4 border">
+                  <p className="text-black">
+                    ●  An exclusive investor lounge for high-stakes networking and startup funding opportunities
+                  </p>
                 </div>
-                <div className="bg-[#E8E8E8] p-4 border border-gray-100">
-                  <p className="text-black"> A center stage for product launches, D2C fashion shows, and influencer meetups</p>
+                <div className="bg-[#E8E8E8] p-4 border">
+                  <p className="text-black">
+                    ●  A center stage for product launches, D2C fashion shows, and influencer meetups
+                  </p>
                 </div>
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                It is the definitive annual event for the entire business community, from students to seasoned industrialists.
-              </p>
+
             </div>
           </div>
         </div>
@@ -157,7 +161,7 @@ const EventDetailsPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center">
                     <Clock className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
@@ -257,11 +261,11 @@ const EventDetailsPage = () => {
               <div className="bg-[#E8E8E8] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <h4 className="font-semibold text-gray-900 text-lg">Sector 34 Exhibition Ground</h4>
                 <div className="space-y-3 text-black">
-                  <p>📍 Sector 34, Chandigarh, India</p>
-                  <p>🚗 Designated paid parking areas available</p>
-                  <p>🚌 Well connected by public transport</p>
-                  <p>🏢 Expansive venue with ample space for stalls, stages, and networking zones</p>
-                  <p>♿ Centrally located and easily accessible</p>
+                  <p>● Sector 34, Chandigarh, India</p>
+                  <p>● Designated paid parking areas available</p>
+                  <p>● Well connected by public transport</p>
+                  <p>● Expansive venue with ample space for stalls, stages, and networking zones</p>
+                  <p>● Centrally located and easily accessible</p>
                 </div>
                 <button className="w-full bg-[#828385] text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
                   onClick={() => { navigate('./contact') }}>

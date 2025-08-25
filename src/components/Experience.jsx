@@ -173,11 +173,11 @@ const ExperiencePage = () => {
           ))}
         </div>
 
-        <div className="mt-20">
+        <div className="mt-20 mb-20">
           <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
             Why Startup Mela is the Premier Business Networking Event
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             <div className="text-center p-6 hover:bg-gray-300 bg-[#E8E8E8]">
               <Lightbulb className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800 mb-3">Innovation Showcase</h4>

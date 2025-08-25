@@ -52,15 +52,15 @@ const SponsorsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white pt-10">
+    <div className="min-h-screen bg-[#E7E7E7] pt-10">
       {/* Header Section */}
-      <div className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-white opacity-50"></div>
+      <div className="relative overflow-hidden bg-[#E7E7E7]">
+        <div className="absolute inset-0 bg-[#E7E7E7] opacity-50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="space-y-6">
             {/* Keep this centered */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center px-4 py-2 bg-white text-blue-800 rounded-full text-sm font-semibold">
+              <div className="inline-flex items-center px-4 py-2 bg-[#828385] text-white rounded-full text-sm font-semibold">
                 <Award className="w-4 h-4 mr-2" />
                 Our Partners
               </div>
@@ -86,10 +86,10 @@ const SponsorsPage = () => {
 
               {/* Right aligned additional paragraphs */}
               <div className="flex-1 text-right mt-5 md:mt-12">
-                <p className="text-lg bg-white text-gray-600 max-w-4xl leading-tight ml-auto">
+                <p className="text-lg bg-[#E7E7E7] text-gray-600 max-w-4xl leading-tight ml-auto">
                   We are proud to partner with forward-thinking organizations that
                 </p>
-                <p className="text-lg bg-white text-gray-600 max-w-4xl leading-tight ml-auto">
+                <p className="text-lg bg-[#E7E7E7] text-gray-600 max-w-4xl leading-tight ml-auto">
                   are committed to nurturing the growth of the startup ecosystem.
                 </p>
               </div>
@@ -106,7 +106,7 @@ const SponsorsPage = () => {
             {sponsors.map((sponsor, index) => (
               <div
                 key={sponsor.name}
-                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
+                className="group relative rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
               >
                 <div className="text-center space-y-4">
                   <div className={`w-16 h-16 mx-auto bg-gradient-to-r ${sponsor.color} rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -126,21 +126,21 @@ const SponsorsPage = () => {
 
         {/* Call to Action */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl bg-white font-medium text-gray-900 leading-tight text-left"
+          <h2 className="text-4xl flex justify-center md:text-6xl bg-[#E7E7E7] font-medium text-gray-900 leading-tight text-left"
             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
             Want to see your Brand here?
           </h2>
-          <p className="text-left text-lg text-gray-700 mt-6"
+          <p className="text-left flex justify-center text-lg text-gray-700 mt-6"
           style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
             Partner with Startup Mela and connect with thousands of innovators, early adopters,
           </p>
-          <p className="text-left text-lg text-gray-700 mb-6"
+          <p className="text-left flex justify-center text-lg text-gray-700 mb-6"
           style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
             and industry leaders. Download our sponsorship
             brochure to learn more.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-[#E8E8E8] border border-black text-black font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:bg-gray-300"
+            <button className="px-8 py-4 bg-[#828385] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:bg-[#828385]"
               onClick={() => { navigate('./contact') }}>
               Become a Sponsor
             </button>

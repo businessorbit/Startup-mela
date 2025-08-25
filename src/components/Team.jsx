@@ -12,8 +12,8 @@ const TeamPage = () => {
           <div className="space-y-8 bg-white">
             {/* Centered Tag */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center px-6 py-3 bg-white backdrop-blur-sm text-gray-700 rounded-full text-sm font-semibold shadow-lg border border-gray-200/50">
-                <Users className="w-4 h-4 mr-2 text-blue-600" />
+              <div className="inline-flex items-center px-6 py-3 bg-[#828385] text-white backdrop-blur-sm rounded-full text-sm font-semibold shadow-lg border border-gray-200/50">
+                <Users className="w-4 h-4 mr-2" />
                 The Dream Team
               </div>
             </div>
@@ -24,13 +24,13 @@ const TeamPage = () => {
               Orchestrated by the Best in the Business
               <span className="block text-5xl md:text-7xl mt-4 text-black font-bold"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                Experts Behind the Mela
+                Experts Behind the Startup Mela
               </span>
             </h1>
-            <h2 className="text-left text-5xl md:text-6xl font-medium text-gray-900"
+            {/* <h2 className="text-left text-5xl md:text-6xl font-medium text-gray-900"
             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Three Companies, One Vision
-            </h2>
+            </h2> */}
 
             {/* Right aligned Paragraph */}
             {/* <p className="text-xl bg-[#FDF9F3] text-gray-600 max-w-4xl leading-tight text-right ml-auto !mb-0">
@@ -190,9 +190,9 @@ const TeamPage = () => {
         </div>
 
         {/* Khaba - Architectural Design */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl transform rotate-1"></div>
-          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-700">
+        <div className="relative mb-20">
+          <div className="absolute inset-0 bg-gradient-to-br mb-20 from-purple-50 to-indigo-50 rounded-3xl transform rotate-1"></div>
+          <div className="relative bg-white rounded-3xl mb-20 shadow-2xl border border-gray-100 overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-700">
             <div className="grid lg:grid-cols-2">
               {/* Content Section */}
               <div className="p-12 lg:p-16 space-y-10">

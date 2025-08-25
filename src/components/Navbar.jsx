@@ -75,7 +75,7 @@ const EventNavbar = () => {
             {/* Logo - Clickable to go home */}
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={handleLogoClick}>
               <div className="ml-3">
-                <h1 className="text-xl font-bold text-[#BFBFBD] bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent hover:from-purple-200 hover:to-white transition-all duration-300">
+                <h1 className="text-xl font-bold text-white bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent hover:from-purple-200 hover:to-white transition-all duration-300">
                   Startup Mela
                 </h1>
               </div>
@@ -91,14 +91,14 @@ const EventNavbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={(e) => handleNavigation(e, item.href, item.section)}
-                      className="group relative px-3 py-2 font-bold rounded-lg text-[#BFBFBD] hover:text-white transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap"
+                      className="group relative px-3 py-2 font-bold rounded-lg text-white hover:text-gray-200 transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap"
                     >
                       <div className="flex items-center space-x-1">
                         <Icon className="w-3 h-3 group-hover:scale-110 transition-transform duration-300" />
                         <span className="font-medium text-sm">{item.name}</span>
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
+                      <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></div>
                     </a>
                   );
                 })}
@@ -117,7 +117,7 @@ const EventNavbar = () => {
                     <UserCheck className="w-4 h-4" />
                     <span>Login/Register</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               ) : (
                 // Show Back to Home on other pages

@@ -18,32 +18,46 @@ import Footer from './components/Footer'
 function HomePage() {
   return (
     <>
+
       <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
         <section id="home">
           <HeroSection />
         </section>
+      </div>
+      <div className="max-w-[1400px] mx-auto px-8 bg-white">
         <section id="events">
           <NextEvent />
           {/* <Presence/> */}
         </section>
-        <section id="speaker">
-          {/* <Speakers/> */}
-        </section>
+      </div>
+      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
         <section id="tickets">
           <RegistrationPage />
         </section>
+      </div>
+      <div className="max-w-[1400px] mx-auto px-8 bg-white">
         <section id="experience">
           <ExperiencePage />
         </section>
+      </div>
+      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
         <section id="sponsors">
           <Sponsors />
         </section>
-        {/* <section id="legacy">
-        <LegacyPage/>
-      </section> */}
+      </div>
+      <div className="max-w-[1400px] mx-auto px-8 bg-white">
         <section id="team">
           <TeamPage />
         </section>
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
+        
+        
+        {/* <section id="legacy">
+        <LegacyPage/>
+      </section> */}
+        
         <section id="blogs">
           {/* <Blogs/> */}
         </section>
@@ -54,6 +68,7 @@ function HomePage() {
           <FAQPage />
         </section>
       </div>
+
       <Footer />
     </>
   )
