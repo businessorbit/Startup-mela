@@ -18,7 +18,7 @@ import Footer from './components/Footer'
 function HomePage() {
   return (
     <>
-      <div className="max-w-[1400px] mx-auto px-8 bg-[#FDF9F3]">
+      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
         <section id="home">
           <HeroSection />
         </section>

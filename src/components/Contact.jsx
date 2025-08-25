@@ -49,13 +49,13 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF9F3]">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#FDF9F3]">
-        <div className="absolute inset-0 bg-[#FDF9F3] opacity-20"></div>
+      <div className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-white opacity-20"></div>
         <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center space-y-8">
-            <div className="inline-flex items-center px-6 py-3 bg-[#FDF9F3] backdrop-blur-sm text-blue-800 rounded-full text-sm font-semibold border border-blue-400/30">
+            <div className="inline-flex items-center px-6 py-3 bg-white backdrop-blur-sm text-blue-800 rounded-full text-sm font-semibold border border-blue-400/30">
               <MessageCircle className="w-4 h-4 mr-2" />
               Get In Touch
             </div>

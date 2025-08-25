@@ -24,10 +24,10 @@ const RegistrationPage = () => {
             name: 'General Entry Pass',
             price: '₹20',
             icon: Users,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-blue-500 to-indigo-500',
-            bgColor: 'bg-blue-50',
-            borderColor: 'border-blue-200',
+            bgColor: 'bg-[#f5f5f5]',
+            borderColor: 'border-black',
             whoFor: 'Students, aspiring entrepreneurs, and the general public',
             features: [
                 'Full access to the Marketplace (Exhibition Stalls) for all three days',
@@ -41,10 +41,10 @@ const RegistrationPage = () => {
             name: 'Startup Stall Pass',
             price: '₹20,000',
             icon: Building,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-green-500 to-emerald-500',
-            bgColor: 'bg-blue-50',
-            borderColor: 'border-blue-200',
+            bgColor: 'bg-[#E7E7E7]',
+            borderColor: 'border-black',
             whoFor: 'Early-stage startups looking for maximum visibility and customer interaction',
             features: [
                 'A dedicated stall space in the Marketplace for three days to showcase your product/service',
@@ -58,10 +58,10 @@ const RegistrationPage = () => {
             name: 'Lounge + Pitching Pass',
             price: '₹25,000',
             icon: Target,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-purple-500 to-violet-500',
-            bgColor: 'bg-blue-50',
-            borderColor: 'border-blue-200',
+            bgColor: 'bg-[#E7E7E7]',
+            borderColor: 'border-black',
             whoFor: 'Founders focused on networking and fundraising who may not need a physical stall',
             features: [
                 'One all-access pass to the exclusive Hub (Networking & Pitching Lounge)',
@@ -76,7 +76,7 @@ const RegistrationPage = () => {
             name: 'Stall + Lounge Pass',
             price: '₹35,000',
             icon: Handshake,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-orange-500 to-red-500',
             bgColor: 'bg-blue-50',
             borderColor: 'border-blue-200',
@@ -93,7 +93,7 @@ const RegistrationPage = () => {
             name: 'Stall + Stage Lounge Pass',
             price: '₹40,000',
             icon: Mic,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-pink-500 to-rose-500',
             bgColor: 'bg-blue-50',
             borderColor: 'border-blue-200',
@@ -111,7 +111,7 @@ const RegistrationPage = () => {
             name: 'All-Access VIP Pass',
             price: '₹50,000',
             icon: Crown,
-            color: 'blue',
+            color: '[#40403E]',
             gradient: 'from-yellow-500 to-orange-500',
             bgColor: 'bg-blue-50',
             borderColor: 'border-blue-200',
@@ -129,35 +129,35 @@ const RegistrationPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#FDF9F3]">
+        <div className="min-h-screen bg-[#E7E7E7]">
             {/* Header Section */}
             <div className="relative overflow-hidden bg-white">
-                <div className="absolute inset-0 bg-[#FDF9F3]"></div>
+                <div className="absolute inset-0 bg-[#E7E7E7]"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div className="space-y-6">
                         <div className="text-center">
-                            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                            <div className="inline-flex items-center px-4 py-2 bg-[#828385] text-white rounded-full text-sm font-semibold">
                                 <Calendar className="w-4 h-4 mr-2" />
                                 Tickets & Registration
                             </div>
                         </div>
 
                         <div className="relative right-[20px]">
-                            <h1 className="text-[3.3rem] md:text-[3.5rem] font-bold text-gray-900 leading-tight text-left"
-                            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                            Choose Your Pass
-                        </h1>
-                        <h1 className="text-[3rem] md:text-[3.2rem] font-bold !leading-snug text-gray-900  text-left !mt-0"
-                            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                            Unlock Your Opportunity
-                        </h1>
+                            <h1 className="text-[3rem] md:text-[3.2rem] font-bold text-gray-900 leading-tight text-left"
+                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                                Choose Your Pass
+                            </h1>
+                            <h1 className="text-[2.8rem] md:text-[3rem] font-bold !leading-snug text-gray-900  text-left !mt-0"
+                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                                Unlock Your Opportunity
+                            </h1>
                         </div>
 
-                        <div className="text-right max-w-xl relative left-[580px] bottom-[95px]">
-                            <p className="text-xl text-gray-600 leading-relaxed !mb-0">
+                        <div className="text-right max-w-xl relative left-[520px] bottom-[90px]">
+                            <p className="text-lg text-gray-600 leading-relaxed !mb-0">
                                 We Offer several ticket options designed to provide the best
                             </p>
-                            <p className="text-xl text-gray-600 !mt-0">
+                            <p className="text-lg text-gray-600 !mt-0">
                                 experience to all from curious visitors to ambitious founders
                             </p>
                         </div>
@@ -177,7 +177,7 @@ const RegistrationPage = () => {
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <div className="grid lg:grid-cols-3 xl:grid-cols-3 gap-8">
                         {ticketOptions.map((ticket) => {
                             const IconComponent = ticket.icon;
                             const isSelected = selectedPass === ticket.id;
@@ -185,15 +185,13 @@ const RegistrationPage = () => {
                             return (
                                 <div
                                     key={ticket.id}
-                                    className={`relative bg-[#E8E8E8] rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full ${
-                                        isSelected 
-                                            ? `${ticket.borderColor} ring-4 ring-${ticket.color}-200` 
+                                    className={`relative  rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full ${isSelected
+                                            ? `${ticket.borderColor} ring-4 ring-${ticket.color}-200`
                                             : 'border-gray-100 hover:border-gray-200'
-                                    } ${
-                                        ticket.isPremium 
-                                            ? 'shadow-xl ring-2 ring-gradient-to-r from-indigo-200 to-purple-200 bg-gradient-to-br from-white to-gray-50' 
+                                        } ${ticket.isPremium
+                                            ? 'shadow-xl ring-2 ring-gradient-to-r from-indigo-200 to-purple-200 bg-gradient-to-br from-white to-gray-50'
                                             : ''
-                                    }`}
+                                        }`}
                                     onClick={() => setSelectedPass(ticket.id)}
                                     style={ticket.isPremium ? {
                                         background: '#E8E8E8',
@@ -214,34 +212,41 @@ const RegistrationPage = () => {
                                         </div>
 
                                         {/* Who it's for */}
-                                        <div className={`${ticket.bgColor} p-4 rounded-xl ${ticket.isPremium ? 'ring-1 ring-indigo-100' : ''}`}>
-                                            <p className="text-sm font-semibold text-black mb-2">Who it's for:</p>
-                                            <p className={`text-sm text-${ticket.color}-800`}>{ticket.whoFor}</p>
+                                        <div className="space-y-6">
+                                            {/* Who it's for */}
+                                            <div className="space-y-3">
+                                                <p className="font-semibold text-gray-900">Who it's for:</p>
+                                                <div className="flex items-start space-x-3">
+                                                    <CheckCircle className={`w-5 h-5 text-${ticket.color}-500 flex-shrink-0 mt-0.5`} />
+                                                    <p className={`text-sm text-${ticket.color}-800 leading-relaxed`}>
+                                                        {ticket.whoFor}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* What's included */}
+                                            <div className="space-y-3">
+                                                <p className="font-semibold text-gray-900">What's included:</p>
+                                                {ticket.features.map((feature, index) => (
+                                                    <div key={index} className="flex items-start space-x-3">
+                                                        <CheckCircle className={`w-5 h-5 text-${ticket.color}-500 flex-shrink-0 mt-0.5`} />
+                                                        <p className="text-sm text-black leading-relaxed">{feature}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
 
-                                        {/* Features - This will grow to fill available space */}
-                                        <div className="space-y-3 flex-1">
-                                            <p className="font-semibold text-gray-900">What's included:</p>
-                                            {ticket.features.map((feature, index) => (
-                                                <div key={index} className="flex items-start space-x-3">
-                                                    <CheckCircle className={`w-5 h-5 text-${ticket.color}-500 flex-shrink-0 mt-0.5`} />
-                                                    <p className="text-sm text-black leading-relaxed">{feature}</p>
-                                                </div>
-                                            ))}
-                                        </div>
 
                                         {/* Select Button - This stays at the bottom */}
                                         <div className="pt-4">
                                             <button
-                                                className={`w-full py-4 rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 hover:shadow-lg active:scale-95 ${
-                                                    isSelected
+                                                className={`w-full py-4 rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 hover:shadow-lg active:scale-95 ${isSelected
                                                         ? `bg-gradient-to-r ${ticket.gradient} text-white shadow-lg hover:shadow-xl`
-                                                        : `border-2 ${ticket.borderColor} text-${ticket.color}-600 hover:bg-${ticket.color}-50 hover:border-${ticket.color}-300 hover:shadow-md`
-                                                } ${
-                                                    ticket.isPremium && !isSelected 
-                                                        ? `hover:bg-gradient-to-r hover:${ticket.gradient} hover:text-white hover:border-transparent` 
+                                                        : `border-2 ${ticket.borderColor} hover:border-[#40403E] text-${ticket.color}-600 hover:bg-${ticket.color}-50 hover:border-${ticket.color}-300 hover:shadow-md`
+                                                    } ${ticket.isPremium && !isSelected
+                                                        ? `hover:bg-gradient-to-r hover:${ticket.gradient} hover:text-white hover:border-transparent`
                                                         : ''
-                                                }`}
+                                                    }`}
                                                 style={{
                                                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 }}

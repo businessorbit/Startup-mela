@@ -5,21 +5,21 @@ import { useNavigate } from 'react-router-dom'
 const TeamPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-[#FDF9F3]">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <div className="relative overflow-hidden bg-[#FDF9F3]">
-        <div className="relative max-w-7xl bg-[#FDF9F3] mx-auto px-6 lg:px-8 py-24">
-          <div className="space-y-8 bg-[#FDF9F3]">
+      <div className="relative overflow-hidden bg-white">
+        <div className="relative max-w-7xl bg-white mx-auto px-6 lg:px-8 py-24">
+          <div className="space-y-8 bg-white">
             {/* Centered Tag */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center px-6 py-3 bg-[#FDF9F3] backdrop-blur-sm text-gray-700 rounded-full text-sm font-semibold shadow-lg border border-gray-200/50">
+              <div className="inline-flex items-center px-6 py-3 bg-white backdrop-blur-sm text-gray-700 rounded-full text-sm font-semibold shadow-lg border border-gray-200/50">
                 <Users className="w-4 h-4 mr-2 text-blue-600" />
                 The Dream Team
               </div>
             </div>
 
             {/* Left aligned Heading */}
-            <h1 className="text-2xl md:text-4xl bg-[#FDF9F3] font-medium text-gray-900 leading-tight text-left"
+            <h1 className="text-2xl md:text-4xl bg-white font-medium text-gray-900 leading-tight text-left"
             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Orchestrated by the Best in the Business
               <span className="block text-5xl md:text-7xl mt-4 text-black font-bold"

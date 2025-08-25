@@ -69,13 +69,13 @@ const EventNavbar = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 backdrop-blur-md border-b border-purple-500/20 shadow-2xl">
+      <nav className="fixed top-0 w-full z-50 bg-[#40403E] text-black backdrop-blur-md border-b border-purple-500/20 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo - Clickable to go home */}
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={handleLogoClick}>
               <div className="ml-3">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent hover:from-purple-200 hover:to-white transition-all duration-300">
+                <h1 className="text-xl font-bold text-[#BFBFBD] bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent hover:from-purple-200 hover:to-white transition-all duration-300">
                   Startup Mela
                 </h1>
               </div>
@@ -91,7 +91,7 @@ const EventNavbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={(e) => handleNavigation(e, item.href, item.section)}
-                      className="group relative px-3 py-2 rounded-lg text-gray-300 hover:text-white transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap"
+                      className="group relative px-3 py-2 font-bold rounded-lg text-[#BFBFBD] hover:text-white transition-all duration-300 ease-in-out cursor-pointer whitespace-nowrap"
                     >
                       <div className="flex items-center space-x-1">
                         <Icon className="w-3 h-3 group-hover:scale-110 transition-transform duration-300" />
@@ -112,7 +112,7 @@ const EventNavbar = () => {
                 // Show Login/Register on homepage
                 <button 
                   onClick={() => navigate('/login')}
-                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                   <span className="relative z-10 flex items-center space-x-2">
                     <UserCheck className="w-4 h-4" />
                     <span>Login/Register</span>

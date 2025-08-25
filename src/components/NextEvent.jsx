@@ -6,13 +6,13 @@ const EventDetailsPage = () => {
   const navigate = useNavigate();
   return (
     // <div className="min-h-screen bg-[#FBF6EE]">
-    <div className="min-h-screen bg-[#FDF9F3]">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
       <div className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-[#FDF9F3]"></div>
+        <div className="absolute inset-0 bg-white"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center space-y-6">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+            <div className="inline-flex items-center px-4 py-2 bg-[#828385] text-white rounded-full text-sm font-semibold">
               <Calendar className="w-4 h-4 mr-2" />
               Event Details
             </div>
@@ -32,16 +32,16 @@ const EventDetailsPage = () => {
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               All You Need to Know About
             </h1>
-            <h1 className="text-4xl md:text-6xl font-semibold text-gray-900 leading-tight text-left mb-0"
+            <h1 className="text-[3rem] md:text-[3.2rem] font-semibold text-gray-900 leading-tight text-left !mb-0"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Chandigarh's
             </h1>
-            <h1 className="text-4xl md:text-6xl font-semibold text-gray-900 leading-tight text-left mb-0"
+            <h1 className="text-[3rem] md:text-[3.2rem] font-semibold text-gray-900 leading-tight text-left !mt-0"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Biggest Startup Event
             </h1>
 
-            <div className="text-right max-w-xl relative left-[580px] bottom-[87px]">
+            <div className="text-right max-w-xl relative left-[530px] bottom-[90px]">
               <p className="text-xl text-gray-600 leading-relaxed !mb-0">
                 This section provides all the information for anyone who is
               </p>
@@ -111,15 +111,15 @@ const EventDetailsPage = () => {
               <p className="text-lg text-gray-700 leading-relaxed">
                 Startup Mela is the biggest and most dynamic startup festival and business conference in the Tricity region. It's a comprehensive platform featuring:
               </p>
-              <div className="space-y-4">
-                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
-                  <p className="text-black">🏢 A massive exhibition for tech and non-tech startups to showcase their products</p>
+              <div className="">
+                <div className="bg-[#E8E8E8] p-4 border border-gray-100">
+                  <p className="text-black"> A massive exhibition for tech and non-tech startups to showcase their products</p>
                 </div>
-                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
-                  <p className="text-black">💼 An exclusive investor lounge for high-stakes networking and startup funding opportunities</p>
+                <div className="bg-[#E8E8E8] p-4  border border-gray-100">
+                  <p className="text-black"> An exclusive investor lounge for high-stakes networking and startup funding opportunities</p>
                 </div>
-                <div className="bg-[#E8E8E8] p-4 rounded-xl shadow-sm border border-gray-100">
-                  <p className="text-black">🎯 A center stage for product launches, D2C fashion shows, and influencer meetups</p>
+                <div className="bg-[#E8E8E8] p-4 border border-gray-100">
+                  <p className="text-black"> A center stage for product launches, D2C fashion shows, and influencer meetups</p>
                 </div>
               </div>
               <p className="text-lg text-gray-700 leading-relaxed font-semibold">
@@ -148,7 +148,7 @@ const EventDetailsPage = () => {
               </p>
               <div className="bg-[#E8E8E8] p-6 rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-[#E8E8E8] rounded-xl flex items-center justify-center">
                     <Calendar className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
@@ -165,9 +165,9 @@ const EventDetailsPage = () => {
                     <p className="text-gray-600">Daily Schedule</p>
                   </div>
                 </div>
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
-                  <p className="text-blue-800 font-semibold">3 Full Days of Innovation</p>
-                  <p className="text-blue-600 text-sm">Experience the ultimate business networking event</p>
+                <div className="bg-[#E8E8E8] p-4 rounded-xl">
+                  <p className="text-black font-bold">3 Full Days of Innovation</p>
+                  <p className="text-black font-semibold text-sm">Experience the ultimate business networking event</p>
                 </div>
               </div>
             </div>
@@ -263,7 +263,7 @@ const EventDetailsPage = () => {
                   <p>🏢 Expansive venue with ample space for stalls, stages, and networking zones</p>
                   <p>♿ Centrally located and easily accessible</p>
                 </div>
-                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                <button className="w-full bg-[#828385] text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
                   onClick={() => { navigate('./contact') }}>
                   Get Directions
                 </button>
@@ -273,7 +273,7 @@ const EventDetailsPage = () => {
         </div>
 
         {/* Why Section */}
-        <div className="bg-[#FDF9F3] rounded-3xl p-12">
+        <div className="bg- rounded-3xl p-12">
           <div className="text-left space-y-8">
             <div className="space-y-4">
               <h2
@@ -295,7 +295,7 @@ const EventDetailsPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3">
+            <div className="grid md:grid-cols-3 gap-2">
               {/* Card 1 */}
               <div className="bg-[#E8E8E8] hover:bg-gray-300 p-8">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">

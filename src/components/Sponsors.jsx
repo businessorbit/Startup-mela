@@ -52,15 +52,15 @@ const SponsorsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF9F3] pt-10">
+    <div className="min-h-screen bg-white pt-10">
       {/* Header Section */}
-      <div className="relative overflow-hidden bg-[#FDF9F3]">
-        <div className="absolute inset-0 bg-[#FDF9F3] opacity-50"></div>
+      <div className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-white opacity-50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="space-y-6">
             {/* Keep this centered */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center px-4 py-2 bg-[#FDF9F3] text-blue-800 rounded-full text-sm font-semibold">
+              <div className="inline-flex items-center px-4 py-2 bg-white text-blue-800 rounded-full text-sm font-semibold">
                 <Award className="w-4 h-4 mr-2" />
                 Our Partners
               </div>
@@ -86,10 +86,10 @@ const SponsorsPage = () => {
 
               {/* Right aligned additional paragraphs */}
               <div className="flex-1 text-right mt-5 md:mt-12">
-                <p className="text-lg bg-[#FDF9F3] text-gray-600 max-w-4xl leading-tight ml-auto">
+                <p className="text-lg bg-white text-gray-600 max-w-4xl leading-tight ml-auto">
                   We are proud to partner with forward-thinking organizations that
                 </p>
-                <p className="text-lg bg-[#FDF9F3] text-gray-600 max-w-4xl leading-tight ml-auto">
+                <p className="text-lg bg-white text-gray-600 max-w-4xl leading-tight ml-auto">
                   are committed to nurturing the growth of the startup ecosystem.
                 </p>
               </div>
@@ -126,7 +126,7 @@ const SponsorsPage = () => {
 
         {/* Call to Action */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl bg-[#FDF9F3] font-medium text-gray-900 leading-tight text-left"
+          <h2 className="text-4xl md:text-6xl bg-white font-medium text-gray-900 leading-tight text-left"
             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
             Want to see your Brand here?
           </h2>

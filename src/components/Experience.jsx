@@ -51,9 +51,9 @@ const ExperiencePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF9F3]">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#FDF9F3]">
+      <div className="relative overflow-hidden bg-white">
         <div className="absolute inset-0 opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-left">

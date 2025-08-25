@@ -23,7 +23,8 @@ module.exports = {
         josefin: ['"Josefin Sans"', 'sans-serif'],
         faux:['"Faux Sanskrit"','sans-serif'],
         helvetica: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-        gothic: ['"Century Gothic"', 'CenturyGothic', 'AppleGothic', 'sans-serif']
+        gothic: ['"Century Gothic"', 'CenturyGothic', 'AppleGothic', 'sans-serif'],
+        futura: ['Futura', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

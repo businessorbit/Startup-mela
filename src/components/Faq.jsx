@@ -79,10 +79,10 @@ const FAQPage = () => {
   const categories = [...new Set(faqs.map(faq => faq.category))];
 
   return (
-    <div className="min-h-screen bg-[#FDF9F3]">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#FDF9F3] pt-20">
-        <div className="absolute inset-0 bg-[#FDF9F3]"></div>
+      <div className="relative overflow-hidden bg-white pt-20">
+        <div className="absolute inset-0 bg-white"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="text-center">
             <div className="flex justify-center mb-6">
@@ -115,19 +115,19 @@ const FAQPage = () => {
       {/* Quick Stats */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
+          <div className="text-center bg-white rounded-xl p-6 ">
             <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
             <div className="text-gray-600 text-sm">Startups Networking</div>
           </div>
-          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
+          <div className="text-center bg-white rounded-xl p-6 ">
             <div className="text-3xl font-bold text-green-600 mb-2">100+</div>
             <div className="text-gray-600 text-sm">Investors Attending</div>
           </div>
-          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
+          <div className="text-center bg-white rounded-xl p-6 ">
             <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
             <div className="text-gray-600 text-sm">Pitching Sessions</div>
           </div>
-          <div className="text-center bg-[#FDF9F3] rounded-xl p-6 ">
+          <div className="text-center bg-white rounded-xl p-6 ">
             <div className="text-3xl font-bold text-indigo-600 mb-2">3</div>
             <div className="text-gray-600 text-sm">Days of Business</div>
           </div>

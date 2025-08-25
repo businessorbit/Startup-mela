@@ -1,7 +1,8 @@
 import React from 'react';
 import { Instagram, Linkedin, Twitter, Mail, Phone } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -92,6 +93,7 @@ const Footer = () => {
               <a 
                 href="" 
                 className="block hover:text-blue-400 transition-colors duration-200"
+                onClick={() => {navigate('./contact')}}
               >
                 Contact Us
               </a>
