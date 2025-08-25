@@ -85,7 +85,7 @@ const SponsorsPage = () => {
               </div>
 
               {/* Right aligned additional paragraphs */}
-              <div className="flex-1 text-right mt-6 md:mt-12">
+              <div className="flex-1 text-right mt-5 md:mt-12">
                 <p className="text-lg bg-[#FDF9F3] text-gray-600 max-w-4xl leading-tight ml-auto">
                   We are proud to partner with forward-thinking organizations that
                 </p>

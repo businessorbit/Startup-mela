@@ -190,7 +190,7 @@ const FAQPage = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-20 bg-[#E8E8E8] rounded-3xl p-10 text-center text-black">
+        <div className="mt-20 mb-20 bg-[#E8E8E8] rounded-3xl p-10 text-center text-black">
           <h3 className="text-3xl font-bold mb-6">Still Have Questions About Our Startup Event?</h3>
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
             Our business networking event team is here to help! Whether you're a startup founder, investor, 
@@ -223,25 +223,6 @@ const FAQPage = () => {
             onClick={() => {navigate('/contact')}}>
               Register for Networking
             </button>
-          </div>
-        </div>
-
-        {/* Additional Information */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-            <Users className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <h4 className="text-xl font-semibold text-gray-800 mb-3">Networking Opportunities</h4>
-            <p className="text-gray-600">Connect with fellow entrepreneurs, investors, and business leaders in structured networking sessions</p>
-          </div>
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-            <Briefcase className="w-12 h-12 text-green-600 mx-auto mb-4" />
-            <h4 className="text-xl font-semibold text-gray-800 mb-3">Pitching Sessions</h4>
-            <p className="text-gray-600">Present your startup to a panel of investors and secure funding for your business venture</p>
-          </div>
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-            <HelpCircle className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-            <h4 className="text-xl font-semibold text-gray-800 mb-3">Expert Guidance</h4>
-            <p className="text-gray-600">Get mentorship from industry professionals and learn from successful startup founders</p>
           </div>
         </div>
       </div>

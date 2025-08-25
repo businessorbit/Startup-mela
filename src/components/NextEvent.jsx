@@ -41,9 +41,9 @@ const EventDetailsPage = () => {
               Biggest Startup Event
             </h1>
 
-            <div className="text-right max-w-xl relative left-[650px] bottom-[87px]">
+            <div className="text-right max-w-xl relative left-[580px] bottom-[87px]">
               <p className="text-xl text-gray-600 leading-relaxed !mb-0">
-                This section provides all the essential information for anyone
+                This section provides all the information for anyone who is
               </p>
               <p className="text-xl text-gray-600 !mt-0">
                 looking to attend, exhibit at, or sponsor Startup Mela 2025

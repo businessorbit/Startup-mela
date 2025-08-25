@@ -147,13 +147,13 @@ const RegistrationPage = () => {
                             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                             Choose Your Pass
                         </h1>
-                        <h1 className="text-[3.2rem] md:text-[3.4rem] font-bold !leading-snug text-gray-900  text-left !mt-0"
+                        <h1 className="text-[3rem] md:text-[3.2rem] font-bold !leading-snug text-gray-900  text-left !mt-0"
                             style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                             Unlock Your Opportunity
                         </h1>
                         </div>
 
-                        <div className="text-right max-w-xl relative left-[620px] bottom-[95px]">
+                        <div className="text-right max-w-xl relative left-[580px] bottom-[95px]">
                             <p className="text-xl text-gray-600 leading-relaxed !mb-0">
                                 We Offer several ticket options designed to provide the best
                             </p>
@@ -279,7 +279,7 @@ const RegistrationPage = () => {
                 </div>
 
                 {/* Event Details Reminder */}
-                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-12">
+                <div className="bg-[#E8E8E8] rounded-3xl p-12">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold text-gray-900">Event Details</h2>

@@ -67,12 +67,12 @@ const ExperiencePage = () => {
             </h2>
             <div className="max-w-4xl">
               
-              <div className="relative left-[300px] bottom-[80px]">
+              <div className="relative left-[250px] bottom-[75px]">
                 <p className="text-lg text-black leading-relaxed text-right">
                   Startup Mela is structured into three distinct, high-energy zones, each offering a unique
                 </p>
                 <p className="text-lg text-black leading-relaxed text-right">
-                  experience for entrepreneurs, investors, and business leaders to network, pitch, and grow.
+                  experience for entrepreneurs, and business leaders to network, pitch, and grow.
                 </p>
               </div>
             </div>

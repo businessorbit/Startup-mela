@@ -1,11 +1,4 @@
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./src/**/*.{html,js}"],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// }
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -20,7 +13,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
         "2xl": "1400px",
       },
