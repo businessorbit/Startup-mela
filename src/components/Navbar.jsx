@@ -321,12 +321,12 @@ const EventNavbar = () => {
                 // Show Back to Home on other pages
                 <button 
                   onClick={() => navigate('/')}
-                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
+                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
                   <span className="relative z-10 flex items-center space-x-2">
                     <Calendar className="w-4 h-4" />
                     <span>Back to Home</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               )}
 
@@ -334,7 +334,7 @@ const EventNavbar = () => {
               <div className="lg:hidden">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="relative z-50 p-2 rounded-lg text-white hover:text-purple-200 hover:bg-purple-800/30 transition-all duration-300 transform hover:scale-110"
+                  className="relative z-50 p-2 rounded-lg text-white hover:text-[#40403E] hover:bg-[#BFBFBD] transition-all duration-300 transform hover:scale-110"
                 >
                   <div className="w-6 h-6 relative">
                     <div className={`absolute inset-0 transform transition-all duration-300 ${isOpen ? 'rotate-45 opacity-100' : 'rotate-0 opacity-100'}`}>
@@ -390,25 +390,25 @@ const EventNavbar = () => {
                     key={item.name}
                     href={item.href}
                     onClick={(e) => handleNavigation(e, item.href, item.section)}
-                    className={`group relative flex items-center space-x-4 px-4 py-4 rounded-xl text-white hover:text-purple-200 hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 transition-all duration-300 cursor-pointer transform hover:scale-[1.02] hover:shadow-lg border border-transparent hover:border-purple-500/30 ${
+                    className={`group relative flex items-center space-x-4 px-4 py-4 rounded-xl text-white hover:text-[#40403E] hover:bg-[#BFBFBD] transition-all duration-300 cursor-pointer transform hover:scale-[1.02] hover:shadow-lg border border-transparent hover:border-purple-500/30 ${
                       index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right'
                     }`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="flex-shrink-0">
-                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 text-purple-300 group-hover:text-white" />
+                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 hover:text-[#40403E] hover:bg-[#BFBFBD]" />
                     </div>
                     <span className="font-medium text-base">{item.name}</span>
                     
                     {/* Hover Effect Line */}
-                    <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-r-lg"></div>
+                    {/* <div className="absolute left-0 top-0 h-full w-1 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-r-lg"></div> */}
                   </a>
                 );
               })}
             </div>
             
             {/* Bottom Action Buttons */}
-            <div className="p-4 border-t border-purple-500/20 bg-gradient-to-r from-[#40403E] to-[#4a4a48] space-y-3">
+            <div className="p-4 border-t border-gray-500/20 bg-gradient-to-r from-[#40403E] to-[#4a4a48] space-y-3">
               {location.pathname === '/' || location.pathname === '' ? (
                 <>
                   <button 
@@ -416,7 +416,7 @@ const EventNavbar = () => {
                       navigate('/login');
                       setIsOpen(false);
                     }}
-                    className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-purple-100"
+                    className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
                   >
                     <UserCheck className="w-5 h-5" />
                     <span>Login</span>
@@ -426,7 +426,7 @@ const EventNavbar = () => {
                       navigate('/register');
                       setIsOpen(false);
                     }}
-                    className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:from-purple-500 hover:to-pink-500"
+                    className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
                   >
                     <Users className="w-5 h-5" />
                     <span>Register</span>
@@ -438,7 +438,7 @@ const EventNavbar = () => {
                     navigate('/');
                     setIsOpen(false);
                   }}
-                  className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:from-purple-500 hover:to-pink-500"
+                  className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
                 >
                   <Calendar className="w-5 h-5" />
                   <span>Back to Home</span>

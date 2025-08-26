@@ -215,11 +215,11 @@ const FAQPage = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#828385] text-white font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+            <button className="bg-[#828385] text-white font-semibold px-8 py-4 rounded-full hover:bg-[#40403E] transition-colors duration-200 shadow-lg"
             onClick={() => {navigate('/contact')}}>
               Contact Event Team
             </button>
-            <button className="bg-[#828385] text-white font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+            <button className="bg-[#828385] text-white font-semibold px-8 py-4 rounded-full hover:bg-[#40403E] transition-colors duration-200 shadow-lg"
             onClick={() => {navigate('/contact')}}>
               Register for Networking
             </button>

@@ -55,7 +55,7 @@ const ContactPage = () => {
         <div className="absolute inset-0 bg-white opacity-20"></div>
         <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center space-y-8">
-            <div className="inline-flex items-center px-6 py-3 bg-white backdrop-blur-sm text-blue-800 rounded-full text-sm font-semibold border border-blue-400/30">
+            <div className="inline-flex items-center px-6 py-3 bg-[#828385] text-white backdrop-blur-sm rounded-full text-sm font-semibold border border-blue-400/30">
               <MessageCircle className="w-4 h-4 mr-2" />
               Get In Touch
             </div>
@@ -87,11 +87,11 @@ const ContactPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-[#E8E8E8] text-black font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
+              <button className="px-8 py-4 bg-[#E8E8E8] hover:bg-[#40403E] hover:text-white text-black font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
                 <Calendar className="w-5 h-5" />
                 <span>See Ticket Options</span>
               </button>
-              <button className="px-8 py-4 bg-[#E8E8E8] text-black font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
+              <button className="px-8 py-4 bg-[#E8E8E8] hover:bg-[#40403E] hover:text-white text-black font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
                 <Building className="w-5 h-5" />
                 <span>Explore Sponsorship</span>
               </button>
@@ -122,9 +122,9 @@ const ContactPage = () => {
                     <Calendar className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-lg">January 16-18, 2025</p>
-                    <p className="text-gray-600">Thursday to Saturday</p>
-                    <p className="text-sm text-blue-600 mt-1">3-Day Innovation Festival</p>
+                    <p className="font-semibold text-black text-lg">January 16-18, 2025</p>
+                    <p className="text-gray-800">Thursday to Saturday</p>
+                    <p className="text-sm text-gry-600 mt-1">3-Day Innovation Festival</p>
                   </div>
                 </div>
 
@@ -133,9 +133,9 @@ const ContactPage = () => {
                     <Clock className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-lg">10:00 AM - 8:00 PM</p>
-                    <p className="text-gray-600">Daily Schedule</p>
-                    <p className="text-sm text-blue-600 mt-1">Full Day Experience</p>
+                    <p className="font-semibold text-black text-lg">10:00 AM - 8:00 PM</p>
+                    <p className="text-gray-800">Daily Schedule</p>
+                    <p className="text-sm text-gray-600 mt-1">Full Day Experience</p>
                   </div>
                 </div>
 
@@ -144,9 +144,9 @@ const ContactPage = () => {
                     <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-lg">Sector 34 Exhibition Ground</p>
-                    <p className="text-gray-600">Chandigarh, India</p>
-                    <p className="text-sm text-blue-600 mt-1">Iconic Venue in the Heart of Tricity</p>
+                    <p className="font-semibold text-black text-lg">Sector 34 Exhibition Ground</p>
+                    <p className="text-gray-800">Chandigarh, India</p>
+                    <p className="text-sm text-gray-600 mt-1">Iconic Venue in the Heart of Tricity</p>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Email:</p>
-                    <a href="mailto:contact@businessorbit.org" className="text-indigo-600 hover:text-indigo-800 transition-colors break-all">
+                    <a href="mailto:contact@businessorbit.org" className="text-gray-600 hover:text-gray-800 transition-colors break-all">
                       contact@businessorbit.org
                     </a>
                   </div>
@@ -180,7 +180,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone:</p>
-                    <a href="tel:+917696834279" className="text-blue-600 hover:text-green-800 transition-colors">
+                    <a href="tel:+917696834279" className="text-gray-600 hover:text-gray-800 transition-colors">
                       +91 76968 34279
                     </a>
                   </div>
@@ -351,7 +351,7 @@ const ContactPage = () => {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-gray-300 text-black font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-3"
+                  className="w-full bg-[#BFBFBD] text-[#40403E] font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-3"
                 >
                   <Send className="w-5 h-5" />
                   <span>Send Message</span>

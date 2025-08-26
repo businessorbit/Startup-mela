@@ -20,40 +20,40 @@ function HomePage() {
   return (
     <>
 
-      <div className="max-w-[1400px] mx-auto px-8 bg-white">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
         <section id="home">
           <HeroSection />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-8 bg-white">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
         <section id="events">
           <NextEvent />
           {/* <Presence/> */}
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
         <section id="tickets">
           <RegistrationPage />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-8 bg-white">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
         <section id="experience">
           <ExperiencePage />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
         <section id="sponsors">
           {/* <Sponsors /> */}
           <Sponsors2 />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-8 bg-white">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
         <section id="team">
           <TeamPage />
         </section>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
         {/* <section id="legacy">
         <LegacyPage/>
       </section> */}
