@@ -3,7 +3,8 @@ import './App.css'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import NextEvent from './components/NextEvent'
-import Sponsors from './components/Sponsors'
+// import Sponsors from './components/Sponsors'
+import Sponsors2 from './components/Sponsors2'
 import Login from './components/Login'
 import Register from './components/Register'
 import PastEvents from './components/PastEvents'
@@ -42,7 +43,8 @@ function HomePage() {
       </div>
       <div className="max-w-[1400px] mx-auto px-8 bg-[#E7E7E7]">
         <section id="sponsors">
-          <Sponsors />
+          {/* <Sponsors /> */}
+          <Sponsors2 />
         </section>
       </div>
       <div className="max-w-[1400px] mx-auto px-8 bg-white">
