@@ -54,7 +54,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center py-12 mt-10 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[#E7E7E7] flex items-center justify-center py-12 mt-10 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full bg-white rounded-xl shadow-lg border border-gray-200 p-8">
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -124,7 +124,7 @@ const Login = () => {
                 <div className="mb-6 text-right">
                     <button 
                         onClick={() => setShowForgotPassword(!showForgotPassword)}
-                        className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                        className="text-sm text-[#40403E] hover:text-black font-medium transition-colors duration-200"
                     >
                         Forgot Password?
                     </button>
@@ -148,7 +148,7 @@ const Login = () => {
                 {/* Sign In Button */}
                 <button 
                     onClick={loginUser}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
+                    className="w-full bg-[#BFBFBD] hover:text-white hover:bg-[#40403E] text-[#40403E] font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
                 >
                     Sign In
                 </button>
@@ -157,7 +157,7 @@ const Login = () => {
                 <div className="mt-6 text-center">
                     <p className="text-sm text-gray-600">
                         Don't have an account?{" "}
-                        <a href="/register" className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200">
+                        <a href="/register" className=" text-[#40403E] hover:text-black font-medium transition-colors duration-200">
                             Create account
                         </a>
                     </p>
