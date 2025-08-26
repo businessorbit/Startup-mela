@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Mic, Lightbulb, MapPin, Calendar, Star, ChevronRight } from 'lucide-react';
+import { Users, Mic, Lightbulb, MapPin, Calendar, Star, ChevronRight , Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 const ExperiencePage = () => {
   const navigate = useNavigate();
@@ -56,17 +56,25 @@ const ExperiencePage = () => {
       <div className="relative overflow-hidden bg-white">
         <div className="absolute inset-0 opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+
+          <div className="text-center">
+            <div className="inline-flex mb-2 items-center px-4 py-2 bg-[#828385] text-white rounded-full text-sm font-semibold">
+              <Award className="w-4 h-4 mr-2" />
+              Our Experience
+            </div>
+          </div>
+
           <div className="text-left">
             <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 tracking-tight"
-            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+              style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               The Experience
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4"
-            style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+              style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
               Three Zones of Opportunity
             </h2>
             <div className="max-w-4xl">
-              
+
               <div className="relative left-[250px] bottom-[75px]">
                 <p className="text-lg text-black leading-relaxed text-right">
                   Startup Mela is structured into three distinct, high-energy zones, each offering a unique
@@ -120,11 +128,11 @@ const ExperiencePage = () => {
                     {zone.icon}
                     <div>
                       <h3 className="text-3xl font-bold text-black"
-                      style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                        style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                         Zone {zone.id}: {zone.title}
                       </h3>
                       <p className="text-lg text-gray-800 font-medium"
-                      style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
+                        style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
                         ({zone.subtitle})
                       </p>
                     </div>
