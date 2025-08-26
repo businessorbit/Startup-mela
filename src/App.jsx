@@ -41,7 +41,7 @@ function HomePage() {
           <ExperiencePage />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
         <section id="sponsors">
           {/* <Sponsors /> */}
           <Sponsors2 />
