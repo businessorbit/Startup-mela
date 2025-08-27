@@ -3,13 +3,10 @@ import './App.css'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import NextEvent from './components/NextEvent'
-// import Sponsors from './components/Sponsors'
 import Sponsors2 from './components/Sponsors2'
 import Login from './components/Login'
 import Register from './components/Register'
-import PastEvents from './components/PastEvents'
 import RegistrationPage from './components/Registration'
-import LegacyPage from './components/Legacy'
 import TeamPage from './components/Team'
 import ExperiencePage from './components/Experience'
 import FAQPage from './components/Faq'
@@ -74,7 +71,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/pastevent" element={<PastEvents />} />
         <Route path="/contact" element={<ContactPage />} />
 
       </Routes>

@@ -1323,11 +1323,11 @@ const TeamPage = () => {
                   onMouseEnter={() => handleTeamHover('khaba')}
                   onMouseLeave={handleTeamLeave}
                 >
-                  <div className="w-48 h-48 xl:w-56 xl:h-56 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full shadow-2xl flex items-center justify-center hover:shadow-3xl transition-shadow duration-500 overflow-hidden">
+                  <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-white flex items-center justify-center hover:shadow-3xl transition-shadow duration-500 overflow-hidden">
                     <img
                       src="/khaba.jpg"
                       alt="khaba Logo"
-                      className="w-48 h-48 xl:w-56 xl:h-56 object-cover rounded-full"
+                      className="w-48 h-48 xl:w-50 xl:h-50 object-cover rounded-full"
                     />
                   </div>
 
