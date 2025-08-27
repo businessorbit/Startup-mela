@@ -857,7 +857,7 @@ const TeamPage = () => {
       </div>
 
       {/* Interactive Team Section */}
-      <div className={`w-full px-6 transition-all duration-500 ${hoveredTeam && !isMobile ? 'mb-[400px] 2xl:mb-[500px]' : 'mb-[100px]'}`}>
+      <div className={`w-full px-6 transition-all duration-500 ${hoveredTeam && !isMobile ? 'mb-[400px] 2xl:mb-[700px]' : 'mb-[100px]'}`}>
         <div className="max-w-6xl mx-auto">
           
           {/* Mobile Layout - Single Column */}
