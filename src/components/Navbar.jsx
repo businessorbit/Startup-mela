@@ -73,7 +73,12 @@ const EventNavbar = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo - Clickable to go home */}
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={handleLogoClick}>
-              <div className="ml-3">
+              <div className="ml-3 flex items-center space-x-3">
+                <img 
+                  src="/Startup Mela Logo.png" 
+                  alt="Startup Mela Logo" 
+                  className="h-8 w-auto object-contain"
+                />
                 <h1 className="text-xl font-bold text-white bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent hover:from-purple-200 hover:to-white transition-all duration-300">
                   Startup Mela
                 </h1>
