@@ -4,8 +4,6 @@ import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import NextEvent from './components/NextEvent'
 import Sponsors2 from './components/Sponsors2'
-import Login from './components/Login'
-import Register from './components/Register'
 import RegistrationPage from './components/Registration'
 import TeamPage from './components/Team'
 import ExperiencePage from './components/Experience'
@@ -69,10 +67,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<ContactPage />} />
-
       </Routes>
     </Router>
   )

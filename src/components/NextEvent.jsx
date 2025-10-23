@@ -145,8 +145,8 @@ const EventDetailsPage = () => {
                     <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm sm:text-base">January 16-18, 2025</p>
-                    <p className="text-gray-600 text-xs sm:text-sm">Thursday, Friday & Saturday</p>
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base">February 28 & March 1, 2026</p>
+                    <p className="text-gray-600 text-xs sm:text-sm">Thursday & Friday</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 sm:space-x-4">

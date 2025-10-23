@@ -77,9 +77,9 @@ const ContactPage = () => {
 
             <div className="max-w-4xl mx-auto">
               <p className="text-lg text-gray-800 leading-relaxed">
-                This is more than just a conference; it's a three-day festival of innovation, a launchpad for groundbreaking businesses, 
+                This is more than just a conference; it's a two-day festival of innovation, a launchpad for groundbreaking businesses, 
                 and the ultimate networking event in the Tricity. Join us from{' '}
-                <span className="font-bold text-black">January 16-18, 2025</span>, at the iconic{' '}
+                <span className="font-bold text-black">February 28 & March 1, 2026</span>, at the iconic{' '}
                 <span className="font-bold text-black">Sector 34 Ground, Chandigarh</span>, for an unparalleled experience 
                 designed to connect, inspire, and accelerate growth for startups and entrepreneurs. Secure your spot at the most 
                 anticipated business event of the year.
@@ -122,9 +122,9 @@ const ContactPage = () => {
                     <Calendar className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-semibold text-black text-lg">January 16-18, 2025</p>
-                    <p className="text-gray-800">Thursday to Saturday</p>
-                    <p className="text-sm text-gry-600 mt-1">3-Day Innovation Festival</p>
+                    <p className="font-semibold text-black text-lg">February 28 & March 1, 2026</p>
+                    <p className="text-gray-800">Thursday to Friday</p>
+                    <p className="text-sm text-gry-600 mt-1">2-Day Innovation Festival</p>
                   </div>
                 </div>
 

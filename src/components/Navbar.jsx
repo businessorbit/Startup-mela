@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Calendar, Users, BookOpen, MessageCircle, Mic, Info, Ticket, FileText, Trophy, Heart, Award, UserCheck, HelpCircle } from 'lucide-react';
+import { Menu, X, Calendar, Users, BookOpen, MessageCircle, Mic, Info, Ticket, FileText, Trophy, Heart, Award, HelpCircle } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const EventNavbar = () => {
@@ -109,32 +109,8 @@ const EventNavbar = () => {
               </div>
             </div>
 
-            {/* Register Button & Mobile Menu */}
+            {/* Mobile Menu */}
             <div className="flex items-center space-x-4">
-              {/* Conditional Login/Register or Back to Home Button */}
-              {location.pathname === '/' || location.pathname === '' ? (
-                // Show Login/Register on homepage
-                <button 
-                  onClick={() => navigate('/login')}
-                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <UserCheck className="w-4 h-4" />
-                    <span>Login/Register</span>
-                  </span>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
-              ) : (
-                // Show Back to Home on other pages
-                <button 
-                  onClick={() => navigate('/')}
-                  className="hidden lg:block relative overflow-hidden px-6 py-2 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 group">
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <Calendar className="w-4 h-4" />
-                    <span>Back to Home</span>
-                  </span>
-                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
-              )}
 
               {/* Mobile menu button */}
               <div className="lg:hidden">
@@ -215,41 +191,16 @@ const EventNavbar = () => {
             
             {/* Bottom Action Buttons */}
             <div className="p-4 border-t border-gray-500/20 bg-gradient-to-r from-[#40403E] to-[#4a4a48] space-y-3">
-              {location.pathname === '/' || location.pathname === '' ? (
-                <>
-                  <button 
-                    onClick={() => {
-                      navigate('/login');
-                      setIsOpen(false);
-                    }}
-                    className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
-                  >
-                    <UserCheck className="w-5 h-5" />
-                    <span>Login</span>
-                  </button>
-                  <button 
-                    onClick={() => {
-                      navigate('/register');
-                      setIsOpen(false);
-                    }}
-                    className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
-                  >
-                    <Users className="w-5 h-5" />
-                    <span>Register</span>
-                  </button>
-                </>
-              ) : (
-                <button 
-                  onClick={() => {
-                    navigate('/');
-                    setIsOpen(false);
-                  }}
-                  className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
-                >
-                  <Calendar className="w-5 h-5" />
-                  <span>Back to Home</span>
-                </button>
-              )}
+              <button 
+                onClick={() => {
+                  navigate('/');
+                  setIsOpen(false);
+                }}
+                className="w-full px-4 py-3 bg-[#BFBFBD] text-[#40403E] font-semibold rounded-xl shadow-lg hover:shadow-gray-500/25 transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center space-x-2 hover:bg-gray-200"
+              >
+                <Calendar className="w-5 h-5" />
+                <span>Back to Home</span>
+              </button>
             </div>
           </div>
         </div>
