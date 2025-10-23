@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Users, Play, Star, Mic, ArrowRight, Building, Target, Network, Award, TrendingUp, Handshake, CheckCircle, Crown, Zap, X, Mail, Phone, User, Building2 } from 'lucide-react';
+import { saveRegistration } from '../firebase/database.js';
 
 const RegistrationPage = () => {
     const [selectedPass, setSelectedPass] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -60,11 +62,30 @@ const RegistrationPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically send the data to your backend
-        console.log('Form submitted:', formData);
-        setIsSubmitted(true);
+        console.log('Form submitted with data:', formData);
+        setIsLoading(true);
+        
+        try {
+            // Save registration data to Firebase
+            console.log('Attempting to save registration to Firebase...');
+            const result = await saveRegistration(formData);
+            console.log('Firebase save result:', result);
+            
+            if (result.success) {
+                console.log('Registration saved successfully:', result.id);
+                setIsSubmitted(true);
+            } else {
+                console.error('Failed to save registration:', result.error);
+                alert('Failed to save registration. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('An error occurred. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const ticketOptions = [
@@ -780,9 +801,14 @@ const RegistrationPage = () => {
                                     <div className="pt-4">
                                         <button
                                             type="submit"
-                                            className="w-full bg-[#40403E] hover:bg-[#2a2a28] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
+                                            disabled={isLoading}
+                                            className={`w-full font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg ${
+                                                isLoading 
+                                                    ? 'bg-gray-400 cursor-not-allowed' 
+                                                    : 'bg-[#40403E] hover:bg-[#2a2a28] text-white'
+                                            }`}
                                         >
-                                            Submit Registration
+                                            {isLoading ? 'Saving Registration...' : 'Submit Registration'}
                                         </button>
                                     </div>
                                 </form>
@@ -793,9 +819,9 @@ const RegistrationPage = () => {
                                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <CheckCircle className="w-8 h-8 text-green-600" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Thank You!</h3>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Registration Successful!</h3>
                                 <p className="text-gray-600 mb-6">
-                                    Thank you for your interest. Our team will connect with you in 24 hrs.
+                                    Your registration has been saved successfully. Our team will connect with you in 24 hrs.
                                 </p>
                                 <button
                                     onClick={handleCloseModal}
