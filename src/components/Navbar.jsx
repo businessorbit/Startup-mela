@@ -12,7 +12,7 @@ const EventNavbar = () => {
     { name: 'Event Details', icon: FileText, href: '#events', section: 'events' },
     { name: 'Registration', icon: Ticket, href: '#tickets', section: 'tickets' },
     { name: 'Experience', icon: Heart, href: '#experience', section: 'experience' },
-    { name: 'Sponsors', icon: Trophy, href: '#sponsors', section: 'sponsors' },
+    { name: 'Sponsorship Opportunities', icon: Trophy, href: '#sponsors', section: 'sponsors' },
     { name: 'Team', icon: Users, href: '#team', section: 'team' },
     { name: 'FAQs', icon: HelpCircle, href: '#faqs', section: 'faqs' },
   ];
