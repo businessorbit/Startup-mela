@@ -367,29 +367,29 @@ const ContactPage = () => {
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Users className="w-7 h-7" />
                   </div>
-                  <p className="text-3xl font-bold">500+</p>
-                  <p className="text-sm opacity-90">Attendees</p>
+                  <p className="text-3xl font-bold">2500+</p>
+                  <p className="text-sm opacity-90">Expected Footfall</p>
                 </div>
                 <div className="text-center">
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Building className="w-7 h-7" />
                   </div>
-                  <p className="text-3xl font-bold">100+</p>
-                  <p className="text-sm opacity-90">Startups</p>
+                  <p className="text-3xl font-bold">5000+</p>
+                  <p className="text-sm opacity-90">HNI Attendees</p>
                 </div>
                 <div className="text-center">
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Star className="w-7 h-7" />
                   </div>
-                  <p className="text-3xl font-bold">50+</p>
-                  <p className="text-sm opacity-90">Investors</p>
+                  <p className="text-3xl font-bold">500+</p>
+                  <p className="text-sm opacity-90">Startups</p>
                 </div>
                 <div className="text-center">
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Calendar className="w-7 h-7" />
                   </div>
-                  <p className="text-3xl font-bold">3</p>
-                  <p className="text-sm opacity-90">Days</p>
+                  <p className="text-3xl font-bold">50+</p>
+                  <p className="text-sm opacity-90">Investors</p>
                 </div>
               </div>
             </div>
