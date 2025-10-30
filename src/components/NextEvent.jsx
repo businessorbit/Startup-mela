@@ -39,7 +39,7 @@ const EventDetailsPage = () => {
                 This section provides all the information for anyone who is
               </p>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 mt-0">
-                looking to attend, exhibit at, or sponsor Startup Mela 2025
+                looking to attend, exhibit at, or sponsor Startup Mela 2026
               </p>
             </div>
           </div>
