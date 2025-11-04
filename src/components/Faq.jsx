@@ -77,9 +77,9 @@ const FAQPage = () => {
   const categories = [...new Set(faqs.map(faq => faq.category))];
 
   return (
-    <div className="min-h-screen bg-[#E7E7E7]">
+    <div className="relative bg-[#E7E7E7] pt-20">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-[#E7E7E7] pt-20">
+      <div className="relative bg-[#E7E7E7] pt-20">
         <div className="absolute inset-0 bg-[#E7E7E7]"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="text-center">
@@ -192,7 +192,7 @@ const FAQPage = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-20 mb-20 bg-white rounded-3xl p-10 text-center text-black">
+        <div className="mt-20 pb-20 bg-white rounded-3xl p-10 text-center text-black relative">
           <h3 className="text-3xl font-bold mb-6">Still Have Questions About Our Startup Event?</h3>
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
             Our business networking event team is here to help! Whether you're a startup founder, investor, 

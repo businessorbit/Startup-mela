@@ -1315,7 +1315,7 @@ const TeamPage = () => {
 
                 {/* Khaba Logo - Right Side */}
                 <div
-                  className={`cursor-pointer transform transition-all duration-500 relative ${
+                  className={`cursor-pointer transform transition-all duration-500 relative z-20 ${
                     hoveredTeam === 'khaba' 
                       ? 'md:scale-125 xl:scale-110 2xl:scale-105' 
                       : 'hover:md:scale-110 hover:xl:scale-105 hover:2xl:scale-[1.025]'
@@ -1323,7 +1323,7 @@ const TeamPage = () => {
                   onMouseEnter={() => handleTeamHover('khaba')}
                   onMouseLeave={handleTeamLeave}
                 >
-                  <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-white flex items-center justify-center hover:shadow-3xl transition-shadow duration-500 overflow-hidden">
+                  <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-white flex items-center justify-center hover:shadow-3xl transition-shadow duration-500 overflow-hidden relative z-20">
                     <img
                       src="/khaba.jpg"
                       alt="khaba Logo"

@@ -76,6 +76,10 @@ const RegistrationPage = () => {
             if (result.success) {
                 console.log('Registration saved successfully:', result.id);
                 setIsSubmitted(true);
+                // Only set selectedPass after successful form submission
+                if (selectedItem) {
+                    setSelectedPass(selectedItem.id);
+                }
             } else {
                 console.error('Failed to save registration:', result.error);
                 alert('Failed to save registration. Please try again.');
@@ -148,50 +152,22 @@ const RegistrationPage = () => {
                 <div className="absolute inset-0 bg-[#E7E7E7]"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
                     <div className="space-y-6">
-                        <div className="text-center">
+                        <div className="text-center mb-8 sm:mb-12 lg:mb-14">
                             <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 bg-[#828385] text-white rounded-full text-xs sm:text-sm font-semibold">
                                 <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
                                 Tickets & Registration
                             </div>
                         </div>
 
-                        {/* Mobile: Centered layout, Desktop: Original left-aligned with right description */}
-                        <div className="block lg:hidden text-center space-y-4">
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight"
+                        {/* Centered layout for both mobile and desktop */}
+                        <div className="text-center space-y-4">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] xl:text-[3.2rem] font-bold text-gray-900 leading-tight lg:whitespace-nowrap"
                                 style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                                Choose Your Pass
+                                Choose Your Pass Unlock Your Opportunity
                             </h1>
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-gray-900"
-                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                                Unlock Your Opportunity
-                            </h1>
-                            <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed px-4">
-                                We Offer several ticket options designed to provide the best
-                                experience to all from curious visitors to ambitious founders
+                            <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed px-4 max-w-3xl mx-auto">
+                                We Offer several ticket options designed to provide the best experience to all from curious visitors to ambitious founders
                             </p>
-                        </div>
-
-                        {/* Desktop: Original layout */}
-                        <div className="hidden lg:block">
-                            <div className="relative right-[20px]">
-                                <h1 className="text-[3rem] md:text-[3.2rem] font-bold text-gray-900 leading-tight text-left"
-                                    style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                                    Choose Your Pass
-                                </h1>
-                                <h1 className="text-[2.8rem] md:text-[3rem] font-bold !leading-snug text-gray-900  text-left !mt-0"
-                                    style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                                    Unlock Your Opportunity
-                                </h1>
-                            </div>
-
-                            <div className="text-right max-w-xl relative left-[520px] bottom-[67px]">
-                                <p className="text-lg text-gray-600 leading-relaxed !mb-0">
-                                    We Offer several ticket options designed to provide the best
-                                </p>
-                                <p className="text-lg text-gray-600 !mt-0">
-                                    experience to all from curious visitors to ambitious founders
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -218,11 +194,10 @@ const RegistrationPage = () => {
                             return (
                                 <div
                                     key={ticket.id}
-                                    className={`relative rounded-2xl lg:rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full ${isSelected
+                                    className={`relative rounded-2xl lg:rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 transform hover:scale-[1.02] flex flex-col h-full ${isSelected
                                         ? `${ticket.borderColor} ring-4 ring-${ticket.color}-200`
                                         : 'border-gray-100 hover:border-[#40403E] hover:border-4'
                                         }`}
-                                    onClick={() => setSelectedPass(ticket.id)}
                                 >
 
                                     <div className="p-6 lg:p-8 space-y-4 lg:space-y-6 flex-1 flex flex-col">

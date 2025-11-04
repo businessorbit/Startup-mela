@@ -56,7 +56,9 @@ function HomePage() {
           <FAQPage />
         </section>
       </div>
-      <Footer />
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
+        <Footer />
+      </div>
     </>
   )
 }

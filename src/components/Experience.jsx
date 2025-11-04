@@ -110,7 +110,7 @@ const ExperiencePage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Stats Section - Mobile Optimized */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16 lg:relative lg:bottom-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16 lg:mb-20 lg:relative lg:bottom-20">
           <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl lg:bg-transparent lg:rounded-none">
             <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">500+</div>
             <div className="text-xs sm:text-sm lg:text-base text-gray-600 leading-tight">Startup Participants</div>
@@ -130,7 +130,7 @@ const ExperiencePage = () => {
         </div>
 
         {/* Zones Section - Mobile Optimized */}
-        <div className="space-y-6 sm:space-y-8 lg:space-y-12">
+        <div className="mt-12 sm:mt-16 lg:mt-20 space-y-6 sm:space-y-8 lg:space-y-12 mb-12 sm:mb-16 lg:mb-20">
           {zones.map((zone, index) => (
             <div
               key={zone.id}
@@ -201,28 +201,30 @@ const ExperiencePage = () => {
           ))}
         </div>
 
-        {/* Bottom Section - Mobile Optimized */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 mb-12 sm:mb-16 lg:mb-20">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-10 lg:mb-12 px-4">
-            Why Startup Mela is the Premier Business Networking Event
-          </h3>
-          
-          {/* Grid - Mobile Single Column, Tablet 2 Columns, Desktop 3 Columns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-            <div className="text-center p-4 sm:p-6 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300">
-              <Lightbulb className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-yellow-500 mx-auto mb-3 sm:mb-4" />
-              <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Innovation Showcase</h4>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Connect with cutting-edge startups and experience the future of business firsthand</p>
-            </div>
-            <div className="text-center p-4 sm:p-6 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300">
-              <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
-              <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Elite Networking</h4>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
-            </div>
-            <div className="text-center p-4 sm:p-6 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 md:col-span-2 lg:col-span-1">
-              <Star className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-500 mx-auto mb-3 sm:mb-4" />
-              <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Pitching Excellence</h4>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Perfect your pitch and secure funding from top-tier investors and VCs</p>
+        {/* Bottom Section - Mobile Optimized - Single cohesive section */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 bg-white pb-20 sm:pb-24 lg:pb-32 relative overflow-hidden">
+          <div className="bg-white relative z-10">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-10 lg:mb-12 px-4">
+              Why Startup Mela is the Premier Business Networking Event
+            </h3>
+            
+            {/* Grid - Mobile Single Column, Tablet 2 Columns, Desktop 3 Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10">
+              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
+                <Lightbulb className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-yellow-500 mx-auto mb-3 sm:mb-4" />
+                <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Innovation Showcase</h4>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Connect with cutting-edge startups and experience the future of business firsthand</p>
+              </div>
+              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
+                <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
+                <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Elite Networking</h4>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
+              </div>
+              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 md:col-span-2 lg:col-span-1 relative z-20">
+                <Star className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-500 mx-auto mb-3 sm:mb-4" />
+                <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Pitching Excellence</h4>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Perfect your pitch and secure funding from top-tier investors and VCs</p>
+              </div>
             </div>
           </div>
         </div>
