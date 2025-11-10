@@ -370,7 +370,7 @@ const ContactPage = () => {
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Users className="w-7 h-7" />
                   </div>
-                  <p className="text-3xl font-bold">2500+</p>
+                  <p className="text-3xl font-bold">25000+</p>
                   <p className="text-sm opacity-90">Expected Footfall</p>
                 </div>
                 <div className="text-center">

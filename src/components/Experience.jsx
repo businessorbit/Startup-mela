@@ -136,7 +136,7 @@ const ExperiencePage = () => {
         </div>
 
         {/* Zones Section - Mobile Optimized */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 space-y-6 sm:space-y-8 lg:space-y-12 mb-12 sm:mb-16 lg:mb-20">
+        <div className="mt-12 sm:mt-16 lg:mt-20 space-y-6 sm:space-y-8 lg:space-y-12 mb-0">
           {zones.map((zone, index) => (
             <div
               key={zone.id}
