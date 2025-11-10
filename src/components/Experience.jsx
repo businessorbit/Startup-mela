@@ -17,7 +17,7 @@ const ExperiencePage = () => {
         "Interactive product demonstrations",
         "Direct networking with startup founders",
         "Business partnership opportunities",
-        "Investor meetups and pitching sessions"
+        // "Investor meetups and pitching sessions"
       ],
       color: "bg-gradient-to-br from-blue-50 to-indigo-100",
       accent: "border-blue-200"
@@ -27,11 +27,11 @@ const ExperiencePage = () => {
       title: "The Hub",
       subtitle: "Networking & Pitching Lounge",
       icon: <Users className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />,
-      description: "An exclusive, access-controlled zone designed for high-stakes networking and securing startup funding. The Hub is where founders connect with the capital and mentorship they need to scale their business ventures.",
+      description: "The Hub is an exclusive, access-controlled zone designed for high-stakes networking and pitching. It’s the place where you can connect and pitch directly to investors. Whether you’re a student, professional, HNI, or simply someone passionate about networking, this arena is the perfect place to be.",
       features: [
         "Investor Pitching Sessions: Curated, rapid-fire pitching competitions where startups can present their vision to a panel of investors",
         "Roundtable Discussions: Intimate conversations on industry challenges and opportunities, led by seasoned experts",
-        "One-on-One Meetings: Pre-scheduled and impromptu meetings between founders, industrialists, and venture capitalists",
+        // "One-on-One Meetings: Pre-scheduled and impromptu meetings between founders, industrialists, and venture capitalists",
         "Networking Sessions: Structured networking events designed to connect entrepreneurs with potential partners, mentors, and collaborators in focused, high-value interactions"
       ],
       color: "bg-gradient-to-br from-green-50 to-emerald-100",
@@ -47,9 +47,12 @@ const ExperiencePage = () => {
         "D2C Fashion Runway: A high-energy fashion show where direct-to-consumer apparel and accessory brands can showcase their latest collections",
         "Tech Launchpad: The official launch platform for new apps, software, and tech products, complete with live demos and media coverage",
         "Influencer Conclave: A massive meetup where top influencers and content creators connect with brands and share their secrets to digital growth with the audience",
-        "Keynote Speeches & Panel Discussions: Inspiring talks from industry titans and thought-provoking discussions on the future of business",
-        "Speaker Sessions: Engaging presentations and talks by industry leaders, successful entrepreneurs, and experts sharing insights, strategies, and success stories to inspire and educate attendees",
-        "Ideathon: An intensive innovation competition where participants collaborate to develop creative solutions to real-world business challenges, with mentorship from experts and opportunities to win prizes and recognition"
+      //   "Keynote Speeches & Panel Discussions: Inspiring talks from industry titans and thought-provoking discussions on the future of business",
+      //   "Speaker Sessions: Engaging presentations and talks by industry leaders, successful entrepreneurs, and experts sharing insights, strategies, and success stories to inspire and educate attendees",
+      //   "Ideathon: An intensive innovation competition where participants collaborate to develop creative solutions to real-world business challenges, with mentorship from experts and opportunities to win prizes and recognition",
+        "Standup comedy : A comedy show by a famous comedian to mark the happy ending of the event.",
+        "Award show : Recognizing industry experts and presenting them their deserving awards.",
+        "Gaming show : A proper gaming tournament."
       ],
       color: "bg-gradient-to-br from-purple-50 to-violet-100",
       accent: "border-purple-200"
@@ -205,32 +208,32 @@ const ExperiencePage = () => {
         </div>
 
         {/* Bottom Section - Mobile Optimized - Single cohesive section */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 bg-white pb-20 sm:pb-24 lg:pb-32 relative overflow-hidden">
+        {/* <div className="mt-12 sm:mt-16 lg:mt-20 bg-white pb-20 sm:pb-24 lg:pb-32 relative overflow-hidden">
           <div className="bg-white relative z-10">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-10 lg:mb-12 px-4">
               Why Startup Mela is the Premier Business Networking Event
-            </h3>
+            </h3> */}
             
             {/* Grid - Mobile Single Column, Tablet 2 Columns, Desktop 3 Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10">
-              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10"> */}
+              {/* <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
                 <Lightbulb className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-yellow-500 mx-auto mb-3 sm:mb-4" />
                 <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Innovation Showcase</h4>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Connect with cutting-edge startups and experience the future of business firsthand</p>
-              </div>
-              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
+              </div> */}
+              {/* <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 relative z-20">
                 <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
                 <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Elite Networking</h4>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Build valuable connections with investors, mentors, and fellow entrepreneurs</p>
-              </div>
-              <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 md:col-span-2 lg:col-span-1 relative z-20">
+              </div> */}
+              {/* <div className="text-center p-4 sm:p-6 lg:p-8 hover:bg-gray-300 bg-[#E8E8E8] rounded-lg sm:rounded-xl transition-colors duration-300 md:col-span-2 lg:col-span-1 relative z-20">
                 <Star className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-500 mx-auto mb-3 sm:mb-4" />
                 <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">Pitching Excellence</h4>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Perfect your pitch and secure funding from top-tier investors and VCs</p>
-              </div>
-            </div>
-          </div>
-        </div>
+              </div> */}
+            {/* </div> */}
+          {/* </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

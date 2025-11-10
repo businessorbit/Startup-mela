@@ -110,7 +110,7 @@ const RegistrationPage = () => {
         },
         {
             id: 'premium',
-            name: 'Premium Entry Pass',
+            name: 'Arena 2 pass',
             price: '₹1,500',
             icon: Building,
             color: '[#40403E]',
@@ -125,7 +125,7 @@ const RegistrationPage = () => {
         },
         {
             id: 'business',
-            name: 'Business Entry Pass',
+            name: 'All Access Pass',
             price: '₹7,500',
             icon: Target,
             color: '[#40403E]',

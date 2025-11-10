@@ -169,212 +169,212 @@ const SponsorshipDeck = () => {
         {
             id: 'title-sponsor',
             name: 'Title Sponsor',
-            investment: '₹4 Lakhs',
+            // investment: '₹4 Lakhs',
             availability: '2 Slots',
             color: 'from-blue-600 to-purple-600',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-[#40403E]',
             icon: <Star className="w-8 h-8" />,
-            deliverables: {
-                duringEvent: [
-                    'Largest and most prominent pod (Prime visibility to 25k+ footfall)',
-                    'Marketing and branding across all channels as "Title Sponsor"',
-                    'Name and logo on all main LED screens (15-20 times)',
-                    '20 standees across all three zones',
-                    'Verbal mention after every micro-event',
-                    'Marketing agents permitted to market to 5,000+ HNIs',
-                    '5 Business Entry Passes',
-                    'Present award during award show',
-                    'Dedicated collaboration with event influencers'
-                ],
-                preEvent: [
-                    'Company branding across all digital channels (5M+ impressions)',
-                    'Co-branding in all event marketing materials',
-                    'Name and branding at all pre-event meetups and seminars'
-                ],
-                postEvent: [
-                    'Name included in all "Thank You" communications',
-                    'Access to relevant marketing data for follow-ups'
-                ]
-            }
+            // deliverables: {
+            //     duringEvent: [
+            //         'Largest and most prominent pod (Prime visibility to 25k+ footfall)',
+            //         'Marketing and branding across all channels as "Title Sponsor"',
+            //         'Name and logo on all main LED screens (15-20 times)',
+            //         '20 standees across all three zones',
+            //         'Verbal mention after every micro-event',
+            //         'Marketing agents permitted to market to 5,000+ HNIs',
+            //         '5 Business Entry Passes',
+            //         'Present award during award show',
+            //         'Dedicated collaboration with event influencers'
+            //     ],
+            //     preEvent: [
+            //         'Company branding across all digital channels (5M+ impressions)',
+            //         'Co-branding in all event marketing materials',
+            //         'Name and branding at all pre-event meetups and seminars'
+            //     ],
+            //     postEvent: [
+            //         'Name included in all "Thank You" communications',
+            //         'Access to relevant marketing data for follow-ups'
+            //     ]
+            // }
         },
         {
             id: 'powered-by',
             name: 'Powered By Sponsor',
-            investment: '₹2.5 Lakhs',
+            // investment: '₹2.5 Lakhs',
             availability: '3 Slots',
             color: 'from-green-500 to-emerald-500',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-[#40403E]',
             icon: <Zap className="w-8 h-8" />,
-            deliverables: {
-                duringEvent: [
-                    '4x4 pod in premium location',
-                    'Name and logo on LED screens (10-12 rotations)',
-                    '10 standees across the event',
-                    'Verbal mention during opening and closing ceremonies',
-                    '4 Business Entry Passes'
-                ],
-                preEvent: [
-                    'Logo included in all digital marketing campaigns (2M+ impressions)'
-                ],
-                postEvent: [
-                    'Name included in post-event communications'
-                ]
-            }
+            // deliverables: {
+            //     duringEvent: [
+            //         '4x4 pod in premium location',
+            //         'Name and logo on LED screens (10-12 rotations)',
+            //         '10 standees across the event',
+            //         'Verbal mention during opening and closing ceremonies',
+            //         '4 Business Entry Passes'
+            //     ],
+            //     preEvent: [
+            //         'Logo included in all digital marketing campaigns (2M+ impressions)'
+            //     ],
+            //     postEvent: [
+            //         'Name included in post-event communications'
+            //     ]
+            // }
         },
         {
             id: 'co-sponsor',
             name: 'Co-Sponsor',
-            investment: '₹1.5 Lakhs',
+            // investment: '₹1.5 Lakhs',
             availability: 'Multiple Slots',
             color: 'from-purple-500 to-violet-500',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-[#40403E]',
             icon: <Users className="w-8 h-8" />,
-            deliverables: {
-                duringEvent: [
-                    '4x4 pod in high-traffic area',
-                    'Name and logo on LED screens (5-7 rotations)',
-                    '5 standees across the event',
-                    '3 Premium Entry Passes'
-                ],
-                preEvent: [
-                    'Logo on website and primary social media announcements (1M+ impressions)'
-                ],
-                postEvent: []
-            }
+            // deliverables: {
+            //     duringEvent: [
+            //         '4x4 pod in high-traffic area',
+            //         'Name and logo on LED screens (5-7 rotations)',
+            //         '5 standees across the event',
+            //         '3 Premium Entry Passes'
+            //     ],
+            //     preEvent: [
+            //         'Logo on website and primary social media announcements (1M+ impressions)'
+            //     ],
+            //     postEvent: []
+            // }
         },
         {
             id: 'co-powered-by',
             name: 'Co-Powered By',
-            investment: '₹1 Lakh',
+            // investment: '₹1 Lakh',
             availability: 'Multiple Slots',
             color: 'from-orange-500 to-red-500',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-[#40403E]',
             icon: <Briefcase className="w-8 h-8" />,
-            deliverables: {
-                duringEvent: [
-                    '4x4 stall',
-                    'Name and logo on LED screens (group rotation)',
-                    '2 standees at the event',
-                    '2 Premium Entry Passes'
-                ],
-                preEvent: [
-                    'Logo on "Sponsors" section of website',
-                    'Logo on shared "Partners" banner at event'
-                ],
-                postEvent: []
-            }
+            // deliverables: {
+            //     duringEvent: [
+            //         '4x4 stall',
+            //         'Name and logo on LED screens (group rotation)',
+            //         '2 standees at the event',
+            //         '2 Premium Entry Passes'
+            //     ],
+            //     preEvent: [
+            //         'Logo on "Sponsors" section of website',
+            //         'Logo on shared "Partners" banner at event'
+            //     ],
+            //     postEvent: []
+            // }
         }
     ];
 
     const categorySponsors = [
         {
             name: 'Media Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Camera className="w-6 h-6" />,
-            deliverables: [
-                'Official "Media Partner" designation',
-                'Dedicated media booth for interviews',
-                'Exclusive access to keynote speakers, 50+ investors, 500+ startup founders',
-                'Logo on all press releases and priority seating'
-            ]
+            // deliverables: [
+            //     'Official "Media Partner" designation',
+            //     'Dedicated media booth for interviews',
+            //     'Exclusive access to keynote speakers, 50+ investors, 500+ startup founders',
+            //     'Logo on all press releases and priority seating'
+            // ]
         },
         {
             name: 'Food Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Utensils className="w-6 h-6" />,
-            deliverables: [
-                'Official "Food Partner" designation',
-                'Exclusive rights to brand main food court area (25k+ attendees)',
-                'Logo on all food-related signage',
-                'Special verbal mentions before lunch breaks'
-            ]
+            // deliverables: [
+            //     'Official "Food Partner" designation',
+            //     'Exclusive rights to brand main food court area (25k+ attendees)',
+            //     'Logo on all food-related signage',
+            //     'Special verbal mentions before lunch breaks'
+            // ]
         },
         {
             name: 'Beverage Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Coffee className="w-6 h-6" />,
-            deliverables: [
-                'Official "Beverage Partner" designation',
-                'Exclusive rights to distribute/sell beverages (non-alcoholic)',
-                'Branding on all water stations and bars',
-                'Option to provide branded water bottles/cups to 5,000+ HNIs'
-            ]
+            // deliverables: [
+            //     'Official "Beverage Partner" designation',
+            //     'Exclusive rights to distribute/sell beverages (non-alcoholic)',
+            //     'Branding on all water stations and bars',
+            //     'Option to provide branded water bottles/cups to 5,000+ HNIs'
+            // ]
         },
         {
             name: 'Telecom Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Wifi className="w-6 h-6" />,
-            deliverables: [
-                'Official "Telecom Partner" designation',
-                'Branding as "Official Event Wi-Fi" provider (25k+ users)',
-                'Branded charging stations in all 3 zones'
-            ]
+            // deliverables: [
+            //     'Official "Telecom Partner" designation',
+            //     'Branding as "Official Event Wi-Fi" provider (25k+ users)',
+            //     'Branded charging stations in all 3 zones'
+            // ]
         },
         {
             name: 'Automobile Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Car className="w-6 h-6" />,
-            deliverables: [
-                'Official "Automobile Partner" designation',
-                'Dedicated display area at event entrance for 2-3 vehicles',
-                'Logo on all "How to Get Here" and parking signage'
-            ]
+            // deliverables: [
+            //     'Official "Automobile Partner" designation',
+            //     'Dedicated display area at event entrance for 2-3 vehicles',
+            //     'Logo on all "How to Get Here" and parking signage'
+            // ]
         },
         {
             name: 'Print Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Printer className="w-6 h-6" />,
-            deliverables: [
-                'Official "Print Partner" designation',
-                'Logo prominently featured on all physical printed materials',
-                'Includes one 4x4 pod'
-            ]
+            // deliverables: [
+            //     'Official "Print Partner" designation',
+            //     'Logo prominently featured on all physical printed materials',
+            //     'Includes one 4x4 pod'
+            // ]
         },
         {
             name: 'Banking Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <CreditCard className="w-6 h-6" />,
-            deliverables: [
-                'Official "Banking Partner" designation',
-                'Space for branded ATM or financial advisory booth',
-                'Direct access to 5,000+ HNIs and 500+ startups',
-                'Logo on all on-site and online payment points'
-            ]
+            // deliverables: [
+            //     'Official "Banking Partner" designation',
+            //     'Space for branded ATM or financial advisory booth',
+            //     'Direct access to 5,000+ HNIs and 500+ startups',
+            //     'Logo on all on-site and online payment points'
+            // ]
         },
         {
             name: 'Technology Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Cpu className="w-6 h-6" />,
-            deliverables: [
-                'Official "Technology Partner" designation',
-                'Branding on all tech infrastructure',
-                'Opportunity to be "Tech Backbone" of the event (25k+ users)'
-            ]
+            // deliverables: [
+            //     'Official "Technology Partner" designation',
+            //     'Branding on all tech infrastructure',
+            //     'Opportunity to be "Tech Backbone" of the event (25k+ users)'
+            // ]
         },
         {
             name: 'Gifting Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Gift className="w-6 h-6" />,
-            deliverables: [
-                'Official "Gifting Partner" designation',
-                'Exclusive right to place branded gift/voucher in welcome kits',
-                'Targeted access to 1,500 premium attendees',
-                'Includes one 4x4 pod'
-            ]
+            // deliverables: [
+            //     'Official "Gifting Partner" designation',
+            //     'Exclusive right to place branded gift/voucher in welcome kits',
+            //     'Targeted access to 1,500 premium attendees',
+            //     'Includes one 4x4 pod'
+            // ]
         },
         {
             name: 'Sustainability Partner',
-            investment: '₹75,000',
+            // investment: '₹75,000',
             icon: <Leaf className="w-6 h-6" />,
-            deliverables: [
-                'Official "Sustainability Partner" designation',
-                'Branding on all recycling and water refill stations',
-                'Speaking slot on "Green Business" (agenda permitting)'
-            ]
+            // deliverables: [
+            //     'Official "Sustainability Partner" designation',
+            //     'Branding on all recycling and water refill stations',
+            //     'Speaking slot on "Green Business" (agenda permitting)'
+            // ]
         }
     ];
 
@@ -476,7 +476,7 @@ const SponsorshipDeck = () => {
                 </div>
 
                             {/* Deliverables */}
-                            <div className="space-y-4 lg:space-y-6">
+                            {/* <div className="space-y-4 lg:space-y-6">
                                 {Object.entries(tier.deliverables).map(([phase, items]) => (
                                     items.length > 0 && (
                                         <div key={phase}>
@@ -494,7 +494,7 @@ const SponsorshipDeck = () => {
                                         </div>
                                     )
                                 ))}
-                            </div>
+                            </div> */}
 
                             {/* CTA Button */}
                             <div className="pt-3 lg:pt-4 mt-auto">
@@ -548,14 +548,14 @@ const SponsorshipDeck = () => {
                         </div>
                     </div>
 
-                                <ul className="space-y-2 mb-6">
+                                {/* <ul className="space-y-2 mb-6">
                                     {category.deliverables.map((deliverable, deliverableIndex) => (
                                         <li key={deliverableIndex} className="flex items-start space-x-2 lg:space-x-3">
                                             <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5 text-black flex-shrink-0 mt-0.5" />
                                             <span className="text-xs lg:text-sm text-black leading-relaxed">{deliverable}</span>
                                         </li>
                                     ))}
-                                </ul>
+                                </ul> */}
 
                                 <button 
                                     className="w-full py-2 px-4 bg-[#40403E] text-white font-semibold rounded-lg hover:bg-[#2a2a28] transition-colors duration-300"

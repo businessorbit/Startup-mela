@@ -63,7 +63,7 @@ const ContactPage = () => {
             <div className="space-y-6">
               <h1 className="text-2xl md:text-3xl font-medium text-black leading-tight"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                Startup Mela 2025
+                Startup Mela 2026
               </h1>
               <h1 className="text-3xl md:text-5xl font-semibold text-black leading-tight"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
@@ -180,8 +180,11 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone:</p>
-                    <a href="tel:+917696834279" className="text-gray-600 hover:text-gray-800 transition-colors">
-                      +91 76968 34279
+                    <a href="tel:+917743096565" className="text-gray-600 hover:text-gray-800 transition-colors">
+                      +91 7743096565
+                    </a><br></br>
+                     <a href="tel:+917998080907" className="text-gray-600 hover:text-gray-800 transition-colors">
+                      +91 7988080907
                     </a>
                   </div>
                 </div>
@@ -245,7 +248,7 @@ const ContactPage = () => {
                   <h2 className="text-3xl font-bold text-gray-900">Get In Touch</h2>
                 </div>
                 <p className="text-gray-600 text-lg">
-                  Have questions about Startup Mela 2025? Need help with registration or sponsorship opportunities? 
+                  Have questions about Startup Mela 2026? Need help with registration or sponsorship opportunities? 
                   We're here to help make your experience unforgettable.
                 </p>
               </div>
@@ -361,7 +364,7 @@ const ContactPage = () => {
 
             {/* Stats Card */}
             <div className="mt-8 bg-[#E8E8E8] rounded-2xl shadow-lg p-8 text-gray-700">
-              <h3 className="text-2xl font-bold mb-8 text-center">Why Startup Mela 2025?</h3>
+              <h3 className="text-2xl font-bold mb-8 text-center">Why Startup Mela 2026?</h3>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="text-center">
                   <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
