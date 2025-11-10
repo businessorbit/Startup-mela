@@ -71,13 +71,13 @@ const ContactPage = () => {
               </h1>
               <p className="text-xl md:text-2xl text-gray-800 max-w-4xl mx-auto leading-relaxed"
               style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>
-                Join North India's Largest Gathering of Innovators, Investors, and Industry Leaders. Your Journey to Success Starts Here.
+                Join Chandigarh's Largest Gathering of Innovators, Investors, and Industry Leaders. Your Journey to Success Starts Here.
               </p>
             </div>
 
             <div className="max-w-4xl mx-auto">
               <p className="text-lg text-gray-800 leading-relaxed">
-                This is more than just a conference; it's a two-day festival of innovation, a launchpad for groundbreaking businesses, 
+                This is more than just a conference; it's a two days festival of innovation, a launchpad for groundbreaking businesses, 
                 and the ultimate networking event in the Tricity. Join us from{' '}
                 <span className="font-bold text-black">February 28 & March 1, 2026</span>, at the iconic{' '}
                 <span className="font-bold text-black">Sector 34 Ground, Chandigarh</span>, for an unparalleled experience 
@@ -124,7 +124,7 @@ const ContactPage = () => {
                   <div>
                     <p className="font-semibold text-black text-lg">February 28 & March 1, 2026</p>
                     <p className="text-gray-800">Thursday to Friday</p>
-                    <p className="text-sm text-gry-600 mt-1">2-Day Innovation Festival</p>
+                    <p className="text-sm text-gry-600 mt-1">2 Days Innovation Festival</p>
                   </div>
                 </div>
 

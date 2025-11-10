@@ -137,7 +137,7 @@ const EventDetailsPage = () => {
             </div>
             <div className="space-y-4 sm:space-y-6">
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                Mark your calendars for three full days packed with opportunities, innovation, and networking experiences.
+                Mark your calendars for 2 days packed with opportunities, innovation, networking experiences and live entertainment.
               </p>
               <div className="bg-[#E8E8E8] p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <div className="flex items-center space-x-3 sm:space-x-4">
@@ -159,7 +159,7 @@ const EventDetailsPage = () => {
                   </div>
                 </div>
                 <div className="bg-[#E8E8E8] p-3 sm:p-4 rounded-lg sm:rounded-xl">
-                  <p className="text-black font-bold text-sm sm:text-base">3 Full Days of Innovation</p>
+                  <p className="text-black font-bold text-sm sm:text-base">2 Days of Innovation</p>
                   <p className="text-black font-semibold text-xs sm:text-sm">Experience the ultimate business networking event</p>
                 </div>
               </div>
@@ -244,8 +244,7 @@ const EventDetailsPage = () => {
             </div>
             <div className="space-y-4 sm:space-y-6">
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                The event will be held at the Sector 34 Exhibition Ground, Chandigarh. Centrally located and easily accessible,
-                this expansive venue provides the perfect backdrop for a large-scale festival of innovation.
+                The event will be held at the Sector 34 Exhibition Ground, Chandigarh.
               </p>
               <div className="bg-[#E8E8E8] p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 space-y-4">
                 <h4 className="font-semibold text-gray-900 text-base sm:text-lg">Sector 34 Exhibition Ground</h4>
@@ -253,7 +252,7 @@ const EventDetailsPage = () => {
                   <p>● Sector 34, Chandigarh, India</p>
                   <p>● Designated paid parking areas available</p>
                   <p>● Well connected by public transport</p>
-                  <p>● Expansive venue with ample space for stalls, stages, and networking zones</p>
+                  <p>● Expensive venue with sample space for pods, stages, and networking zones</p>
                   <p>● Centrally located and easily accessible</p>
                 </div>
                 <button className="w-full bg-[#828385] text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 text-sm sm:text-base"
@@ -296,9 +295,7 @@ const EventDetailsPage = () => {
                 </div>
                 <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">For Startups</h4>
                 <p className="text-gray-700 text-sm sm:text-base">
-                  Gain direct access to customers, generate leads, and find potential
-                  co-founders and team members. This is your best chance for market
-                  validation and visibility.
+                Gain direct access to customers, generate leads, network with like-minded people, HNI's and you can even pitch your startup to investors.
                 </p>
               </div>
 
@@ -322,8 +319,7 @@ const EventDetailsPage = () => {
                 </div>
                 <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">For Everyone</h4>
                 <p className="text-gray-700 text-sm sm:text-base">
-                  Network with the who's who of the business world, learn about emerging
-                  industry trends, and get inspired by the next wave of innovation.
+                Network with the who's who of the business world, learn about emerging industry trends, explore blooming brands, get inspired by the next wave of innovation and enjoy the live main stage entertainment.
                 </p>
               </div>
             </div>

@@ -51,7 +51,7 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p className="max-w-3xl text-lg sm:text-2xl text-gray-200 mb-10">
-          Join North India’s Largest Gathering of{" "}
+          Join Chandigarh’s Largest Gathering of{" "}
           <span className="font-bold bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
             Innovators, Investors & Industry Leaders
           </span>

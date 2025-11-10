@@ -96,7 +96,7 @@ const RegistrationPage = () => {
         {
             id: 'general',
             name: 'General Entry Pass',
-            price: '₹20',
+            price: '₹200',
             icon: Users,
             color: '[#40403E]',
             gradient: 'from-blue-500 to-indigo-500',
@@ -111,17 +111,15 @@ const RegistrationPage = () => {
         {
             id: 'premium',
             name: 'Premium Entry Pass',
-            price: '₹2,500',
+            price: '₹1,500',
             icon: Building,
             color: '[#40403E]',
             gradient: 'from-green-500 to-emerald-500',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-black',
-            whoFor: 'Attendees wanting full access to all talks, events, and shows, in addition to the exhibition.',
+            whoFor: 'Attendees wanting full access to all entertainment shows like standup comedy, influencer shows, fashion shows, award shows, etc. in addition to the exhibition area.',
             features: [
-                'Full access to Arena 1 (all events, speakers, and shows).',
-                'Access to the Exhibition area.',
-                'Note: Only 1,000 passes available.'
+                'Full access to Arena 1 and Arena 2( exhibition area and main stage area).'
             ],
             isPremium: false
         },
@@ -134,12 +132,11 @@ const RegistrationPage = () => {
             gradient: 'from-purple-500 to-violet-500',
             bgColor: 'bg-[#f5f5f5]',
             borderColor: 'border-black',
-            whoFor: 'Founders, investors, and professionals prioritizing exclusive networking and full event access.',
+            whoFor: 'Founders, investors, professionals or students prioritizing exclusive networking and full event access.',
             features: [
                 'Entry to the exclusive Networking Lounge.',
-                'Full event access (includes all benefits of the Premium Pass).',
-                'Access to the Exhibition area (includes all benefits of the General Pass).',
-                'Note: Only 500 passes available.'
+                'Full event access (in addition to networking lounge, it also includes all benefits of the Premium Pass and the general pass).',
+                'Access to all Arena (Arena 1, Arena 2 and Arena 3)'
             ],
             isPremium: false
         }
@@ -282,17 +279,17 @@ const RegistrationPage = () => {
                     </div>
                 </div>
 
-                {/* Registration (Stalls & Pitching) Section */}
+                {/* Registration (Pods & Pitching) Section */}
                 <div className="space-y-8 lg:space-y-12">
                     <div className="text-center space-y-4">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Registration (Stalls & Pitching)</h2>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Registration (Pods & Pitching)</h2>
                     </div>
 
-                    {/* Stalls Section */}
+                    {/* Pods Section */}
                     <div className="space-y-6">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-left">Stalls</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-left">Pods</h3>
                         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6 lg:gap-8">
-                            {/* 8x8 Stall (Premium Booth) */}
+                            {/* 8x8 Pods (Premium Booth) */}
                             <div className="relative rounded-2xl lg:rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[#40403E] hover:border-4 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full">
                                 <div className="p-6 lg:p-8 space-y-4 lg:space-y-6 flex-1 flex flex-col">
                                     <div className="text-center space-y-3 lg:space-y-4">
@@ -301,7 +298,7 @@ const RegistrationPage = () => {
                                         </div>
                                         <div>
                                             <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black"
-                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>8x8 Stall (Premium Booth)</h3>
+                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>8x8 Pod (Premium Booth)</h3>
                                         </div>
                                     </div>
 
@@ -348,7 +345,7 @@ const RegistrationPage = () => {
                                 </div>
                             </div>
 
-                            {/* 6x6 Stall (Normal Booth) */}
+                            {/* 6x6 Pod (Normal Booth) */}
                             <div className="relative rounded-2xl lg:rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[#40403E] hover:border-4 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full">
                                 <div className="p-6 lg:p-8 space-y-4 lg:space-y-6 flex-1 flex flex-col">
                                     <div className="text-center space-y-3 lg:space-y-4">
@@ -357,7 +354,7 @@ const RegistrationPage = () => {
                                         </div>
                                         <div>
                                             <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black"
-                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>6x6 Stall (Normal Booth)</h3>
+                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>6x6 Pod (Normal Booth)</h3>
                                         </div>
                                     </div>
 
@@ -404,7 +401,7 @@ const RegistrationPage = () => {
                                 </div>
                             </div>
 
-                            {/* 6x6 Stall (Food Booth) */}
+                            {/* 6x6 pod (Food Booth) */}
                             <div className="relative rounded-2xl lg:rounded-3xl bg-[#f5f5f5] shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[#40403E] hover:border-4 cursor-pointer transform hover:scale-[1.02] flex flex-col h-full">
                                 <div className="p-6 lg:p-8 space-y-4 lg:space-y-6 flex-1 flex flex-col">
                                     <div className="text-center space-y-3 lg:space-y-4">
@@ -413,7 +410,7 @@ const RegistrationPage = () => {
                                         </div>
                                         <div>
                                             <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black"
-                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>6x6 Stall (Food Booth)</h3>
+                                                style={{ fontFamily: "Century Gothic, AppleGothic, sans-serif" }}>6x6 Pod (Food Booth)</h3>
                                         </div>
                                     </div>
 
@@ -747,31 +744,6 @@ const RegistrationPage = () => {
                                             />
                                         </div>
                                     </div>
-
-                                    {/* Selected Pass/Stall Type */}
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Selected Stall/Pitching Type *
-                                        </label>
-                                        <div className="relative">
-                                            <Target className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                            <select
-                                                name="selectedType"
-                                                value={formData.selectedType}
-                                                onChange={handleInputChange}
-                                                required
-                                                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40403E] focus:border-[#40403E] outline-none transition-all duration-200 appearance-none bg-white"
-                                            >
-                                                <option value="">Select your stall/pitching type</option>
-                                                <option value="8x8 Stall (Premium Booth)">8x8 Stall (Premium Booth) - ₹35,000</option>
-                                                <option value="6x6 Stall (Normal Booth)">6x6 Stall (Normal Booth) - ₹25,000</option>
-                                                <option value="6x6 Stall (Food Booth)">6x6 Stall (Food Booth) - ₹25,000</option>
-                                                <option value="4x2 Table (Starter Desk)">4x2 Table (Starter Desk) - ₹10,000</option>
-                                                <option value="Investor Pitch Slot">Investor Pitch Slot - ₹25,000</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                     {/* Submit Button */}
                                     <div className="pt-4">
                                         <button
@@ -847,7 +819,7 @@ export default RegistrationPage;
 //             borderColor: 'border-black',
 //             whoFor: 'Students, aspiring entrepreneurs, and the general public',
 //             features: [
-//                 'Full access to the Marketplace (Exhibition Stalls) for both days',
+//                 'Full access to the Marketplace (Exhibition Pods) for both days',
 //                 'Access to all sessions and events on the Spotlight (Center Stage)',
 //                 'An incredible opportunity to witness innovation firsthand and get inspired'
 //             ],

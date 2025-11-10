@@ -10,7 +10,7 @@ const ExperiencePage = () => {
     {
       id: 1,
       title: "The Marketplace",
-      subtitle: "Exhibition Stalls",
+      subtitle: "Exhibition Pods",
       icon: <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />,
       description: "The bustling heart of Startup Mela. A vibrant marketplace where hundreds of startups will showcase their products and services. From tech gadgets and sustainable goods to fashion and food innovations, the Marketplace is where you can see, touch, and experience the future. It's the ultimate platform for brands to engage directly with their target audience.",
       features: [
@@ -31,7 +31,8 @@ const ExperiencePage = () => {
       features: [
         "Investor Pitching Sessions: Curated, rapid-fire pitching competitions where startups can present their vision to a panel of investors",
         "Roundtable Discussions: Intimate conversations on industry challenges and opportunities, led by seasoned experts",
-        "One-on-One Meetings: Pre-scheduled and impromptu meetings between founders, industrialists, and venture capitalists"
+        "One-on-One Meetings: Pre-scheduled and impromptu meetings between founders, industrialists, and venture capitalists",
+        "Networking Sessions: Structured networking events designed to connect entrepreneurs with potential partners, mentors, and collaborators in focused, high-value interactions"
       ],
       color: "bg-gradient-to-br from-green-50 to-emerald-100",
       accent: "border-green-200"
@@ -46,7 +47,9 @@ const ExperiencePage = () => {
         "D2C Fashion Runway: A high-energy fashion show where direct-to-consumer apparel and accessory brands can showcase their latest collections",
         "Tech Launchpad: The official launch platform for new apps, software, and tech products, complete with live demos and media coverage",
         "Influencer Conclave: A massive meetup where top influencers and content creators connect with brands and share their secrets to digital growth with the audience",
-        "Keynote Speeches & Panel Discussions: Inspiring talks from industry titans and thought-provoking discussions on the future of business"
+        "Keynote Speeches & Panel Discussions: Inspiring talks from industry titans and thought-provoking discussions on the future of business",
+        "Speaker Sessions: Engaging presentations and talks by industry leaders, successful entrepreneurs, and experts sharing insights, strategies, and success stories to inspire and educate attendees",
+        "Ideathon: An intensive innovation competition where participants collaborate to develop creative solutions to real-world business challenges, with mentorship from experts and opportunities to win prizes and recognition"
       ],
       color: "bg-gradient-to-br from-purple-50 to-violet-100",
       accent: "border-purple-200"
@@ -124,7 +127,7 @@ const ExperiencePage = () => {
             <div className="text-xs sm:text-sm lg:text-base text-gray-600 leading-tight">Pitching Sessions</div>
           </div>
           <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl lg:bg-transparent lg:rounded-none">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-indigo-600 mb-1 sm:mb-2">3</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-indigo-600 mb-1 sm:mb-2">2</div>
             <div className="text-xs sm:text-sm lg:text-base text-gray-600 leading-tight">Days of Networking</div>
           </div>
         </div>

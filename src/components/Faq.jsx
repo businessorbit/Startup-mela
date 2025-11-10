@@ -18,15 +18,15 @@ const FAQPage = () => {
     },
     {
       id: 2,
-      question: "What is the difference between the Stall+Lounge Pass and the Lounge+Pitching Pass?",
-      answer: "The Stall+Lounge Pass is for startups who want a physical booth to showcase their product and want access to the networking lounge. The Lounge+Pitching Pass is for founders who prioritize fundraising and networking and includes a guaranteed pitching slot, but does not include a stall.",
+      question: "What is the difference between the Pod+Lounge Pass and the Lounge+Pitching Pass?",
+      answer: "The Pod+Lounge Pass is for startups who want a physical booth to showcase their product and want access to the networking lounge. The Lounge+Pitching Pass is for founders who prioritize fundraising and networking and includes a guaranteed pitching slot, but does not include a pod.",
       icon: <Briefcase className="w-6 h-6 text-green-600" />,
       category: "Passes"
     },
     {
       id: 3,
-      question: "How can I register my startup for an exhibition stall?",
-      answer: "You can purchase the appropriate pass by clicking the 'Register Now' button on our website. After purchase, you will receive a form to submit your company details for the stall allocation. Spots are limited, so we encourage you to book early!",
+      question: "How can I register my startup for an exhibition pod?",
+      answer: "You can purchase the appropriate pass by clicking the 'Register Now' button on our website. After purchase, you will receive a form to submit your company details for the pod allocation. Spots are limited, so we encourage you to book early!",
       icon: <Calendar className="w-6 h-6 text-purple-600" />,
       category: "Registration"
     },

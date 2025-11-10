@@ -177,7 +177,7 @@ const SponsorshipDeck = () => {
             icon: <Star className="w-8 h-8" />,
             deliverables: {
                 duringEvent: [
-                    'Largest and most prominent stall (Prime visibility to 25k+ footfall)',
+                    'Largest and most prominent pod (Prime visibility to 25k+ footfall)',
                     'Marketing and branding across all channels as "Title Sponsor"',
                     'Name and logo on all main LED screens (15-20 times)',
                     '20 standees across all three zones',
@@ -209,7 +209,7 @@ const SponsorshipDeck = () => {
             icon: <Zap className="w-8 h-8" />,
             deliverables: {
                 duringEvent: [
-                    '4x4 stall in premium location',
+                    '4x4 pod in premium location',
                     'Name and logo on LED screens (10-12 rotations)',
                     '10 standees across the event',
                     'Verbal mention during opening and closing ceremonies',
@@ -234,7 +234,7 @@ const SponsorshipDeck = () => {
             icon: <Users className="w-8 h-8" />,
             deliverables: {
                 duringEvent: [
-                    '4x4 stall in high-traffic area',
+                    '4x4 pod in high-traffic area',
                     'Name and logo on LED screens (5-7 rotations)',
                     '5 standees across the event',
                     '3 Premium Entry Passes'
@@ -331,7 +331,7 @@ const SponsorshipDeck = () => {
             deliverables: [
                 'Official "Print Partner" designation',
                 'Logo prominently featured on all physical printed materials',
-                'Includes one 4x4 stall'
+                'Includes one 4x4 pod'
             ]
         },
         {
@@ -363,7 +363,7 @@ const SponsorshipDeck = () => {
                 'Official "Gifting Partner" designation',
                 'Exclusive right to place branded gift/voucher in welcome kits',
                 'Targeted access to 1,500 premium attendees',
-                'Includes one 4x4 stall'
+                'Includes one 4x4 pod'
             ]
         },
         {
