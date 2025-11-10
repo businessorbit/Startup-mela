@@ -119,7 +119,7 @@ const RegistrationPage = () => {
             borderColor: 'border-black',
             whoFor: 'Attendees wanting full access to all entertainment shows like standup comedy, influencer shows, fashion shows, award shows, etc. in addition to the exhibition area.',
             features: [
-                'Full access to Arena 1 and Arena 2( exhibition area and main stage area).'
+                'Full access to Arena 1 and Arena 2(exhibition area and main stage area).'
             ],
             isPremium: false
         },
