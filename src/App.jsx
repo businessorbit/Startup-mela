@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
@@ -61,18 +61,33 @@ function HomePage() {
   )
 }
 
-function App() {
+function AppLayout() {
+  const location = useLocation()
+  const isFullWidthPage = location.pathname === '/terms' || location.pathname === '/contact'
+
+  const footerWrapperClass = isFullWidthPage
+    ? 'w-full bg-[#E7E7E7]'
+    : 'max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]'
+
   return (
-    <Router>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
       </Routes>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
+      <div className={footerWrapperClass}>
         <Footer />
       </div>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <AppLayout />
     </Router>
   )
 }
