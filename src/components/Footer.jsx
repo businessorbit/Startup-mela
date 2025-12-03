@@ -15,7 +15,7 @@ const Footer = () => {
     { name: 'Team', href: '#team', section: 'team' },
     { name: 'FAQs', href: '#faqs', section: 'faqs' },
     { name: 'Contact Us', href: '/contact', section: null },
-    { name: 'Terms & Conditions', href: '#', section: null },
+    { name: 'Terms & Conditions', href: '/terms', section: null },
   ];
 
   // Enhanced navigation handler (same as Navbar)
@@ -28,8 +28,8 @@ const Footer = () => {
       return;
     }
     
-    if (href === '#') {
-      // Terms & Conditions - can be handled later if needed
+    if (href === '/terms') {
+      navigate('/terms');
       return;
     }
     

@@ -10,6 +10,7 @@ import ExperiencePage from './components/Experience'
 import FAQPage from './components/Faq'
 import ContactPage from './components/Contact'
 import Footer from './components/Footer'
+import TermsAndConditions from './components/TermsAndConditions'
 
 function HomePage() {
   return (
@@ -70,6 +71,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
       </Routes>
     </Router>
   )
