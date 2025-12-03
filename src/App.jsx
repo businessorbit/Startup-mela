@@ -57,9 +57,6 @@ function HomePage() {
           <FAQPage />
         </section>
       </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
-        <Footer />
-      </div>
     </>
   )
 }
@@ -73,6 +70,9 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
       </Routes>
+      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
+        <Footer />
+      </div>
     </Router>
   )
 }
