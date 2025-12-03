@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const TermsAndConditions = () => {
+  // Ensure page starts at the top when this component is opened
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#E7E7E7] pt-24 pb-16 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md p-6 sm:p-10">
