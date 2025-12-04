@@ -80,7 +80,7 @@ const ContactPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-3xl md:text-3xl md:leading-[1.15] font-medium text-neutral-400 max-w-4xl"
+                className="text-2xl md:text-2xl font-medium text-neutral-400 max-w-4xl"
               >
                 If you have any questions about{" "}
                 <span className="text-black font-bold">ticketing</span>,{" "}

@@ -26,7 +26,7 @@ const Hero = () => {
   return (
     <section 
       data-theme="dark"
-      className="relative h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12"
+      className="relative h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12 py-8"
       style={{ fontFamily: 'Inter, sans-serif' }}
     >
       {/* --- Animated Background (Particle Canvas) --- */}
@@ -77,10 +77,7 @@ const Hero = () => {
           variants={itemVariants}
           className="text-xl md:text-3xl font-light text-neutral-300 mb-10 tracking-wide max-w-3xl"
         >
-          Connect. Pitch. Grow. <br className="md:hidden" />
-          <span className="text-base md:text-xl font-medium text-neutral-400 mt-2 block">
-            30,000+ Footfall • 300+ Startups • 50+ Investors
-          </span>
+          Chandigarh's largest networking event <br className="md:hidden" />
         </motion.p>
 
         {/* --- Single CTA Button --- */}
