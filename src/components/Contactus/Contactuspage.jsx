@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 // Backend API Base
-const API_BASE = "https://backend-9gywv9ofb-chalananitin161-6392s-projects.vercel.app/api"; // <-- REPLACE THIS
+const API_BASE = "https://startupmelabackend.vercel.app/api"; // <-- REPLACE THIS
 
 const ContactPage = () => {
   const [formState, setFormState] = useState({

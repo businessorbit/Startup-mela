@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 // Backend API Base
-const API_BASE = "https://backend-9gywv9ofb-chalananitin161-6392s-projects.vercel.app/api"; // <-- CHANGE THIS
+const API_BASE = "https://startupmelabackend.vercel.app/api"; // <-- CHANGE THIS
 
 const ROLES = [
   "Video Editing",
