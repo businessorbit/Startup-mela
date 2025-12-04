@@ -5,19 +5,19 @@ const features = [
     id: "01",
     title: "Visionary talks",
     description:
-      "Hear from founders, thinkers, and technologists leading the way.",
+      "Don't just listen—participate. Join expert talks, then jump into the action with live pitching rounds, networking meets, and our student Ideathon.",
   },
   {
     id: "02",
-    title: "Practical workshops",
+    title: "Live Entertainment ",
     description:
-      "Interactive sessions focused on real-world tools and strategies.",
+      "Business festivals can be fun too. Unwind with stand-up comedy, influencer shows, a runway fashion walk, and a high-energy gaming tournament.",
   },
   {
     id: "03",
-    title: "Powerful networking",
+    title: "Startup Expo",
     description:
-      "Connect with a like-minded community of entrepreneurs and creators.",
+      "Explore a massive marketplace with 300+ startups. Discover new products, meet the founders, and see what the future of innovation looks like.",
   },
 ];
 
