@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import AnimatedBg from "../AnimatedBg/AnimatedBg";
 
 const footerLinks = [
+
   { label: "Agenda", href: "#agenda" },
   { label: "Venue", href: "/" },
   { label: "Sponsors", href: "/sponsors" },
