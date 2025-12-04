@@ -1,95 +1,36 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import './App.css'
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
-import NextEvent from './components/NextEvent'
-import Sponsors2 from './components/Sponsors2'
-import RegistrationPage from './components/Registration'
-import TeamPage from './components/Team'
-import ExperiencePage from './components/Experience'
-import FAQPage from './components/Faq'
-import ContactPage from './components/Contact'
-import Footer from './components/Footer'
-import TermsAndConditions from './components/TermsAndConditions'
+// FILE: src/App.jsx
 
-function HomePage() {
-  return (
-    <>
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
-        <section id="home">
-          <HeroSection />
-        </section>
-      </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
-        <section id="events">
-          <NextEvent />
-          {/* <Presence/> */}
-        </section>
-      </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
-        <section id="tickets">
-          <RegistrationPage />
-        </section>
-      </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
-        <section id="experience">
-          <ExperiencePage />
-        </section>
-      </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
-        <section id="sponsors">
-          {/* <Sponsors /> */}
-          <Sponsors2 />
-        </section>
-      </div>
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-white">
-        <section id="team">
-          <TeamPage />
-        </section>
-      </div>
+import HomePage from "./pages/Homepage.jsx";
+import SponsorsPage from "./pages/SponserPage.jsx";
 
-      <div className="max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]">
-        {/* <section id="legacy">
-        <LegacyPage/>
-      </section> */}
-        <section id="faqs">
-          <FAQPage />
-        </section>
-      </div>
-    </>
-  )
-}
-
-function AppLayout() {
-  const location = useLocation()
-  const isFullWidthPage = location.pathname === '/terms' || location.pathname === '/contact'
-
-  const footerWrapperClass = isFullWidthPage
-    ? 'w-full bg-[#E7E7E7]'
-    : 'max-w-[1400px] mx-auto px-0 sm:px-8 bg-[#E7E7E7]'
-
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-      </Routes>
-      <div className={footerWrapperClass}>
-        <Footer />
-      </div>
-    </>
-  )
-}
+import CursorGlow from "./components/CursorGlow/CursorGlow";
+import WorkwithusPage from "./pages/Workwithuspage.jsx";
+import ContactusPage from "./pages/ContactUsPage.jsx";
+import LegalPage from "./pages/LegalPage.jsx";
 
 function App() {
   return (
     <Router>
-      <AppLayout />
+      {/* Global cursor stays above all routes */}
+      <CursorGlow />
+
+      <Routes>
+        {/* Home Route */}
+        <Route path="/" element={<HomePage />} />
+
+        {/* Sponsors Route */}
+        <Route path="/sponsors" element={<SponsorsPage />} />
+
+        <Route path="/workwithus" element={<WorkwithusPage/>} />
+
+        <Route path="/contact" element={<ContactusPage/>} />
+
+        <Route path="/terms" element={<LegalPage />} />
+      </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;

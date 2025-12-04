@@ -1,3 +1,135 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* FILE: src/index.css */
+@import "tailwindcss";
+
+@keyframes noiseAnimation {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -1%); }
+  20% { transform: translate(1%, 1%); }
+  30% { transform: translate(-2%, -2%); }
+  40% { transform: translate(2%, 2%); }
+  50% { transform: translate(-1%, 1%); }
+  60% { transform: translate(1%, -1%); }
+  70% { transform: translate(2%, -2%); }
+  80% { transform: translate(-2%, 2%); }
+  90% { transform: translate(1%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+.noise-bg {
+  /* Self-contained SVG noise texture. 
+     If you prefer a PNG, replace the url() below.
+  */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  
+  /* Ensure texture repeats */
+  background-repeat: repeat;
+  /* Slightly larger than container to allow movement without cutting off */
+  width: 110%;
+  height: 110%;
+  left: -5%;
+  top: -5%;
+  /* Apply the flicker animation */
+  animation: noiseAnimation 0.4s steps(1) infinite;
+}
+
+:root {
+  --bg-color: #0f172a; /* Dark slate background */
+  --text-color: #f8fafc;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  background-color: #0a0a0a;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue','Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  body, 
+  a, 
+  button, 
+  input, 
+  select, 
+  textarea {
+    cursor: none !important;
+  }
+}
+
+/* Optional: Smooth transition for background colors if you toggle themes */
+section {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+/* Ensures the background gradient clips to text properly */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Ensure transparent text color works for the gradient reveal */
+.text-transparent {
+  color: transparent;
+}
+
+/* Optional: Improve backdrop blur consistency on Safari */
+nav {
+  -webkit-backdrop-filter: blur(24px); 
+  backdrop-filter: blur(24px);
+}
+/* --- 2. Typography Utilities --- */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.text-transparent {
+  color: transparent;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 3. Zones Section Internal Scroll Logic --- */
+/* Container that holds the scrollable zones */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh; /* Ensures it fills the screen height */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.snap-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+/* Each child snaps to the start of the viewport */
+.snap-child {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* --- 4. Selection Colors --- */
+::selection {
+  background-color: rgba(0, 194, 255, 0.3);
+  color: white;
+}
+
+[data-theme="light"] ::selection {
+  background-color: #000;
+  color: #fff;
+}
+html {
+  scroll-behavior: smooth;
+}
