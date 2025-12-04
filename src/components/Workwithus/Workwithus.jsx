@@ -167,7 +167,7 @@ const VolunteerForm = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/5 p-8 md:p-16 max-w-5xl mx-auto"
+      className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/5 p-8 py-7 md:p-16 max-w-5xl mx-auto"
       style={{ fontFamily: '"TT Chocolates", sans-serif' }}
     >
       <h2 className="text-[12vw] md:text-[8rem] font-bold tracking-tighter text-black leading-[0.8] mb-16 select-none border-b border-neutral-100 pb-10">
