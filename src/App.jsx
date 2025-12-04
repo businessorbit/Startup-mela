@@ -7,7 +7,7 @@ import SponsorsPage from "./pages/SponserPage.jsx";
 
 import CursorGlow from "./components/CursorGlow/CursorGlow";
 import WorkwithusPage from "./pages/Workwithuspage.jsx";
-import ContactusPage from "./pages/ContactUsPage.jsx";
+import ContactusPage from "./pages/ContactusPage.jsx";
 import LegalPage from "./pages/LegalPage.jsx";
 
 function App() {
