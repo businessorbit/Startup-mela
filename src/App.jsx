@@ -1,33 +1,30 @@
-// FILE: src/App.jsx
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import HomePage from "./pages/Homepage.jsx";
-import SponsorsPage from "./pages/SponserPage.jsx";
-
-import CursorGlow from "./components/CursorGlow/CursorGlow";
-import WorkwithusPage from "./pages/Workwithuspage.jsx";
-import ContactusPage from "./pages/ContactusPage.jsx";
-import LegalPage from "./pages/LegalPage.jsx";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SponsorsPage from './pages/SponserPage';
+import WorkWithUsPage from './pages/WorkwithUsPage';
+import ContactPage from './pages/ContactusPage';
+import CheckoutPage from './pages/CheckoutPage'; 
+import CursorGlow from './components/CursorGlow/CursorGlow';
 
 function App() {
-  return (
+  return (  
     <Router>
-      {/* Global cursor stays above all routes */}
+      {/* Global Cursor Component 
+        Placed inside Router but outside Routes so it persists across pages.
+      */}
       <CursorGlow />
 
       <Routes>
         {/* Home Route */}
         <Route path="/" element={<HomePage />} />
-
-        {/* Sponsors Route */}
-        <Route path="/sponsors" element={<SponsorsPage />} />
-
-        <Route path="/workwithus" element={<WorkwithusPage/>} />
-
-        <Route path="/contact" element={<ContactusPage/>} />
-
-        <Route path="/terms" element={<LegalPage />} />
+        
+        {/* Inner Pages */}
+        <Route path="/sponse" element={<SponsorsPage />} />
+        <Route path="/work-with-us" element={<WorkWithUsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        
+        {/* Checkout Route */}
+        <Route path="/checkout" element={<CheckoutPage />} /> 
       </Routes>
     </Router>
   );
