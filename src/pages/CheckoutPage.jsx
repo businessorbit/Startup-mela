@@ -268,7 +268,7 @@ const CheckoutPage = () => {
 
               {error && (
                 <p className="text-red-500 text-sm text-center font-medium bg-red-50 py-2 rounded-lg">
-                  {error}
+                  We will get back to yo!!
                 </p>
               )}
 

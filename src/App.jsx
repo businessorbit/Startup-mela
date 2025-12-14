@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Homepage';
 import SponsorsPage from './pages/SponserPage';
-import WorkWithUsPage from './pages/Workwithuspagee';
+import WorkWithUsPage from './pages/Workwithuspage';
 import ContactPage from './pages/ContactusPage';
 import CheckoutPage from './pages/CheckoutPage'; 
 import CursorGlow from './components/CursorGlow/CursorGlow';
