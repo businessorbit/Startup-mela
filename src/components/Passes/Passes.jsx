@@ -1,64 +1,17 @@
 import { motion } from "framer-motion";
-
-const passes = [
-  {
-    id: 1,
-    title: "General Visitor Pass",
-    price: "₹199",
-    oldPrice: "₹299",
-    features: [
-      "Expo access",
-      "Access to Main Stage",
-      "Access to Food Court"
-    ],
-    popular: false
-  },
-  {
-    id: 2,
-    title: "Startup Exhibition Pass",
-    price: "₹2,999",
-    oldPrice: "₹3,999",
-    features: [
-      "Startup showcase entry",
-      "Access to investors",
-      "Access to networking arena",
-      "Eligibility for pitching"
-    ],
-    popular: true
-  },
-  {
-    id: 3,
-    title: "Investor Pass",
-    price: "₹3,499",
-    oldPrice: "₹4,999",
-    features: [
-      "Investor lounge",
-      "Access to startup pitches",
-      "1-1 founder meetings",
-      "All sessions access"
-    ],
-    popular: false
-  },
-  {
-    id: 4,
-    title: "VIP / Premium Pass",
-    price: "₹7,499",
-    oldPrice: "₹9,999",
-    features: [
-      "Front-row seating",
-      "VIP lounge",
-      "Exclusive networking dinners",
-      "Backstage access",
-      "All investor benefits"
-    ],
-    popular: false
-  }
-];
+import { passes } from "../../data/passes";
+import { useNavigate } from "react-router-dom";
 
 const PassesSection = () => {
+  const navigate = useNavigate();
+
+  const handleTicketClick = (id) => {
+    navigate(`/checkout?passId=${id}`);
+  };
+
   return (
     <section 
-    id="passes"
+      id="passes"
       data-theme="light" 
       data-tail="black"
       className="relative w-full bg-white py-32 md:py-48"
@@ -127,12 +80,17 @@ const PassesSection = () => {
 
                 {/* Price */}
                 <div className="mt-4 mb-8">
-                  <p className="text-sm text-neutral-400 line-through font-medium">
-                    {pass.oldPrice}
-                  </p>
+                  {pass.oldPrice && (
+                    <p className="text-sm text-neutral-400 line-through font-medium">
+                      {pass.oldPrice}
+                    </p>
+                  )}
                   <p className="text-4xl font-bold text-white tracking-tight">
                     {pass.price}
-                    <span className="text-sm font-normal text-neutral-500 ml-1">/person</span>
+                    {/* Only show '/person' if price isn't a large flat fee like 20k */}
+                    {!pass.price.includes("20,000") && (
+                      <span className="text-sm font-normal text-neutral-500 ml-1">/person</span>
+                    )}
                   </p>
                 </div>
 
@@ -152,7 +110,11 @@ const PassesSection = () => {
                 </ul>
 
                 {/* CTA Button */}
-                <button className="w-full py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-neutral-200 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-white/5">
+                <button 
+                  onClick={() => handleTicketClick(pass.id)}
+                  data-pass-id={pass.id}
+                  className="w-full py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-neutral-200 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-white/5"
+                >
                   Get Ticket
                 </button>
 
