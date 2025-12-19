@@ -20,7 +20,7 @@ function App() {
         
         {/* Inner Pages */}
         <Route path="/sponse" element={<SponsorsPage />} />
-        <Route path="/work-with-us" element={<WorkWithUsPage />} />
+        <Route path="/workwithus" element={<WorkWithUsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         
         {/* Checkout Route */}
