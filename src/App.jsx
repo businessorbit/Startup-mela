@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         
         {/* Inner Pages */}
-        <Route path="/sponse" element={<SponsorsPage />} />
+        <Route path="/sponsors" element={<SponsorsPage />} />
         <Route path="/workwithus" element={<WorkWithUsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         

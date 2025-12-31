@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 // Links (use section ids or routes as needed)
 const navLinks = [
   { label: "About", href: "/" },
-  { label: "Event", href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3" },
+  {
+    label: "Event",
+    href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3",
+  },
   { label: "Passes", href: "#passes" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Work with Us", href: "/workwithus" },
@@ -33,15 +37,16 @@ const Navbar = () => {
   }, []);
 
   const textColorClass = theme === "dark" ? "text-white" : "text-black";
-  const iconColor = theme === "dark" ? "#fff" : "#000";
 
   return (
     <nav
-      className={`fixed left-0 w-full z-[9998] bg-transparent py-7 transition-all uppercase`}
+      // Adjusted vertical padding: py-4 for mobile, increasing to py-7 for desktop
+      className={`fixed left-0 w-full z-[9998] bg-transparent py-4 sm:py-6 md:py-7 transition-all uppercase`}
       aria-label="Main navigation"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      <div className="max-w-[1600px] mx-auto px-8 md:px-12 flex justify-between">
+      {/* Adjusted horizontal padding: px-4 mobile -> px-6 sm -> px-8 md -> px-12 desktop */}
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex justify-between">
         {/* Logo */}
         <a
           href="/"
@@ -51,19 +56,22 @@ const Navbar = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
-          <span className=" text-2xl md:text-3xl font-bold tracking-tight pb-2">
+          {/* Logo Text: text-xl mobile -> text-2xl sm -> text-3xl md */}
+          <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight pb-2">
             Startup
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
               Mela
             </span>
           </span>
-          <span className="ml-2 text-sm md:text-base font-semibold text-neutral-400 align-top pb-5">
+          {/* Year Text: text-xs mobile -> text-sm sm -> text-base md */}
+          <span className="ml-2 text-xs sm:text-sm md:text-base font-semibold text-neutral-400 align-top pb-2 md:pb-5">
             2026
           </span>
         </a>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-baseline gap-12 font-semibold">
+        {/* Adjusted Gap: gap-8 for lg (laptops) -> gap-12 for xl (large screens) to prevent cramping */}
+        <div className="hidden lg:flex items-baseline gap-8 xl:gap-12 font-semibold">
           {navLinks.map((link) => (
             <NavLink
               key={link.label}
@@ -78,39 +86,25 @@ const Navbar = () => {
             href="#passes"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="pl-6 pr-5 py-2.5 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-neutral-200 transition-colors flex items-center gap-2"
+            className="pl-6 pr-5 py-2.5 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-neutral-200 transition-colors flex items-center gap-2 group"
           >
             Get Tickets
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            <ArrowRight 
+              size={16} 
+              strokeWidth={2.5} 
               className="group-hover:translate-x-1 transition-transform duration-300"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            />
           </motion.a>
         </div>
 
         {/* Mobile hamburger */}
-       {/* --- Mobile Hamburger Toggle --- */}
-        <button 
+        {/* --- Mobile Hamburger Toggle --- */}
+        <button
           onClick={() => setIsOpen(true)}
-          className="lg:hidden p-2 text-white focus:outline-none z-[101]"
+          className="lg:hidden p-2 bg-white rounded-lg text-black focus:outline-none z-101"
           aria-label="Open menu"
         >
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
+          <Menu size={30} strokeWidth={2.5} />
         </button>
 
         {/* --- FULLSCREEN MOBILE MENU --- */}
@@ -121,25 +115,24 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 bg-black z-[9999] flex flex-col w-screen h-[100dvh] overflow-hidden"
+              className="fixed inset-0 bg-black z-9999 flex flex-col w-screen h-dvh overflow-hidden"
             >
               {/* Close Button Header */}
-              <div className="flex justify-end p-6 md:p-12">
+              {/* Adjusted padding: p-4 mobile -> p-6 sm -> p-12 md */}
+              <div className="flex justify-end p-4 sm:p-6 md:p-12">
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 text-white hover:text-neutral-300 transition-colors"
                   aria-label="Close menu"
                 >
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
+                  <X size={40} strokeWidth={2.5} />
                 </button>
               </div>
 
               {/* Menu Links Container */}
-              <div className="flex flex-col items-center justify-center flex-grow w-full pb-20 overflow-y-auto">
-                <div className="flex flex-col items-center gap-8 md:gap-10">
+              <div className="flex flex-col items-center justify-center grow w-full pb-20 overflow-y-auto">
+                {/* Adjusted gap: gap-6 mobile -> gap-8 sm -> gap-10 md */}
+                <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-10">
                   {navLinks.map((link, index) => (
                     <motion.a
                       key={link.label}
@@ -148,7 +141,8 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
                       onClick={() => setIsOpen(false)}
-                      className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
+                      // Responsive text size: text-3xl mobile -> text-4xl sm -> text-6xl md
+                      className="text-3xl sm:text-4xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
                     >
                       {link.label}
                     </motion.a>
@@ -162,12 +156,10 @@ const Navbar = () => {
                     className="mt-8"
                   >
                     <a href="#passes" onClick={() => setIsOpen(false)}>
-                      <button className="px-10 py-4 rounded-full bg-white text-black text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform">
+                      {/* Responsive Button: padded down for mobile, full size for tablets/up */}
+                      <button className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-white text-black text-lg sm:text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform">
                         Get Tickets
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
+                        <ArrowRight size={24} strokeWidth={2.5} />
                       </button>
                     </a>
                   </motion.div>
@@ -188,10 +180,10 @@ const Navbar = () => {
  * - underline expands on hover
  *
  * Props:
- *  - text: label
- *  - href: link
- *  - theme: "dark" | "light" used to set base text color on desktop
- *  - mobile: boolean (not used for desktop hover)
+ * - text: label
+ * - href: link
+ * - theme: "dark" | "light" used to set base text color on desktop
+ * - mobile: boolean (not used for desktop hover)
  */
 const NavLink = ({ text, href, theme }) => {
   // base color depending on theme
