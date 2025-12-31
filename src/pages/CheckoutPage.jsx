@@ -143,9 +143,14 @@ const CheckoutPage = () => {
 
   if (!selectedPass) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white">
-        <h2 className="text-3xl font-bold mb-4">Pass not found</h2>
-        <Link to="/" className="text-blue-500 hover:underline">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
+          Pass not found
+        </h2>
+        <Link
+          to="/"
+          className="text-blue-500 hover:underline text-sm sm:text-base"
+        >
           Return to Home
         </Link>
       </div>
@@ -169,16 +174,16 @@ const CheckoutPage = () => {
       <AnimatedBg />
       <Navbar />
 
-      <main className="relative z-10 pt-32 pb-20 px-6 md:px-12 flex flex-col items-center min-h-screen justify-center">
-        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <main className="relative z-10 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col items-center min-h-screen justify-center">
+        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start">
           {/* --- LEFT: Pass Preview Card --- */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="sticky top-32"
+            className="relative lg:sticky lg:top-32"
           >
-            <div className="relative flex flex-col p-8 rounded-4xl overflow-hidden min-h-[520px] shadow-2xl shadow-blue-900/10 border border-white/10">
+            <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[520px] shadow-2xl shadow-blue-900/10 border border-white/10">
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay z-0" />
               {selectedPass.popular && (
@@ -187,18 +192,18 @@ const CheckoutPage = () => {
 
               <div className="relative z-10 flex flex-col h-full">
                 <div className="mb-auto">
-                  <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-bold uppercase tracking-wider text-neutral-300 mb-6">
+                  <span className="inline-block px-2.5 sm:px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-300 mb-4 sm:mb-5 md:mb-6">
                     Selected Pass
                   </span>
-                  <h3 className="text-3xl font-bold text-white mb-2 leading-tight">
+                  <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
                     {selectedPass.title}
                   </h3>
 
-                  <div className="mt-6 mb-8">
-                    <p className="text-5xl font-bold text-white tracking-tight">
+                  <div className="mt-4 sm:mt-5 md:mt-6 mb-6 sm:mb-7 md:mb-8">
+                    <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
                       {selectedPass.price}
                       {!selectedPass.price.includes("20,000") && (
-                        <span className="text-lg font-normal text-neutral-500 ml-2">
+                        <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-500 ml-2">
                           /person
                         </span>
                       )}
@@ -206,16 +211,16 @@ const CheckoutPage = () => {
                   </div>
                 </div>
 
-                <div className="h-px w-full bg-white/10 mb-8" />
+                <div className="h-px w-full bg-white/10 mb-6 sm:mb-7 md:mb-8" />
 
-                <ul className="space-y-4">
+                <ul className="space-y-3 sm:space-y-3.5 md:space-y-4">
                   {selectedPass.features.map((feature, idx) => (
                     <li
                       key={idx}
-                      className="flex items-start text-sm text-neutral-300"
+                      className="flex items-start text-xs sm:text-sm text-neutral-300"
                     >
                       <svg
-                        className="w-5 h-5 text-blue-500 mr-3 mt-0.5 shrink-0"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 mr-2 sm:mr-3 mt-0.5 shrink-0"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -240,38 +245,38 @@ const CheckoutPage = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ durati: 0.2 }}
-            className="bg-white rounded-[2rem] p-8 md:p-12 text-black shadow-2xl"
+            className="bg-white rounded-2xl sm:rounded-3xl md:rounded-[2rem] p-6 sm:p-8 md:p-10 lg:p-12 text-black shadow-2xl"
           >
-            <div className="mb-8 border-b border-neutral-100 pb-6">
-              <h2 className="text-3xl font-bold tracking-tight mb-2">
+            <div className="mb-6 sm:mb-7 md:mb-8 border-b border-neutral-100 pb-4 sm:pb-5 md:pb-6">
+              <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight mb-1.5 sm:mb-2">
                 Checkout
               </h2>
-              <p className="text-neutral-500">
+              <p className="text-sm sm:text-base text-neutral-500">
                 Complete your registration for Startup Mela 2026.
               </p>
             </div>
 
-            <form onSubmit={handlePayment} className="space-y-6">
+            <form onSubmit={handlePayment} className="space-y-5 sm:space-y-6">
               {/* Quantity Selector */}
               <div>
-                <label className="block text-sm font-bold uppercase tracking-wide text-neutral-500 mb-3">
+                <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2 sm:mb-3">
                   Quantity
                 </label>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <button
                     type="button"
                     onClick={decrementQty}
-                    className="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center text-xl font-bold hover:bg-neutral-200 transition-colors"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
                   >
                     -
                   </button>
-                  <span className="text-2xl font-bold w-8 text-center">
+                  <span className="text-xl sm:text-2xl font-bold w-6 sm:w-8 text-center">
                     {formData.quantity}
                   </span>
                   <button
                     type="button"
                     onClick={incrementQty}
-                    className="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center text-xl font-bold hover:bg-neutral-200 transition-colors"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
                   >
                     +
                   </button>
@@ -279,9 +284,9 @@ const CheckoutPage = () => {
               </div>
 
               {/* Inputs */}
-              <div className="space-y-4">
+              <div className="space-y-3.5 sm:space-y-4">
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2">
+                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
                     Full Name
                   </label>
                   <input
@@ -291,11 +296,11 @@ const CheckoutPage = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="John Doe"
-                    className="w-full p-4 bg-neutral-50 rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2">
+                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
                     Email Address
                   </label>
                   <input
@@ -305,11 +310,11 @@ const CheckoutPage = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="john@example.com"
-                    className="w-full p-4 bg-neutral-50 rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2">
+                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
                     Phone Number
                   </label>
                   <input
@@ -319,17 +324,17 @@ const CheckoutPage = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="+91 98765 43210"
-                    className="w-full p-4 bg-neutral-50 rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                   />
                 </div>
               </div>
 
               {/* Total Summary */}
-              <div className="bg-neutral-50 rounded-xl p-6 mt-8 flex justify-between items-center border border-neutral-100">
-                <span className="text-neutral-500 font-medium">
+              <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 flex justify-between items-center border border-neutral-100">
+                <span className="text-sm sm:text-base text-neutral-500 font-medium">
                   Total Amount
                 </span>
-                <span className="text-2xl font-bold text-black">
+                <span className="text-xl sm:text-2xl font-bold text-black">
                   ₹{totalAmount.toLocaleString("en-IN")}
                 </span>
               </div>
@@ -338,12 +343,12 @@ const CheckoutPage = () => {
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full py-5 rounded-xl bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full py-4 sm:py-5 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold text-base sm:text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center gap-2">
                     <svg
-                      className="animate-spin h-5 w-5 text-white"
+                      className="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white"
                       viewBox="0 0 24 24"
                     >
                       <circle
@@ -369,12 +374,12 @@ const CheckoutPage = () => {
               </button>
 
               {error && (
-                <div className="text-red-600 text-sm text-center font-medium bg-red-50 py-3 px-4 rounded-lg border border-red-200">
+                <div className="text-red-600 text-xs sm:text-sm text-center font-medium bg-red-50 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border border-red-200">
                   {error}
                 </div>
               )}
 
-              <p className="text-center text-xs text-neutral-400 mt-4">
+              <p className="text-center text-[10px] sm:text-xs text-neutral-400 mt-3 sm:mt-4">
                 By proceeding, you agree to our Terms & Conditions.
               </p>
             </form>
