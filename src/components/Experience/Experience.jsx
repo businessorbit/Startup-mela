@@ -25,17 +25,19 @@ const ExperienceSection = () => {
   return (
     <section
       data-theme="light"
-      className="relative w-full bg-white py-32 md:py-40"
+      // Responsive padding: py-16 mobile -> py-40 desktop
+      className="relative w-full bg-white py-16 sm:py-24 md:py-32 lg:py-40"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* Responsive container padding: px-4 mobile -> px-12 desktop */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="relative">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-sm font-bold tracking-widest text-neutral-400 flex items-center gap-2"
+            className="text-xs sm:text-sm font-bold tracking-widest text-neutral-400 flex items-center gap-2"
           >
             <span className="text-blue-600 font-black tracking-tighter">
               ~~
@@ -44,15 +46,17 @@ const ExperienceSection = () => {
           </motion.p>
         </div>
         {/* --- Intro Row --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20 items-end">
+        {/* Adjusted gap and margin for mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-20 items-end">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-6xl md:text-7xl lg:text-[5rem] font-bold tracking-tight text-black leading-[0.9]"
+            // Responsive font size: text-4xl mobile -> text-[5rem] desktop
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tight text-black leading-[0.9]"
           >
-            <br></br>
+            <br className="hidden md:block" />
             What to expect
           </motion.h2>
 
@@ -61,7 +65,8 @@ const ExperienceSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg md:text-xl text-neutral-600 max-w-lg lg:justify-self-end leading-relaxed"
+            // Responsive text size: text-base mobile -> text-xl desktop
+            className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-lg lg:justify-self-end leading-relaxed"
           >
             Join us for a two day summit designed to spark ideas, forge
             partnerships, and shape what's next.
@@ -69,7 +74,8 @@ const ExperienceSection = () => {
         </div>
 
         {/* --- Cards Grid --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Responsive Gap: gap-4 mobile -> gap-6 desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Standard Cards 01-03 */}
           {features.map((feature, index) => (
             <motion.div
@@ -79,19 +85,21 @@ const ExperienceSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
               whileHover={{ y: -8 }}
-              className="group relative flex flex-col justify-between p-8 bg-[#f7f7f7] rounded-1xl min-h-[450px] transition-shadow duration-300 hover:shadow-xl hover:shadow-black/5"
+              // Responsive padding and min-height
+              className="group relative flex flex-col justify-between p-6 sm:p-8 bg-[#f7f7f7] rounded-1xl min-h-[380px] sm:min-h-[450px] transition-shadow duration-300 hover:shadow-xl hover:shadow-black/5"
             >
               {/* Number */}
-              <span className="absolute top-8 right-8 text-sm font-mono text-neutral-400">
+              <span className="absolute top-6 right-6 sm:top-8 sm:right-8 text-sm font-mono text-neutral-400">
                 {feature.id}
               </span>
 
               {/* Content */}
               <div className="mt-auto">
-                <h3 className="text-2xl font-semibold text-black mb-3 group-hover:text-blue-600 transition-colors">
+                {/* Responsive heading size */}
+                <h3 className="text-xl sm:text-2xl font-semibold text-black mb-3 group-hover:text-blue-600 transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-neutral-600 leading-relaxed">
+                <p className="text-neutral-600 leading-relaxed text-sm sm:text-base">
                   {feature.description}
                 </p>
               </div>
@@ -105,7 +113,8 @@ const ExperienceSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
             whileHover={{ y: -8 }}
-            className="relative flex flex-col justify-between p-8 bg-black rounded-2xl min-h-[450px] overflow-hidden group"
+            // Responsive padding and min-height matches standard cards
+            className="relative flex flex-col justify-between p-6 sm:p-8 bg-black rounded-2xl min-h-[380px] sm:min-h-[450px] overflow-hidden group"
           >
             {/* Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-black opacity-100" />
@@ -120,14 +129,14 @@ const ExperienceSection = () => {
                 <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-medium mb-4 backdrop-blur-sm border border-white/10">
                   Get Involved
                 </span>
-                <h3 className="text-2xl font-semibold text-white">
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">
                   Want to be involved?
                 </h3>
               </div>
 
               <a
                 href="/contact"
-                className="group/btn flex items-center justify-between w-full bg-white text-black px-6 py-4 rounded-full font-semibold mt-8 transition-transform active:scale-95"
+                className="group/btn flex items-center justify-between w-full bg-white text-black px-5 py-3 sm:px-6 sm:py-4 rounded-full font-semibold mt-8 transition-transform active:scale-95 text-sm sm:text-base"
               >
                 <span>Get in touch</span>
                 <svg

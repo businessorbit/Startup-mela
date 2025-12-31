@@ -1,5 +1,3 @@
-// FILE: src/pages/SponsorsPage.jsx
-
 import React from "react";
 import SponsorsSection from "../components/Sponsers/Sponsers";
 import Navbar from "../components/Navbar/Navbar";
