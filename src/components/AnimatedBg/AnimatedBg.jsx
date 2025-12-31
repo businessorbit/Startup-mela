@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from 'react';
 
 const AnimatedBg = () => {
   const canvasRef = useRef(null);
@@ -7,7 +7,7 @@ const AnimatedBg = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     let animationFrameId;
 
     // Configuration
@@ -37,9 +37,9 @@ const AnimatedBg = () => {
       mouse.y = null;
     };
 
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseout", handleMouseLeave);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseout', handleMouseLeave);
 
     // Particle Class
     class Particle {
@@ -60,24 +60,21 @@ const AnimatedBg = () => {
       }
 
       draw() {
-        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    const particles = Array.from(
-      { length: particleCount },
-      () => new Particle()
-    );
+    const particles = Array.from({ length: particleCount }, () => new Particle());
 
     // Animation Loop
     const animate = () => {
       ctx.clearRect(0, 0, w, h);
-
+      
       // Black Background
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, w, h);
 
       particles.forEach((particle) => {
@@ -92,9 +89,7 @@ const AnimatedBg = () => {
 
           if (distance < mouseDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${
-              1 - distance / mouseDistance
-            })`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / mouseDistance})`;
             ctx.lineWidth = 0.8;
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -110,9 +105,7 @@ const AnimatedBg = () => {
 
           if (distance < connectionDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${
-              0.1 - (distance / connectionDistance) * 0.1
-            })`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance / connectionDistance * 0.1})`;
             ctx.lineWidth = 0.2;
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
@@ -127,9 +120,9 @@ const AnimatedBg = () => {
     animate();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseout", handleMouseLeave);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseout', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -137,11 +130,7 @@ const AnimatedBg = () => {
   return (
     <canvas
       ref={canvasRef}
-      // CHANGED:
-      // 1. Swapped 'top-0 left-0' for 'inset-0' (cleaner full coverage).
-      // 2. Added 'block' to prevent inline-canvas spacing bugs.
-      // 3. Kept z-index and pointer-events as is.
-      className="fixed inset-0 w-full h-full block -z-50 pointer-events-none"
+      className="fixed top-0 left-0 w-full h-full -z-50 pointer-events-none"
     />
   );
 };
