@@ -2,7 +2,7 @@ export const passes = [
   {
     id: 1,
     title: "General Entry Pass",
-    price: "₹60",
+    price: "₹50",
     oldPrice: null,
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
@@ -16,7 +16,7 @@ export const passes = [
   {
     id: 2,
     title: "Arena Pass",
-    price: "₹1,420",
+    price: "₹1,000",
     oldPrice: null, 
     features: [
       "Everything in the General Entry Pass",
@@ -28,7 +28,7 @@ export const passes = [
   {
     id: 3,
     title: "All-Access Conference Pass",
-    price: "₹3,520",
+    price: "₹2,100",
     oldPrice: null,
     features: [
       "Everything in the Arena Pass",
