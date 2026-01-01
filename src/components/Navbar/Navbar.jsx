@@ -10,6 +10,7 @@ const navLinks = [
     href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3",
   },
   { label: "Passes", href: "#passes" },
+  { label: "Exhibition Stalls", href: "/exhibition-stalls" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Work with Us", href: "/workwithus" },
   { label: "Contact", href: "/contact" },
@@ -59,7 +60,7 @@ const Navbar = () => {
           {/* Logo Text: text-xl mobile -> text-2xl sm -> text-3xl md */}
           <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight pb-2">
             Startup
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
               Mela
             </span>
           </span>
@@ -89,9 +90,9 @@ const Navbar = () => {
             className="pl-6 pr-5 py-2.5 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-neutral-200 transition-colors flex items-center gap-2 group"
           >
             Get Tickets
-            <ArrowRight 
-              size={16} 
-              strokeWidth={2.5} 
+            <ArrowRight
+              size={16}
+              strokeWidth={2.5}
               className="group-hover:translate-x-1 transition-transform duration-300"
             />
           </motion.a>

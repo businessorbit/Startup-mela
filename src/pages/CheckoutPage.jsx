@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { passes } from "../data/passes";
+import { stalls } from "../data/stalls";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
 import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
@@ -9,13 +10,19 @@ import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
 const CheckoutPage = () => {
   const [searchParams] = useSearchParams();
   const passId = parseInt(searchParams.get("passId"));
-  const selectedPass = passes.find((p) => p.id === passId);
+  const stallId = parseInt(searchParams.get("stallId"));
+
+  // Determine if it's a stall or pass
+  const isStall = !!stallId;
+  const selectedPass = passId ? passes.find((p) => p.id === passId) : null;
+  const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
+  const selectedItem = isStall ? selectedStall : selectedPass;
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    quantity: 1,
+    quantity: isStall ? 1 : 1, // Stalls always quantity 1
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
@@ -31,16 +38,21 @@ const CheckoutPage = () => {
     if (error) setError("");
   };
 
-  const incrementQty = () =>
+  const incrementQty = () => {
+    if (isStall) return; // Stalls can't have multiple quantities
     setFormData((prev) => ({
       ...prev,
       quantity: Math.min(prev.quantity + 1, 10),
     }));
-  const decrementQty = () =>
+  };
+
+  const decrementQty = () => {
+    if (isStall) return; // Stalls can't have multiple quantities
     setFormData((prev) => ({
       ...prev,
       quantity: Math.max(prev.quantity - 1, 1),
     }));
+  };
 
   // --- REAL API INTEGRATION ---
   const createCheckoutOrder = async (orderPayload) => {
@@ -102,11 +114,23 @@ const CheckoutPage = () => {
       return;
     }
 
-    // Parse the price string (remove non-digits)
-    const numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-    const totalAmount = isNaN(numericPrice)
-      ? 0
-      : numericPrice * formData.quantity;
+    // Parse the price - handle both passes and stalls
+    let numericPrice,
+      totalAmount,
+      gstAmount = 0,
+      baseAmount = 0;
+
+    if (isStall) {
+      // For stalls: use totalPrice which already includes GST
+      numericPrice = selectedStall.totalPrice;
+      totalAmount = numericPrice; // Stalls always quantity 1
+      baseAmount = selectedStall.basePrice;
+      gstAmount = selectedStall.gstAmount;
+    } else {
+      // For passes: no GST
+      numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
+      totalAmount = isNaN(numericPrice) ? 0 : numericPrice * formData.quantity;
+    }
 
     if (totalAmount <= 0) {
       setError("Invalid amount. Please try again.");
@@ -116,15 +140,28 @@ const CheckoutPage = () => {
 
     try {
       // 1. Send order details to Backend
-      const response = await createCheckoutOrder({
+      const orderPayload = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        passType: selectedPass.title,
         amount: totalAmount,
         quantity: formData.quantity,
-        passId: selectedPass.id,
-      });
+      };
+
+      // Add type-specific fields
+      if (isStall) {
+        orderPayload.itemType = "stall";
+        orderPayload.stallType = selectedStall.title;
+        orderPayload.stallId = selectedStall.id;
+        orderPayload.baseAmount = baseAmount;
+        orderPayload.gstAmount = gstAmount;
+      } else {
+        orderPayload.itemType = "pass";
+        orderPayload.passType = selectedPass.title;
+        orderPayload.passId = selectedPass.id;
+      }
+
+      const response = await createCheckoutOrder(orderPayload);
 
       // 2. Redirect to PhonePe Gateway
       if (response && response.redirectUrl) {
@@ -141,11 +178,11 @@ const CheckoutPage = () => {
     }
   };
 
-  if (!selectedPass) {
+  if (!selectedItem) {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4">
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
-          Pass not found
+          {isStall ? "Stall" : "Pass"} not found
         </h2>
         <Link
           to="/"
@@ -158,10 +195,20 @@ const CheckoutPage = () => {
   }
 
   // Calculate Display Amount
-  const numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-  const totalAmount = isNaN(numericPrice)
-    ? 0
-    : numericPrice * formData.quantity;
+  let numericPrice,
+    totalAmount,
+    gstAmount = 0,
+    baseAmount = 0;
+
+  if (isStall) {
+    numericPrice = selectedStall.totalPrice;
+    totalAmount = numericPrice;
+    baseAmount = selectedStall.basePrice;
+    gstAmount = selectedStall.gstAmount;
+  } else {
+    numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
+    totalAmount = isNaN(numericPrice) ? 0 : numericPrice * formData.quantity;
+  }
 
   return (
     <div
@@ -186,35 +233,53 @@ const CheckoutPage = () => {
             <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[520px] shadow-2xl shadow-blue-900/10 border border-white/10">
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay z-0" />
-              {selectedPass.popular && (
+              {selectedItem?.popular && (
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[80px] -translate-y-1/2 translate-x-1/2" />
               )}
 
               <div className="relative z-10 flex flex-col h-full">
                 <div className="mb-auto">
                   <span className="inline-block px-2.5 sm:px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-300 mb-4 sm:mb-5 md:mb-6">
-                    Selected Pass
+                    Selected {isStall ? "Stall" : "Pass"}
                   </span>
                   <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
-                    {selectedPass.title}
+                    {selectedItem.title}
                   </h3>
 
                   <div className="mt-4 sm:mt-5 md:mt-6 mb-6 sm:mb-7 md:mb-8">
-                    <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-                      {selectedPass.price}
-                      {!selectedPass.price.includes("20,000") && (
-                        <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-500 ml-2">
-                          /person
-                        </span>
-                      )}
-                    </p>
+                    {isStall ? (
+                      <div className="space-y-2">
+                        <p className="text-sm text-neutral-400">
+                          Base Price: {selectedStall.price}
+                        </p>
+                        <p className="text-xs text-neutral-500">
+                          + GST (18%): ₹
+                          {selectedStall.gstAmount.toLocaleString("en-IN")}
+                        </p>
+                        <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+                          {selectedStall.displayPrice}
+                          <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-400 ml-2">
+                            (incl. GST)
+                          </span>
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+                        {selectedPass.price}
+                        {!selectedPass.price.includes("20,000") && (
+                          <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-500 ml-2">
+                            /person
+                          </span>
+                        )}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="h-px w-full bg-white/10 mb-6 sm:mb-7 md:mb-8" />
 
                 <ul className="space-y-3 sm:space-y-3.5 md:space-y-4">
-                  {selectedPass.features.map((feature, idx) => (
+                  {selectedItem.features.map((feature, idx) => (
                     <li
                       key={idx}
                       className="flex items-start text-xs sm:text-sm text-neutral-300"
@@ -236,6 +301,20 @@ const CheckoutPage = () => {
                     </li>
                   ))}
                 </ul>
+
+                {isStall && selectedStall.bestFor && (
+                  <>
+                    <div className="h-px w-full bg-white/10 my-6" />
+                    <div>
+                      <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">
+                        Best For
+                      </p>
+                      <p className="text-sm text-neutral-300">
+                        {selectedStall.bestFor}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
@@ -257,31 +336,33 @@ const CheckoutPage = () => {
             </div>
 
             <form onSubmit={handlePayment} className="space-y-5 sm:space-y-6">
-              {/* Quantity Selector */}
-              <div>
-                <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2 sm:mb-3">
-                  Quantity
-                </label>
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <button
-                    type="button"
-                    onClick={decrementQty}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
-                  >
-                    -
-                  </button>
-                  <span className="text-xl sm:text-2xl font-bold w-6 sm:w-8 text-center">
-                    {formData.quantity}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={incrementQty}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
-                  >
-                    +
-                  </button>
+              {/* Quantity Selector - Only show for passes */}
+              {!isStall && (
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2 sm:mb-3">
+                    Quantity
+                  </label>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <button
+                      type="button"
+                      onClick={decrementQty}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
+                    >
+                      -
+                    </button>
+                    <span className="text-xl sm:text-2xl font-bold w-6 sm:w-8 text-center">
+                      {formData.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={incrementQty}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-lg sm:text-xl font-bold hover:bg-neutral-200 transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Inputs */}
               <div className="space-y-3.5 sm:space-y-4">
@@ -330,13 +411,32 @@ const CheckoutPage = () => {
               </div>
 
               {/* Total Summary */}
-              <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 flex justify-between items-center border border-neutral-100">
-                <span className="text-sm sm:text-base text-neutral-500 font-medium">
-                  Total Amount
-                </span>
-                <span className="text-xl sm:text-2xl font-bold text-black">
-                  ₹{totalAmount.toLocaleString("en-IN")}
-                </span>
+              <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 space-y-3">
+                {isStall && (
+                  <>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-neutral-600">Base Amount</span>
+                      <span className="font-semibold text-black">
+                        ₹{baseAmount.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-neutral-600">GST (18%)</span>
+                      <span className="font-semibold text-black">
+                        ₹{gstAmount.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                    <div className="h-px bg-neutral-200" />
+                  </>
+                )}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-neutral-500 font-medium">
+                    Total Amount
+                  </span>
+                  <span className="text-xl sm:text-2xl font-bold text-black">
+                    ₹{totalAmount.toLocaleString("en-IN")}
+                  </span>
+                </div>
               </div>
 
               {/* Submit Button */}

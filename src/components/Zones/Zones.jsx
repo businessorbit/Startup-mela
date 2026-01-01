@@ -8,10 +8,7 @@ const zones = [
       "A high-energy exhibition space featuring 300+ startups, 192 tables, 45 pods, 22 premium pods, and 50,000+ footfall.",
     details: [
       "300+ Startups",
-      "192 Tables",
-      "45 Pods",
-      "22 Premium Pods",
-      "50,000+ Footfall",
+      "15,000+ Footfall",
     ],
   },
   {

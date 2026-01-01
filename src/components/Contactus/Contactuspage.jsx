@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 
 // Backend API Base
 const API_BASE = import.meta.env.VITE_API_URL; // <-- REPLACE THIS
 
 const ContactPage = () => {
+  const [searchParams] = useSearchParams();
+  const stallId = searchParams.get("stallId");
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -14,6 +18,24 @@ const ContactPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // success | error | null
+
+  // Pre-fill form if coming from stalls page
+  useEffect(() => {
+    if (stallId) {
+      const stallMessages = {
+        1: "I'm interested in the 4 × 4 ft Exhibition Stall (₹12,000). Please provide more details.",
+        2: "I'm interested in the 6 × 6 ft Exhibition Stall (₹25,000). Please provide more details.",
+        3: "I'm interested in the 8 × 8 ft Premium Exhibition Stall (₹35,000). Please provide more details.",
+      };
+      setFormState({
+        ...formState,
+        category: "stalls",
+        message:
+          stallMessages[stallId] ||
+          "I'm interested in exhibition stalls. Please provide more details.",
+      });
+    }
+  }, [stallId]);
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
