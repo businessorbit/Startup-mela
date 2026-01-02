@@ -36,25 +36,22 @@ const Counter = ({ value, label, icon }) => {
   }, [isInView, targetNumber]);
 
   return (
-    <div
-      ref={ref}
-      // Adjusted margins: Removed large ml-20 on mobile, kept for xl screens
-      className="flex flex-col ml-0 md:ml-0 lg:ml-10 xl:ml-20"
-    >
+    <div ref={ref} className="flex flex-col items-start">
       {/* Icon and Value aligned horizontally */}
-      <div className="flex items-center gap-2 sm:gap-3 mb-1">
-        <div className="p-2 rounded-full bg-neutral-100/50 text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
-          {/* The icon itself will take the gradient color */}
-          {icon}
+      <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+        <div className="p-1.5 sm:p-2 rounded-full bg-neutral-100/50 flex-shrink-0">
+          <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
+            {icon}
+          </div>
         </div>
-        {/* Responsive font size: text-3xl mobile -> text-5xl desktop */}
-        <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight tabular-nums">
+        {/* Responsive font size with better scaling */}
+        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black tracking-tight tabular-nums">
           {count}
           {suffix}
         </div>
       </div>
       {/* Label underneath */}
-      <p className="text-xs sm:text-sm font-bold titlecase tracking-wider text-neutral-500 pl-2 sm:pl-3">
+      <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-500 pl-0.5">
         {label}
       </p>
     </div>
@@ -75,7 +72,7 @@ const AboutSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Top Layout: Grid */}
         {/* Changed grid columns to stack on mobile, sidebar layout on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] lg:grid-cols-[200px_1fr] gap-8 md:gap-10 mb-12 sm:mb-16 md:mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-24">
           {/* Left Label */}
           <div className="relative">
             <motion.p
@@ -83,7 +80,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-xs sm:text-sm font-bold tracking-widest text-neutral-400 flex items-center gap-2"
+              className="text-xs sm:text-sm font-bold tracking-widest text-neutral-400 uppercase flex items-center gap-2"
             >
               <span className="text-blue-600 font-black tracking-tighter">
                 ~~
@@ -99,23 +96,22 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              // Responsive font size and line height
-              className="text-3xl sm:text-4xl md:text-5xl leading-tight md:leading-[1.15] font-medium text-neutral-400 max-w-4xl"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight sm:leading-tight md:leading-[1.2] font-medium text-neutral-400 max-w-4xl"
             >
               Join the biggest{" "}
-              <span className="text-black font-bold">Startup Exhibiton</span>,in{" "}
-              <span className="text-black font-bold">Chandigarh</span>.
-              <span className="text-black font-bold">Pitch</span>your ideas to
-              top <span className="text-black font-bold">investors</span>, and
-              <span className="text-black font-bold">network </span>with
+              <span className="text-black font-bold">Startup Exhibition</span>,
+              in <span className="text-black font-bold">Chandigarh</span>.{" "}
+              <span className="text-black font-bold">Pitch</span> your ideas to
+              top <span className="text-black font-bold">investors</span>, and{" "}
+              <span className="text-black font-bold">network</span> with
               thousands of founders.
             </motion.h2>
           </div>
         </div>
 
         {/* Stats Row */}
-        {/* Responsive Grid: 2 cols mobile -> 4 cols desktop. Adjusted Gaps. */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 sm:gap-y-16 md:gap-y-20 gap-x-4 sm:gap-x-8 border-t border-neutral-100 pt-8 sm:pt-12 font-bold">
+        {/* Responsive Grid: 1 col on small mobile, 2 cols mobile -> 4 cols on larger screens */}
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12 lg:gap-y-0 gap-x-6 sm:gap-x-8 lg:gap-x-12 border-t border-neutral-200 pt-8 sm:pt-12 lg:pt-16 font-bold">
           <Counter
             value="10+"
             label="Sub-Events"

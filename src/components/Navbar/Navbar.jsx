@@ -57,22 +57,22 @@ const Navbar = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
-          {/* Logo Text: text-xl mobile -> text-2xl sm -> text-3xl md */}
-          <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight pb-2">
+          {/* Logo Text: responsive sizing */}
+          <span className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight pb-2">
             Startup
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
               Mela
             </span>
           </span>
-          {/* Year Text: text-xs mobile -> text-sm sm -> text-base md */}
-          <span className="ml-2 text-xs sm:text-sm md:text-base font-semibold text-neutral-400 align-top pb-2 md:pb-5">
+          {/* Year Text: responsive sizing */}
+          <span className="ml-2 text-xs sm:text-sm lg:text-base font-semibold text-neutral-400 align-top pb-2 lg:pb-5">
             2026
           </span>
         </a>
 
         {/* Desktop Links */}
-        {/* Adjusted Gap: gap-8 for lg (laptops) -> gap-12 for xl (large screens) to prevent cramping */}
-        <div className="hidden lg:flex items-baseline gap-8 xl:gap-12 font-semibold">
+        {/* Responsive Gap: smaller gap for tablets (lg), larger for desktops (xl) */}
+        <div className="hidden 2xl:flex items-baseline gap-8 xl:gap-12 font-semibold">
           {navLinks.map((link) => (
             <NavLink
               key={link.label}
@@ -102,7 +102,7 @@ const Navbar = () => {
         {/* --- Mobile Hamburger Toggle --- */}
         <button
           onClick={() => setIsOpen(true)}
-          className="lg:hidden p-2 bg-white rounded-lg text-black focus:outline-none z-101"
+          className="2xl:hidden p-2 bg-white rounded-lg text-black focus:outline-none z-101"
           aria-label="Open menu"
         >
           <Menu size={30} strokeWidth={2.5} />

@@ -38,7 +38,7 @@ const SponsorsSection = () => {
 
           {/* Right Link */}
           <a 
-            href="#contact"
+            href="/contact"
             className="group flex items-center gap-2 text-base font-medium text-black hover:text-purple-600 transition-colors"
           >
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
