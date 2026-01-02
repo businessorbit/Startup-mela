@@ -103,29 +103,31 @@ const Hero = () => {
 
         {/* --- Single CTA Button --- */}
         <motion.div variants={itemVariants}>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-12 py-5 rounded-full bg-white text-black font-bold text-xl shadow-lg shadow-white/10 hover:shadow-white/25 transition-all duration-300 overflow-hidden flex items-center gap-3"
-          >
-            <span className="relative z-10">Get passes</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="relative z-10 group-hover:translate-x-1 transition-transform duration-300"
+          <a href="#passes">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-12 py-5 rounded-full bg-white text-black font-bold text-xl shadow-lg shadow-white/10 hover:shadow-white/25 transition-all duration-300 overflow-hidden flex items-center gap-3"
             >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
-          </motion.button>
+              <span className="relative z-10">Get passes</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="relative z-10 group-hover:translate-x-1 transition-transform duration-300"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+            </motion.button>
+          </a>
         </motion.div>
       </motion.div>
 

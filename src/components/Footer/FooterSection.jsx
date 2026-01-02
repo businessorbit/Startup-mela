@@ -61,19 +61,20 @@ const FooterSection = () => {
         >
           Secure your spot for Startup Mela 2026 now.
         </motion.p>
-
-        <motion.button
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
-          // Responsive padding and font size for button
-          className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white text-base sm:text-lg font-bold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-shadow"
-        >
-          Get your ticket
-        </motion.button>
+        <a href="#passes">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+            // Responsive padding and font size for button
+            className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white text-base sm:text-lg font-bold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-shadow"
+          >
+            Get your ticket
+          </motion.button>
+        </a>
       </div>
 
       {/* Bottom Navigation */}
