@@ -100,7 +100,7 @@ const VolunteerForm = () => {
     // Submit to backend
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${API_BASE}/volunteer`, {
+      const response = await fetch(`${API_BASE}/api/volunteer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -139,24 +139,64 @@ const VolunteerForm = () => {
   // ---------------- SUCCESS MESSAGE ----------------
   if (submitStatus === "success") {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-3xl p-6 sm:p-12 text-center shadow-xl max-w-2xl mx-auto font-sans m-4"
-      >
-        <h3 className="text-2xl sm:text-3xl font-bold mt-8 sm:mt-12 text-black mb-4">
-          Application Received!
-        </h3>
-        <p className="text-neutral-600 text-base sm:text-lg mb-6 sm:mb-8">
-          Thank You For Your Interest In Joining Startup Mela 2026.
-        </p>
-        <button
-          onClick={() => setSubmitStatus(null)}
-          className="px-6 py-2 sm:px-8 sm:py-3 rounded-full bg-neutral-100 text-neutral-900 font-bold hover:bg-neutral-200 transition-colors text-sm sm:text-base"
+      <div className="min-h-[70vh] flex items-center justify-center px-4 py-12 sm:py-20">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="bg-white rounded-3xl p-8 sm:p-16 text-center shadow-2xl max-w-3xl w-full mx-auto"
         >
-          Submit Another Response
-        </button>
-      </motion.div>
+          {/* Success Icon */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 sm:mb-8 bg-green-100 rounded-full flex items-center justify-center"
+          >
+            <svg
+              className="w-8 h-8 sm:w-10 sm:h-10 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </motion.div>
+
+          <motion.h3
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6"
+          >
+            Application Received!
+          </motion.h3>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-neutral-600 text-lg sm:text-xl mb-8 sm:mb-10 leading-relaxed"
+          >
+            Thank You For Your Interest In Joining Startup Mela 2026.
+          </motion.p>
+
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            onClick={() => setSubmitStatus(null)}
+            className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-black text-white font-semibold hover:bg-neutral-800 transition-all text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            Submit Another Response
+          </motion.button>
+        </motion.div>
+      </div>
     );
   }
 
