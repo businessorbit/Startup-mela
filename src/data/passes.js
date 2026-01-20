@@ -17,13 +17,14 @@ export const passes = [
     id: 2,
     title: "Arena Pass",
     price: "₹1,000",
-    oldPrice: null, 
+    oldPrice: null,
     features: [
       "Everything in the General Entry Pass",
       "Entry to Stage Side (Zone 2)",
       "Public viewing of Main Stage events"
     ],
-    popular: true
+    popular: true,
+    comingSoon: true
   },
   {
     id: 3,

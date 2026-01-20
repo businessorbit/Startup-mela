@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { passes } from "../data/passes";
 import { stalls } from "../data/stalls";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
 import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
 
+const PROFESSION_OPTIONS = [
+  "Student",
+  "Entrepreneur/Startup Founder",
+  "Investor/VC",
+  "Corporate Professional",
+  "Freelancer/Consultant",
+  "Developer/Engineer",
+  "Designer",
+  "Marketing Professional",
+  "Others"
+];
+
 const CheckoutPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const passId = parseInt(searchParams.get("passId"));
   const stallId = parseInt(searchParams.get("stallId"));
+  const paymentStatus = searchParams.get("paymentStatus");
+  const orderId = searchParams.get("orderId");
 
   // Determine if it's a stall or pass
   const isStall = !!stallId;
@@ -18,50 +32,168 @@ const CheckoutPage = () => {
   const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
   const selectedItem = isStall ? selectedStall : selectedPass;
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    quantity: isStall ? 1 : 1, // Stalls always quantity 1
-  });
+  const [quantity, setQuantity] = useState(isStall ? 1 : 1);
+  const [attendees, setAttendees] = useState([
+    { name: "", email: "", phone: "", profession: "", professionOther: "" }
+  ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successData, setSuccessData] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Check for payment success
+    if (paymentStatus === "success" && orderId) {
+      checkPaymentStatus(orderId);
+    }
+  }, [paymentStatus, orderId]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
+  // Update attendees array when quantity changes
+  useEffect(() => {
+    const currentLength = attendees.length;
+    if (quantity > currentLength) {
+      // Add more attendee slots
+      const newAttendees = [...attendees];
+      for (let i = currentLength; i < quantity; i++) {
+        newAttendees.push({ name: "", email: "", phone: "", profession: "", professionOther: "" });
+      }
+      setAttendees(newAttendees);
+    } else if (quantity < currentLength) {
+      // Remove extra attendee slots
+      setAttendees(attendees.slice(0, quantity));
+    }
+  }, [quantity]);
+
+  const checkPaymentStatus = async (transactionId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/status/${transactionId}`
+      );
+      const data = await response.json();
+      
+      if (data.success) {
+        setSuccessData(data);
+        setShowSuccessModal(true);
+        // Clean up URL parameters
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete("paymentStatus");
+        newParams.delete("orderId");
+        setSearchParams(newParams);
+      }
+    } catch (err) {
+      console.error("Error checking payment status:", err);
+    }
+  };
+
+  const handleAttendeeChange = (index, field, value) => {
+    const newAttendees = [...attendees];
+    newAttendees[index][field] = value;
+    setAttendees(newAttendees);
     if (error) setError("");
   };
 
   const incrementQty = () => {
     if (isStall) return; // Stalls can't have multiple quantities
-    setFormData((prev) => ({
-      ...prev,
-      quantity: Math.min(prev.quantity + 1, 10),
-    }));
+    setQuantity((prev) => Math.min(prev + 1, 5));
   };
 
   const decrementQty = () => {
     if (isStall) return; // Stalls can't have multiple quantities
-    setFormData((prev) => ({
-      ...prev,
-      quantity: Math.max(prev.quantity - 1, 1),
-    }));
+    setQuantity((prev) => Math.max(prev - 1, 1));
   };
 
-  // --- REAL API INTEGRATION ---
-  const createCheckoutOrder = async (orderPayload) => {
+  const validateAttendees = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneDigits = /^[6-9]\d{9}$/;
+
+    for (let i = 0; i < attendees.length; i++) {
+      const attendee = attendees[i];
+      
+      if (!attendee.name.trim() || attendee.name.trim().length < 2) {
+        setError(`Attendee ${i + 1}: Please enter a valid name (minimum 2 characters)`);
+        return false;
+      }
+
+      if (!emailRegex.test(attendee.email)) {
+        setError(`Attendee ${i + 1}: Please enter a valid email address`);
+        return false;
+      }
+
+      const cleanPhone = attendee.phone.replace(/[\s+\-()]/g, "");
+      if (!phoneDigits.test(cleanPhone.slice(-10))) {
+        setError(`Attendee ${i + 1}: Please enter a valid 10-digit phone number`);
+        return false;
+      }
+
+      if (!attendee.profession) {
+        setError(`Attendee ${i + 1}: Please select a profession`);
+        return false;
+      }
+
+      if (attendee.profession === "Others" && !attendee.professionOther.trim()) {
+        setError(`Attendee ${i + 1}: Please specify your profession`);
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    setError("");
+
+    if (!validateAttendees()) {
+      setIsProcessing(false);
+      return;
+    }
+
+    // Parse the price - handle both passes and stalls
+    let numericPrice,
+      totalAmount,
+      gstAmount = 0,
+      baseAmount = 0;
+
+    if (isStall) {
+      numericPrice = selectedStall.totalPrice;
+      totalAmount = numericPrice;
+      baseAmount = selectedStall.basePrice;
+      gstAmount = selectedStall.gstAmount;
+    } else {
+      numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
+      totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
+    }
+
+    if (totalAmount <= 0) {
+      setError("Invalid amount. Please try again.");
+      setIsProcessing(false);
+      return;
+    }
+
     try {
+      const orderPayload = {
+        attendees: attendees,
+        amount: totalAmount,
+        quantity: quantity,
+        itemType: isStall ? "stall" : "pass",
+      };
+
+      // Add type-specific fields
+      if (isStall) {
+        orderPayload.stallType = selectedStall.title;
+        orderPayload.stallId = selectedStall.id;
+        orderPayload.baseAmount = baseAmount;
+        orderPayload.gstAmount = gstAmount;
+      } else {
+        orderPayload.passType = selectedPass.title;
+        orderPayload.passId = selectedPass.id;
+      }
+
       const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL ||
-          "https://startupmelabackend.vercel.app"
-        }/api/payment/create`,
+        `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/create`,
         {
           method: "POST",
           headers: {
@@ -77,103 +209,15 @@ const CheckoutPage = () => {
         throw new Error(data.message || "Failed to initiate payment");
       }
 
-      return data;
-    } catch (err) {
-      throw err;
-    }
-  };
-
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    setIsProcessing(true);
-    setError("");
-
-    // Validate form data
-    if (!formData.name.trim() || formData.name.trim().length < 2) {
-      setError("Please enter a valid name (minimum 2 characters)");
-      setIsProcessing(false);
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
-      setIsProcessing(false);
-      return;
-    }
-
-    // Phone validation (Indian numbers)
-    const phoneDigits = formData.phone.replace(/[\s+\-()]/g, "");
-    if (
-      phoneDigits.length < 10 ||
-      !/^[6-9]\d{9}$/.test(phoneDigits.slice(-10))
-    ) {
-      setError("Please enter a valid 10-digit phone number");
-      setIsProcessing(false);
-      return;
-    }
-
-    // Parse the price - handle both passes and stalls
-    let numericPrice,
-      totalAmount,
-      gstAmount = 0,
-      baseAmount = 0;
-
-    if (isStall) {
-      // For stalls: use totalPrice which already includes GST
-      numericPrice = selectedStall.totalPrice;
-      totalAmount = numericPrice; // Stalls always quantity 1
-      baseAmount = selectedStall.basePrice;
-      gstAmount = selectedStall.gstAmount;
-    } else {
-      // For passes: no GST
-      numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-      totalAmount = isNaN(numericPrice) ? 0 : numericPrice * formData.quantity;
-    }
-
-    if (totalAmount <= 0) {
-      setError("Invalid amount. Please try again.");
-      setIsProcessing(false);
-      return;
-    }
-
-    try {
-      // 1. Send order details to Backend
-      const orderPayload = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        amount: totalAmount,
-        quantity: formData.quantity,
-      };
-
-      // Add type-specific fields
-      if (isStall) {
-        orderPayload.itemType = "stall";
-        orderPayload.stallType = selectedStall.title;
-        orderPayload.stallId = selectedStall.id;
-        orderPayload.baseAmount = baseAmount;
-        orderPayload.gstAmount = gstAmount;
-      } else {
-        orderPayload.itemType = "pass";
-        orderPayload.passType = selectedPass.title;
-        orderPayload.passId = selectedPass.id;
-      }
-
-      const response = await createCheckoutOrder(orderPayload);
-
-      // 2. Redirect to PhonePe Gateway
-      if (response && response.redirectUrl) {
-        window.location.href = response.redirectUrl;
+      // Redirect to PhonePe Gateway
+      if (data && data.redirectUrl) {
+        window.location.href = data.redirectUrl;
       } else {
         throw new Error("Invalid response from server");
       }
     } catch (err) {
       console.error(err);
-      setError(
-        err.message || "Payment initialization failed. Please try again."
-      );
+      setError(err.message || "Payment initialization failed. Please try again.");
       setIsProcessing(false);
     }
   };
@@ -207,7 +251,7 @@ const CheckoutPage = () => {
     gstAmount = selectedStall.gstAmount;
   } else {
     numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-    totalAmount = isNaN(numericPrice) ? 0 : numericPrice * formData.quantity;
+    totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
   }
 
   return (
@@ -264,14 +308,21 @@ const CheckoutPage = () => {
                         </p>
                       </div>
                     ) : (
-                      <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        {selectedPass.price}
-                        {!selectedPass.price.includes("20,000") && (
-                          <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-500 ml-2">
-                            /person
-                          </span>
+                      <div>
+                        <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+                          {selectedPass.price}
+                          {!selectedPass.price.includes("20,000") && (
+                            <span className="text-sm sm:text-base md:text-lg font-normal text-neutral-500 ml-2">
+                              /person
+                            </span>
+                          )}
+                        </p>
+                        {quantity > 1 && (
+                          <p className="text-sm text-neutral-400 mt-2">
+                            {quantity} tickets × {selectedPass.price} = ₹{totalAmount.toLocaleString("en-IN")}
+                          </p>
                         )}
-                      </p>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -323,7 +374,7 @@ const CheckoutPage = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ durati: 0.2 }}
+            transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl sm:rounded-3xl md:rounded-[2rem] p-6 sm:p-8 md:p-10 lg:p-12 text-black shadow-2xl"
           >
             <div className="mb-6 sm:mb-7 md:mb-8 border-b border-neutral-100 pb-4 sm:pb-5 md:pb-6">
@@ -340,7 +391,7 @@ const CheckoutPage = () => {
               {!isStall && (
                 <div>
                   <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-2 sm:mb-3">
-                    Quantity
+                    Number of Tickets
                   </label>
                   <div className="flex items-center gap-3 sm:gap-4">
                     <button
@@ -351,7 +402,7 @@ const CheckoutPage = () => {
                       -
                     </button>
                     <span className="text-xl sm:text-2xl font-bold w-6 sm:w-8 text-center">
-                      {formData.quantity}
+                      {quantity}
                     </span>
                     <button
                       type="button"
@@ -361,53 +412,103 @@ const CheckoutPage = () => {
                       +
                     </button>
                   </div>
+                  <p className="text-xs text-neutral-500 mt-2">Maximum 5 tickets per booking</p>
                 </div>
               )}
 
-              {/* Inputs */}
-              <div className="space-y-3.5 sm:space-y-4">
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="John Doe"
-                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    required
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="john@example.com"
-                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    required
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="+91 98765 43210"
-                    className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                  />
-                </div>
+              {/* Attendee Details */}
+              <div className="space-y-6">
+                {attendees.map((attendee, index) => (
+                  <div key={index} className="border border-neutral-200 rounded-xl p-4 sm:p-5 space-y-3.5 sm:space-y-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-sm sm:text-base font-bold text-neutral-700">
+                        {index === 0 ? "Primary Contact" : `Attendee ${index + 1}`}
+                      </h3>
+                      {quantity > 1 && (
+                        <span className="text-xs text-neutral-500">
+                          {index + 1} of {quantity}
+                        </span>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        required
+                        type="text"
+                        value={attendee.name}
+                        onChange={(e) => handleAttendeeChange(index, "name", e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        required
+                        type="email"
+                        value={attendee.email}
+                        onChange={(e) => handleAttendeeChange(index, "email", e.target.value)}
+                        placeholder="john@example.com"
+                        className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                        Phone Number
+                      </label>
+                      <input
+                        required
+                        type="tel"
+                        value={attendee.phone}
+                        onChange={(e) => handleAttendeeChange(index, "phone", e.target.value)}
+                        placeholder="+91 98765 43210"
+                        className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                        Profession
+                      </label>
+                      <select
+                        required
+                        value={attendee.profession}
+                        onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
+                        className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                      >
+                        <option value="">Select your profession</option>
+                        {PROFESSION_OPTIONS.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {attendee.profession === "Others" && (
+                      <div>
+                        <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                          Please Specify
+                        </label>
+                        <input
+                          required
+                          type="text"
+                          value={attendee.professionOther}
+                          onChange={(e) => handleAttendeeChange(index, "professionOther", e.target.value)}
+                          placeholder="Enter your profession"
+                          className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* Total Summary */}
@@ -469,7 +570,7 @@ const CheckoutPage = () => {
                     Processing...
                   </span>
                 ) : (
-                  "Pay"
+                  "Proceed to Payment"
                 )}
               </button>
 
@@ -486,6 +587,53 @@ const CheckoutPage = () => {
           </motion.div>
         </div>
       </main>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {showSuccessModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowSuccessModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-black mb-2">Payment Successful!</h3>
+                <p className="text-neutral-600 mb-6">
+                  Your booking has been confirmed. Confirmation emails with unique verification codes have been sent to all attendees.
+                </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-blue-900">
+                    <strong>Order ID:</strong> {successData?.tickets?.[0]?.orderId}
+                  </p>
+                  <p className="text-sm text-blue-900 mt-1">
+                    <strong>Tickets:</strong> {successData?.tickets?.length}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowSuccessModal(false)}
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <FooterSection />
     </div>

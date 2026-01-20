@@ -83,9 +83,15 @@ const PassesSection = () => {
                   {pass.title}
                 </h3>
 
-                {pass.popular && (
+                {pass.popular && !pass.comingSoon && (
                   <span className="inline-block self-start px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white mb-4">
                     Best Value
+                  </span>
+                )}
+                
+                {pass.comingSoon && (
+                  <span className="inline-block self-start px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-yellow-600 text-white mb-4">
+                    Coming Soon
                   </span>
                 )}
 
@@ -140,12 +146,17 @@ const PassesSection = () => {
 
                 {/* CTA Button */}
                 <button
-                  onClick={() => handleTicketClick(pass.id)}
+                  onClick={() => !pass.comingSoon && handleTicketClick(pass.id)}
                   data-pass-id={pass.id}
+                  disabled={pass.comingSoon}
                   // Adjusted padding for button
-                  className="w-full py-3 sm:py-3.5 rounded-full bg-white text-black font-bold text-sm hover:bg-neutral-200 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-white/5"
+                  className={`w-full py-3 sm:py-3.5 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-white/5 ${
+                    pass.comingSoon
+                      ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
+                      : 'bg-white text-black hover:bg-neutral-200 hover:scale-[1.02] active:scale-95'
+                  }`}
                 >
-                  Get Ticket
+                  {pass.comingSoon ? 'Coming Soon' : 'Get Ticket'}
                 </button>
               </div>
             </motion.div>
