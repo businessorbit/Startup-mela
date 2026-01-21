@@ -7,28 +7,48 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ExhibitionStallsPage from "./pages/ExhibitionStallsPage";
 import CursorGlow from "./components/CursorGlow/CursorGlow";
 
+// Admin imports
+import { AdminAuthProvider } from "./contexts/AdminAuthContext";
+import AdminRoute from "./components/AdminRoute";
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import DashboardPage from "./pages/admin/DashboardPage";
+import OrdersPage from "./pages/admin/OrdersPage";
+import VerifyTicketPage from "./pages/admin/VerifyTicketPage";
+import VolunteersPage from "./pages/admin/VolunteersPage";
+import InquiriesPage from "./pages/admin/InquiriesPage";
+
 function App() {
   return (
-    <Router>
-      {/* Global Cursor Component 
-        Placed inside Router but outside Routes so it persists across pages.
-      */}
-      <CursorGlow />
+    <AdminAuthProvider>
+      <Router>
+        {/* Global Cursor Component 
+          Placed inside Router but outside Routes so it persists across pages.
+        */}
+        <CursorGlow />
 
-      <Routes>
-        {/* Home Route */}
-        <Route path="/" element={<HomePage />} />
+        <Routes>
+          {/* Home Route */}
+          <Route path="/" element={<HomePage />} />
 
-        {/* Inner Pages */}
-        <Route path="/sponsors" element={<SponsorsPage />} />
-        <Route path="/workwithus" element={<WorkWithUsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/exhibition-stalls" element={<ExhibitionStallsPage />} />
+          {/* Inner Pages */}
+          <Route path="/sponsors" element={<SponsorsPage />} />
+          <Route path="/workwithus" element={<WorkWithUsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/exhibition-stalls" element={<ExhibitionStallsPage />} />
 
-        {/* Checkout Route */}
-        <Route path="/checkout" element={<CheckoutPage />} />
-      </Routes>
-    </Router>
+          {/* Checkout Route */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/dashboard" element={<AdminRoute><DashboardPage /></AdminRoute>} />
+          <Route path="/admin/orders" element={<AdminRoute><OrdersPage /></AdminRoute>} />
+          <Route path="/admin/verify" element={<AdminRoute><VerifyTicketPage /></AdminRoute>} />
+          <Route path="/admin/volunteers" element={<AdminRoute><VolunteersPage /></AdminRoute>} />
+          <Route path="/admin/inquiries" element={<AdminRoute><InquiriesPage /></AdminRoute>} />
+        </Routes>
+      </Router>
+    </AdminAuthProvider>
   );
 }
 

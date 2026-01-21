@@ -34,7 +34,7 @@ const CheckoutPage = () => {
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
-    { name: "", email: "", phone: "", profession: "", professionOther: "" }
+    { name: "", email: "", phone: "", profession: "", professionOther: "", startupName: "" }
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
@@ -57,7 +57,7 @@ const CheckoutPage = () => {
       // Add more attendee slots
       const newAttendees = [...attendees];
       for (let i = currentLength; i < quantity; i++) {
-        newAttendees.push({ name: "", email: "", phone: "", profession: "", professionOther: "" });
+        newAttendees.push({ name: "", email: "", phone: "", profession: "", professionOther: "", startupName: "" });
       }
       setAttendees(newAttendees);
     } else if (quantity < currentLength) {
@@ -106,35 +106,52 @@ const CheckoutPage = () => {
 
   const validateAttendees = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneDigits = /^[6-9]\d{9}$/;
+    const phoneRegex = /^[6-9]\d{9}$/;
 
     for (let i = 0; i < attendees.length; i++) {
       const attendee = attendees[i];
       
-      if (!attendee.name.trim() || attendee.name.trim().length < 2) {
+      // Validate name
+      if (!attendee.name || !attendee.name.trim() || attendee.name.trim().length < 2) {
         setError(`Attendee ${i + 1}: Please enter a valid name (minimum 2 characters)`);
         return false;
       }
 
-      if (!emailRegex.test(attendee.email)) {
+      // Validate email
+      if (!attendee.email || !emailRegex.test(attendee.email.trim())) {
         setError(`Attendee ${i + 1}: Please enter a valid email address`);
         return false;
       }
 
+      // Validate phone - match backend validation exactly
+      if (!attendee.phone) {
+        setError(`Attendee ${i + 1}: Please enter a phone number`);
+        return false;
+      }
       const cleanPhone = attendee.phone.replace(/[\s+\-()]/g, "");
-      if (!phoneDigits.test(cleanPhone.slice(-10))) {
-        setError(`Attendee ${i + 1}: Please enter a valid 10-digit phone number`);
+      if (!phoneRegex.test(cleanPhone.slice(-10))) {
+        setError(`Attendee ${i + 1}: Please enter a valid 10-digit Indian phone number (starting with 6-9)`);
         return false;
       }
 
-      if (!attendee.profession) {
-        setError(`Attendee ${i + 1}: Please select a profession`);
-        return false;
-      }
+      // Type-specific validation
+      if (isStall) {
+        // For stalls: require startupName, profession fields should not be validated
+        if (!attendee.startupName || !attendee.startupName.trim()) {
+          setError(`Attendee ${i + 1}: Please enter the Startup Name`);
+          return false;
+        }
+      } else {
+        // For passes: require profession, startupName should not be validated
+        if (!attendee.profession || !attendee.profession.trim()) {
+          setError(`Attendee ${i + 1}: Please select a profession`);
+          return false;
+        }
 
-      if (attendee.profession === "Others" && !attendee.professionOther.trim()) {
-        setError(`Attendee ${i + 1}: Please specify your profession`);
-        return false;
+        if (attendee.profession === "Others" && (!attendee.professionOther || !attendee.professionOther.trim())) {
+          setError(`Attendee ${i + 1}: Please specify your profession`);
+          return false;
+        }
       }
     }
 
@@ -192,8 +209,15 @@ const CheckoutPage = () => {
         orderPayload.passId = selectedPass.id;
       }
 
+      // Select API URL and endpoint based on environment
+      const API_URL = import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
+      const IS_TEST_MODE = import.meta.env.VITE_TEST_MODE === 'true';
+      const paymentEndpoint = IS_TEST_MODE ? '/api/payment/test' : '/api/payment/create';
+
+      console.log('Payment Config:', { API_URL, IS_TEST_MODE, paymentEndpoint });
+
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/create`,
+        `${API_URL}${paymentEndpoint}`,
         {
           method: "POST",
           headers: {
@@ -473,26 +497,42 @@ const CheckoutPage = () => {
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                        Profession
-                      </label>
-                      <select
-                        required
-                        value={attendee.profession}
-                        onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
-                        className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                      >
-                        <option value="">Select your profession</option>
-                        {PROFESSION_OPTIONS.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      {isStall ? (
+                        <div>
+                          <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                            Startup Name
+                          </label>
+                          <input
+                            required
+                            type="text"
+                            value={attendee.startupName}
+                            onChange={(e) => handleAttendeeChange(index, "startupName", e.target.value)}
+                            placeholder="Your Startup Name"
+                            className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                            Profession
+                          </label>
+                          <select
+                            required
+                            value={attendee.profession}
+                            onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
+                            className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                          >
+                            <option value="">Select your profession</option>
+                            {PROFESSION_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
-                    {attendee.profession === "Others" && (
+                    {!isStall && attendee.profession === "Others" && (
                       <div>
                         <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
                           Please Specify
