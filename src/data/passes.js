@@ -2,7 +2,7 @@ export const passes = [
   {
     id: 1,
     title: "General Entry Pass",
-    price: "₹50",
+    price: "₹5",
     oldPrice: null,
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
