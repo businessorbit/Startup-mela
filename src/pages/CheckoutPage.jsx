@@ -43,7 +43,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     // Check for payment success
     if (paymentStatus === "success" && orderId) {
       checkPaymentStatus(orderId);
@@ -72,7 +72,7 @@ const CheckoutPage = () => {
         `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/status/${transactionId}`
       );
       const data = await response.json();
-      
+
       if (data.success) {
         setSuccessData(data);
         setShowSuccessModal(true);
@@ -110,7 +110,7 @@ const CheckoutPage = () => {
 
     for (let i = 0; i < attendees.length; i++) {
       const attendee = attendees[i];
-      
+
       // Validate name
       if (!attendee.name || !attendee.name.trim() || attendee.name.trim().length < 2) {
         setError(`Attendee ${i + 1}: Please enter a valid name (minimum 2 characters)`);
@@ -180,8 +180,17 @@ const CheckoutPage = () => {
       baseAmount = selectedStall.basePrice;
       gstAmount = selectedStall.gstAmount;
     } else {
-      numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-      totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
+      // Passes now have basePrice and gstAmount structured like stalls
+      if (selectedPass.basePrice !== undefined) {
+        numericPrice = selectedPass.totalPrice;
+        baseAmount = selectedPass.basePrice * quantity;
+        gstAmount = selectedPass.gstAmount * quantity;
+        totalAmount = selectedPass.totalPrice * quantity;
+      } else {
+        // Fallback for any old data structure (though we updated passes.js)
+        numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
+        totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
+      }
     }
 
     if (totalAmount <= 0) {
@@ -207,6 +216,9 @@ const CheckoutPage = () => {
       } else {
         orderPayload.passType = selectedPass.title;
         orderPayload.passId = selectedPass.id;
+        // Also send baseAmount and gstAmount for passes now
+        orderPayload.baseAmount = baseAmount;
+        orderPayload.gstAmount = gstAmount;
       }
 
       // Select API URL and endpoint based on environment
@@ -274,8 +286,15 @@ const CheckoutPage = () => {
     baseAmount = selectedStall.basePrice;
     gstAmount = selectedStall.gstAmount;
   } else {
-    numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
-    totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
+    if (selectedPass.basePrice !== undefined) {
+      numericPrice = selectedPass.totalPrice;
+      baseAmount = selectedPass.basePrice * quantity;
+      gstAmount = selectedPass.gstAmount * quantity;
+      totalAmount = selectedPass.totalPrice * quantity;
+    } else {
+      numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
+      totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
+    }
   }
 
   return (
@@ -343,7 +362,7 @@ const CheckoutPage = () => {
                         </p>
                         {quantity > 1 && (
                           <p className="text-sm text-neutral-400 mt-2">
-                            {quantity} tickets × {selectedPass.price} = ₹{totalAmount.toLocaleString("en-IN")}
+                            {quantity} tickets × {selectedPass.displayPrice || selectedPass.price} = ₹{totalAmount.toLocaleString("en-IN")}
                           </p>
                         )}
                       </div>
@@ -497,40 +516,40 @@ const CheckoutPage = () => {
                       />
                     </div>
 
-                      {isStall ? (
-                        <div>
-                          <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                            Startup Name
-                          </label>
-                          <input
-                            required
-                            type="text"
-                            value={attendee.startupName}
-                            onChange={(e) => handleAttendeeChange(index, "startupName", e.target.value)}
-                            placeholder="Your Startup Name"
-                            className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                          />
-                        </div>
-                      ) : (
-                        <div>
-                          <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
-                            Profession
-                          </label>
-                          <select
-                            required
-                            value={attendee.profession}
-                            onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
-                            className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
-                          >
-                            <option value="">Select your profession</option>
-                            {PROFESSION_OPTIONS.map((option) => (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      )}
+                    {isStall ? (
+                      <div>
+                        <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                          Startup Name
+                        </label>
+                        <input
+                          required
+                          type="text"
+                          value={attendee.startupName}
+                          onChange={(e) => handleAttendeeChange(index, "startupName", e.target.value)}
+                          placeholder="Your Startup Name"
+                          className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-500 mb-1.5 sm:mb-2">
+                          Profession
+                        </label>
+                        <select
+                          required
+                          value={attendee.profession}
+                          onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
+                          className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                        >
+                          <option value="">Select your profession</option>
+                          {PROFESSION_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
 
                     {!isStall && attendee.profession === "Others" && (
                       <div>
@@ -553,23 +572,22 @@ const CheckoutPage = () => {
 
               {/* Total Summary */}
               <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 space-y-3">
-                {isStall && (
-                  <>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-neutral-600">Base Amount</span>
-                      <span className="font-semibold text-black">
-                        ₹{baseAmount.toLocaleString("en-IN")}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-neutral-600">GST (18%)</span>
-                      <span className="font-semibold text-black">
-                        ₹{gstAmount.toLocaleString("en-IN")}
-                      </span>
-                    </div>
-                    <div className="h-px bg-neutral-200" />
-                  </>
-                )}
+                {/* Show breakdown for BOTH stalls and passes now */}
+                <>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-neutral-600">Base Amount {(!isStall && quantity > 1) ? `(${quantity} x ₹${selectedPass.basePrice})` : ''}</span>
+                    <span className="font-semibold text-black">
+                      ₹{baseAmount.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-neutral-600">GST (18%)</span>
+                    <span className="font-semibold text-black">
+                      ₹{gstAmount.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+                  <div className="h-px bg-neutral-200" />
+                </>
                 <div className="flex justify-between items-center">
                   <span className="text-sm sm:text-base text-neutral-500 font-medium">
                     Total Amount

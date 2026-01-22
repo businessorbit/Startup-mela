@@ -5,7 +5,7 @@ const zones = [
     id: 1,
     title: "The Marketplace",
     subtitle:
-      "A high-energy exhibition space featuring 300+ startups, 192 tables, 45 pods, 22 premium pods, and 50,000+ footfall.",
+      "A high-energy exhibition space featuring 300+ startups, 45 pods, 22 premium pods, and 15,000+ footfall.",
     details: [
       "300+ Startups",
       "15,000+ Footfall",

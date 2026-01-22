@@ -136,7 +136,7 @@ const AboutSection = () => {
           />
 
           <Counter
-            value="500+"
+            value="300+"
             label="Startups"
             icon={
               <svg
@@ -182,7 +182,7 @@ const AboutSection = () => {
           />
 
           <Counter
-            value="20000+"
+            value="15000+"
             label="Footfall"
             icon={
               <svg

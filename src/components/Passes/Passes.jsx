@@ -18,7 +18,7 @@ const PassesSection = () => {
       className="relative w-full bg-white py-16 sm:py-24 md:py-32 lg:py-48"
     >
       {/* Adjusted horizontal padding for smaller screens */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-12">
         {/* --- Header Row --- */}
         {/* Adjusted grid gap and margin-bottom for mobile responsiveness */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 sm:mb-16 md:mb-20 items-end">
@@ -48,7 +48,7 @@ const PassesSection = () => {
 
         {/* --- Cards Grid --- */}
         {/* Adjusted gap: gap-4 mobile -> gap-6 sm -> gap-8 lg */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
           {passes.map((pass, index) => (
             <motion.div
               key={pass.id}
@@ -88,7 +88,7 @@ const PassesSection = () => {
                     Best Value
                   </span>
                 )}
-                
+
                 {pass.comingSoon && (
                   <span className="inline-block self-start px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-yellow-600 text-white mb-4">
                     Coming Soon
@@ -105,11 +105,13 @@ const PassesSection = () => {
                   )}
                   {/* Responsive text size for price: 3xl mobile -> 4xl sm */}
                   <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                    {pass.price}
+                    {pass.price || "NA"}
                     {/* Only show '/person' if price isn't a large flat fee like 20k */}
-                    {!pass.price.includes("20,000") && (
+                    {!pass.price ? (
+                      ""
+                    ) : (
                       <span className="text-sm font-normal text-neutral-500 ml-1">
-                        /person
+                        + 18% GST
                       </span>
                     )}
                   </p>
@@ -150,11 +152,10 @@ const PassesSection = () => {
                   data-pass-id={pass.id}
                   disabled={pass.comingSoon}
                   // Adjusted padding for button
-                  className={`w-full py-3 sm:py-3.5 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-white/5 ${
-                    pass.comingSoon
-                      ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
-                      : 'bg-white text-black hover:bg-neutral-200 hover:scale-[1.02] active:scale-95'
-                  }`}
+                  className={`w-full py-3 sm:py-3.5 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-white/5 ${pass.comingSoon
+                    ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
+                    : 'bg-white text-black hover:bg-neutral-200 hover:scale-[1.02] active:scale-95'
+                    }`}
                 >
                   {pass.comingSoon ? 'Coming Soon' : 'Get Ticket'}
                 </button>
