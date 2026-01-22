@@ -103,18 +103,26 @@ const PassesSection = () => {
                       {pass.oldPrice}
                     </p>
                   )}
-                  {/* Responsive text size for price: 3xl mobile -> 4xl sm */}
-                  <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                    {pass.price || "NA"}
-                    {/* Only show '/person' if price isn't a large flat fee like 20k */}
-                    {!pass.price ? (
-                      ""
-                    ) : (
-                      <span className="text-sm font-normal text-neutral-500 ml-1">
-                        + 18% GST
-                      </span>
-                    )}
-                  </p>
+                  {pass.price ? (
+                    <div className="space-y-1">
+                      <p className="text-sm text-neutral-400 font-medium">
+                        Base Price: {pass.price}
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        + GST (18%): ₹{pass.gstAmount?.toLocaleString("en-IN")}
+                      </p>
+                      <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-2">
+                        {pass.displayPrice}
+                        <span className="text-xs font-normal text-neutral-400 ml-2">
+                          (incl. GST)
+                        </span>
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                      NA
+                    </p>
+                  )}
                 </div>
 
                 {/* Divider */}
