@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { passes } from "../data/passes";
+import { passes, isDiscountActive } from "../data/passes";
 import { stalls } from "../data/stalls";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
@@ -574,6 +574,24 @@ const CheckoutPage = () => {
               <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 space-y-3">
                 {/* Show breakdown for BOTH stalls and passes now */}
                 <>
+                  {/* Show discount breakdown if applicable */}
+                  {!isStall && selectedPass.discountPercent > 0 && isDiscountActive() && (
+                    <>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-neutral-600">Original Price {quantity > 1 ? `(${quantity} x ₹${selectedPass.originalBasePrice})` : ''}</span>
+                        <span className="font-semibold text-neutral-400 line-through">
+                          ₹{(selectedPass.originalBasePrice * quantity).toLocaleString("en-IN")}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-green-600 font-semibold">Discount ({selectedPass.discountPercent}% OFF)</span>
+                        <span className="font-semibold text-green-600">
+                          -₹{((selectedPass.originalBasePrice - selectedPass.basePrice) * quantity).toLocaleString("en-IN")}
+                        </span>
+                      </div>
+                      <div className="h-px bg-neutral-200" />
+                    </>
+                  )}
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-neutral-600">Base Amount {(!isStall && quantity > 1) ? `(${quantity} x ₹${selectedPass.basePrice})` : ''}</span>
                     <span className="font-semibold text-black">
@@ -596,6 +614,14 @@ const CheckoutPage = () => {
                     ₹{totalAmount.toLocaleString("en-IN")}
                   </span>
                 </div>
+                {/* Show total savings message */}
+                {!isStall && selectedPass.discountPercent > 0 && isDiscountActive() && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
+                    <p className="text-sm text-green-700 font-semibold text-center">
+                      🎉 You save ₹{Math.round(selectedPass.savings * quantity).toLocaleString("en-IN")} with this offer!
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}

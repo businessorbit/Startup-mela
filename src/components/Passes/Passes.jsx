@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { passes } from "../../data/passes";
+import { passes, isDiscountActive, DISCOUNT_CONFIG } from "../../data/passes";
 import { useNavigate } from "react-router-dom";
 
 const PassesSection = () => {
   const navigate = useNavigate();
+  const discountActive = isDiscountActive();
 
   const handleTicketClick = (id) => {
     navigate(`/checkout?passId=${id}`);
@@ -22,28 +23,46 @@ const PassesSection = () => {
         {/* --- Header Row --- */}
         {/* Adjusted grid gap and margin-bottom for mobile responsiveness */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 sm:mb-16 md:mb-20 items-end">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            // Scaled font size: text-4xl mobile -> text-5xl sm -> text-7xl md
-            className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black leading-none"
           >
-            Get <br /> Tickets
-          </motion.h2>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black leading-none">
+              Get <br /> Tickets
+            </h2>
+            {discountActive && (
+              <div className="mt-4 inline-block">
+                <span className="px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white text-sm sm:text-base font-bold rounded-full shadow-lg">
+                  🎉 50% OFF - Limited Time!
+                </span>
+              </div>
+            )}
+          </motion.div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            // Scaled text size: text-base mobile -> text-lg sm -> text-xl md
             className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-lg md:justify-self-end leading-relaxed"
           >
-            Secure your spot at the region's largest startup festival. Choose
-            the pass that fits your goals and get ready to connect.
-          </motion.p>
+            <p>
+              Secure your spot at the region's largest startup festival. Choose
+              the pass that fits your goals and get ready to connect.
+            </p>
+            {discountActive && (
+              <p className="mt-3 text-sm sm:text-base font-semibold text-red-600">
+                ⏰ Offer ends {DISCOUNT_CONFIG.expiryDate.toLocaleDateString('en-IN', {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </p>
+            )}
+          </motion.div>
         </div>
 
         {/* --- Cards Grid --- */}
@@ -83,6 +102,13 @@ const PassesSection = () => {
                   {pass.title}
                 </h3>
 
+                {/* Discount Badge */}
+                {discountActive && !pass.comingSoon && pass.discountPercent > 0 && (
+                  <span className="inline-block self-start px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-gradient-to-r from-red-500 to-orange-500 text-white mb-3 shadow-lg">
+                    {pass.discountPercent}% OFF
+                  </span>
+                )}
+
                 {pass.popular && !pass.comingSoon && (
                   <span className="inline-block self-start px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white mb-4">
                     Best Value
@@ -98,13 +124,14 @@ const PassesSection = () => {
                 {/* Price */}
                 {/* Adjusted vertical margins */}
                 <div className="mt-4 mb-6 sm:mb-8">
-                  {pass.oldPrice && (
-                    <p className="text-sm text-neutral-400 line-through font-medium">
-                      {pass.oldPrice}
-                    </p>
-                  )}
                   {pass.price ? (
                     <div className="space-y-1">
+                      {/* Show original price with strikethrough if discount active */}
+                      {discountActive && pass.oldPrice && (
+                        <p className="text-lg text-neutral-500 line-through font-medium">
+                          {pass.oldPrice}
+                        </p>
+                      )}
                       <p className="text-sm text-neutral-400 font-medium">
                         Base Price: {pass.price}
                       </p>
@@ -117,6 +144,12 @@ const PassesSection = () => {
                           (incl. GST)
                         </span>
                       </p>
+                      {/* Show savings if discount active */}
+                      {discountActive && pass.savings > 0 && (
+                        <p className="text-sm text-green-400 font-semibold mt-2">
+                          Save ₹{Math.round(pass.savings).toLocaleString("en-IN")}!
+                        </p>
+                      )}
                     </div>
                   ) : (
                     <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
