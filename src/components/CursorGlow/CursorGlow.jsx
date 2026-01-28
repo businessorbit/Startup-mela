@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useVelocity, useTransform } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 /**
  * Hook to detect theme based on hover target.
@@ -12,13 +13,13 @@ const useThemeDetection = () => {
     const handleMouseOver = (e) => {
       // Find the nearest parent section with a theme attribute
       const section = e.target.closest('[data-theme]');
-      
+
       if (section) {
         const currentTheme = section.getAttribute('data-theme');
         setTheme(currentTheme);
       } else {
         // Fallback if no specific section is defined
-        setTheme('dark'); 
+        setTheme('dark');
       }
     };
 
@@ -33,7 +34,28 @@ const useThemeDetection = () => {
 const CursorGlow = () => {
   const theme = useThemeDetection();
   const [isVisible, setIsVisible] = useState(false);
-  
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  // Manage body class for default cursor
+  useEffect(() => {
+    if (isAdmin) {
+      document.body.classList.add('default-cursor');
+    } else {
+      document.body.classList.remove('default-cursor');
+    }
+
+    // Cleanup
+    return () => {
+      document.body.classList.remove('default-cursor');
+    };
+  }, [isAdmin]);
+
+  // Don't render custom cursor on admin pages
+  if (isAdmin) {
+    return null;
+  }
+
   // 1. Motion Values for raw mouse position
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -49,10 +71,10 @@ const CursorGlow = () => {
   // 4. Velocity for scaling effect (The faster you move, the smaller/stretched it gets)
   const velocityX = useVelocity(tailX);
   const velocityY = useVelocity(tailY);
-  
+
   // Transform velocity into a scale value (0 velocity = 1 scale, high velocity = 0.6 scale)
   // We combine X and Y velocity roughly for a "squeeze" effect
-  const scaleVelocity = useTransform(velocityX, [ -1000, 0, 1000 ], [ 0.6, 1, 0.6 ]);
+  const scaleVelocity = useTransform(velocityX, [-1000, 0, 1000], [0.6, 1, 0.6]);
 
   // 5. Inactivity Logic
   const timerRef = useRef(null);
@@ -62,10 +84,10 @@ const CursorGlow = () => {
       // Update coordinates
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      
+
       // Handle visibility
       setIsVisible(true);
-      
+
       // Reset timer
       if (timerRef.current) clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
@@ -82,14 +104,14 @@ const CursorGlow = () => {
 
   // Visual Styles based on theme
   const isDarkSection = theme === 'dark';
-  
+
   // If we are on a Dark section -> Cursor should be White
   // If we are on a Light section -> Cursor should be Black
-  const mainColor = isDarkSection ? '#ffffff' : '#000000'; 
+  const mainColor = isDarkSection ? '#ffffff' : '#000000';
 
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden">
-      
+
       {/* --- The Tail (Glow/Blur) --- */}
       <motion.div
         className="absolute top-0 left-0 w-8 h-8 rounded-full blur-md opacity-40 will-change-transform"

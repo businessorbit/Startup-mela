@@ -61,6 +61,20 @@ body {
   textarea {
     cursor: none !important;
   }
+  
+  /* Restore default cursor for admin panel or when disabled */
+  body.default-cursor,
+  body.default-cursor * {
+    cursor: auto !important;
+  }
+  
+  body.default-cursor a, 
+  body.default-cursor button,
+  body.default-cursor [role="button"],
+  body.default-cursor input[type="submit"],
+  body.default-cursor input[type="button"] {
+    cursor: pointer !important;
+  }
 }
 
 /* Optional: Smooth transition for background colors if you toggle themes */
