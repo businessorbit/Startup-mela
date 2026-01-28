@@ -18,14 +18,14 @@ export const passes = [
     title: "General Entry Pass",
     originalBasePrice: 50,
     discountPercent: 50,
-    basePrice: 25, // 50% of 50
-    price: "₹25",
+    basePrice: isDiscountActive() ? 25 : 50,
+    price: isDiscountActive() ? "₹25" : "₹50",
     gstRate: 0.18,
-    gstAmount: 4.5, // 25 * 0.18
-    totalPrice: 29.5, // 25 + 4.5
-    displayPrice: "₹30",
-    oldPrice: "₹59", // Original total price
-    savings: 29.5, // 59 - 29.5
+    gstAmount: isDiscountActive() ? 4.5 : 9,
+    totalPrice: isDiscountActive() ? 29.5 : 59,
+    displayPrice: isDiscountActive() ? "₹30" : "₹59",
+    oldPrice: isDiscountActive() ? "₹59" : null,
+    savings: isDiscountActive() ? 29.5 : 0,
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
       "Explore 100+ startup stalls",
@@ -61,14 +61,14 @@ export const passes = [
     title: "All-Access Conference Pass",
     originalBasePrice: 2100,
     discountPercent: 50,
-    basePrice: 1050, // 50% of 2100
-    price: "₹1,050",
+    basePrice: isDiscountActive() ? 1050 : 2100,
+    price: isDiscountActive() ? "₹1,050" : "₹2,100",
     gstRate: 0.18,
-    gstAmount: 189, // 1050 * 0.18
-    totalPrice: 1239, // 1050 + 189
-    displayPrice: "₹1,239",
-    oldPrice: "₹2,478", // Original total price
-    savings: 1239, // 2478 - 1239
+    gstAmount: isDiscountActive() ? 189 : 378,
+    totalPrice: isDiscountActive() ? 1239 : 2478,
+    displayPrice: isDiscountActive() ? "₹1,239" : "₹2,478",
+    oldPrice: isDiscountActive() ? "₹2,478" : null,
+    savings: isDiscountActive() ? 1239 : 0,
     features: [
       "Everything in the Arena Pass",
       "Exclusive entry to Conference Zone (Zone 3)",
@@ -81,14 +81,14 @@ export const passes = [
     title: "Startup Pitching Pass",
     originalBasePrice: 3500,
     discountPercent: 50,
-    basePrice: 1750, // 50% of 3500
-    price: "₹1,750",
+    basePrice: isDiscountActive() ? 1750 : 3500,
+    price: isDiscountActive() ? "₹1,750" : "₹3,500",
     gstRate: 0.18,
-    gstAmount: 315, // 1750 * 0.18
-    totalPrice: 2065, // 1750 + 315
-    displayPrice: "₹2,065",
-    oldPrice: "₹4,130", // Original total price
-    savings: 2065, // 4130 - 2065
+    gstAmount: isDiscountActive() ? 315 : 630,
+    totalPrice: isDiscountActive() ? 2065 : 4130,
+    displayPrice: isDiscountActive() ? "₹2,065" : "₹4,130",
+    oldPrice: isDiscountActive() ? "₹4,130" : null,
+    savings: isDiscountActive() ? 2065 : 0,
     features: [
       "Reserved entry to the Official Pitching Event",
       "Present your startup to Angel Investors",
@@ -102,14 +102,14 @@ export const passes = [
     title: "Startup Pitching Pass",
     originalBasePrice: 9999,
     discountPercent: 50,
-    basePrice: 4999.5, // 50% of 9999
-    price: "₹4,999.50",
+    basePrice: isDiscountActive() ? 4999.5 : 9999,
+    price: isDiscountActive() ? "₹4,999.50" : "₹9,999",
     gstRate: 0.18,
-    gstAmount: 899.91, // 4999.5 * 0.18
-    totalPrice: 5899.41, // 4999.5 + 899.91
-    displayPrice: "₹5,899",
-    oldPrice: "₹11,799", // Original total price
-    savings: 5899.59, // 11798.82 - 5899.41
+    gstAmount: isDiscountActive() ? 899.91 : 1799.82,
+    totalPrice: isDiscountActive() ? 5899.41 : 11798.82,
+    displayPrice: isDiscountActive() ? "₹5,899" : "₹11,799",
+    oldPrice: isDiscountActive() ? "₹11,799" : null,
+    savings: isDiscountActive() ? 5899.59 : 0,
     features: [
       "Reserved entry to the Official Pitching Event",
       "Present your startup to VCs",
