@@ -41,6 +41,19 @@ const CheckoutPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState(null);
 
+  // Student Special Stall specific fields
+  const isStudentStall = isStall && selectedStall?.id === 1;
+  const [studentIdFile, setStudentIdFile] = useState(null);
+  const [studentIdPreview, setStudentIdPreview] = useState(null);
+  const [founderProofFile, setFounderProofFile] = useState(null);
+  const [founderProofPreview, setFounderProofPreview] = useState(null);
+  const [linkedinProfile, setLinkedinProfile] = useState("");
+  const [hasCoFounder, setHasCoFounder] = useState("");
+  const [coFounderStudentIdFile, setCoFounderStudentIdFile] = useState(null);
+  const [coFounderStudentIdPreview, setCoFounderStudentIdPreview] = useState(null);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [uploadingFiles, setUploadingFiles] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -104,6 +117,66 @@ const CheckoutPage = () => {
     setQuantity((prev) => Math.max(prev - 1, 1));
   };
 
+  // File upload handlers for student stall
+  const handleFileUpload = (file, setFile, setPreview) => {
+    if (!file) return;
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      setError("File size must be less than 5MB");
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+    if (!allowedTypes.includes(file.type)) {
+      setError("Only JPG, PNG, and PDF files are allowed");
+      return;
+    }
+
+    setFile(file);
+
+    // Create preview for images
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreview('pdf');
+    }
+
+    if (error) setError("");
+  };
+
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'startup_mela_student_docs'); // You'll need to create this preset in Cloudinary
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
+
+      const data = await response.json();
+      if (data.secure_url) {
+        return data.secure_url;
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (err) {
+      console.error('Cloudinary upload error:', err);
+      throw err;
+    }
+  };
+
   const validateAttendees = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[6-9]\d{9}$/;
@@ -155,6 +228,50 @@ const CheckoutPage = () => {
       }
     }
 
+    // Student Special Stall specific validation
+    if (isStudentStall) {
+      // Validate Student ID upload
+      if (!studentIdFile) {
+        setError("Please upload your Student ID");
+        return false;
+      }
+
+      // Validate Founder Proof upload
+      if (!founderProofFile) {
+        setError("Please upload proof showing startup founders");
+        return false;
+      }
+
+      // Validate LinkedIn profile
+      const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/(company|in)\/.+$/i;
+      if (!linkedinProfile || !linkedinProfile.trim()) {
+        setError("Please enter your company's LinkedIn profile URL");
+        return false;
+      }
+      if (!linkedinRegex.test(linkedinProfile.trim())) {
+        setError("Please enter a valid LinkedIn profile URL");
+        return false;
+      }
+
+      // Validate Co-founder question
+      if (!hasCoFounder) {
+        setError("Please specify if you have a co-founder");
+        return false;
+      }
+
+      // Validate Co-founder Student ID if applicable
+      if (hasCoFounder === "yes" && !coFounderStudentIdFile) {
+        setError("Please upload your co-founder's Student ID");
+        return false;
+      }
+
+      // Validate Terms acceptance
+      if (!termsAccepted) {
+        setError("Please accept the terms and conditions to proceed");
+        return false;
+      }
+    }
+
     return true;
   };
 
@@ -199,6 +316,42 @@ const CheckoutPage = () => {
       return;
     }
 
+    // Upload student stall documents to Cloudinary if applicable
+    let studentDocuments = null;
+    if (isStudentStall) {
+      try {
+        setUploadingFiles(true);
+        setError("Uploading documents...");
+
+        const [studentIdUrl, founderProofUrl, coFounderIdUrl] = await Promise.all([
+          uploadToCloudinary(studentIdFile),
+          uploadToCloudinary(founderProofFile),
+          hasCoFounder === "yes" && coFounderStudentIdFile
+            ? uploadToCloudinary(coFounderStudentIdFile)
+            : Promise.resolve(null)
+        ]);
+
+        studentDocuments = {
+          studentIdUrl,
+          founderProofUrl,
+          linkedinProfile: linkedinProfile.trim(),
+          hasCoFounder: hasCoFounder === "yes",
+          coFounderStudentIdUrl: coFounderIdUrl,
+          termsAccepted: true,
+          termsAcceptedAt: new Date().toISOString()
+        };
+
+        setUploadingFiles(false);
+        setError("Processing payment...");
+      } catch (uploadError) {
+        console.error("File upload error:", uploadError);
+        setError("Failed to upload documents. Please try again.");
+        setIsProcessing(false);
+        setUploadingFiles(false);
+        return;
+      }
+    }
+
     try {
       const orderPayload = {
         attendees: attendees,
@@ -213,6 +366,11 @@ const CheckoutPage = () => {
         orderPayload.stallId = selectedStall.id;
         orderPayload.baseAmount = baseAmount;
         orderPayload.gstAmount = gstAmount;
+
+        // Add student documents if applicable
+        if (studentDocuments) {
+          orderPayload.studentDocuments = studentDocuments;
+        }
       } else {
         orderPayload.passType = selectedPass.title;
         orderPayload.passId = selectedPass.id;
@@ -569,6 +727,210 @@ const CheckoutPage = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Student Special Stall Requirements */}
+              {isStudentStall && (
+                <div className="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 sm:p-6 space-y-5 mt-6">
+                  <div className="flex items-start gap-3 pb-4 border-b border-amber-200">
+                    <svg className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-amber-900 mb-1">
+                        Student Verification Required
+                      </h3>
+                      <p className="text-xs sm:text-sm text-amber-700">
+                        Please provide the following documents to validate your student status and startup details
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Student ID Upload */}
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                      Student ID Photo <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-xs text-neutral-600 mb-2">
+                      Upload a valid student ID proof to validate that you are currently a school/university student
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png,application/pdf"
+                      onChange={(e) => handleFileUpload(e.target.files[0], setStudentIdFile, setStudentIdPreview)}
+                      className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                    {studentIdPreview && (
+                      <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
+                        {studentIdPreview === 'pdf' ? (
+                          <div className="flex items-center gap-2 text-sm text-neutral-600">
+                            <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
+                            </svg>
+                            <span>PDF uploaded successfully</span>
+                          </div>
+                        ) : (
+                          <img src={studentIdPreview} alt="Student ID Preview" className="max-h-32 rounded" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Founder Proof Upload */}
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                      Founder Proof Document <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-xs text-neutral-600 mb-2">
+                      Upload a valid proof that shows you are the founder of the startup (e.g., registration certificate, pitch deck cover, etc.)
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png,application/pdf"
+                      onChange={(e) => handleFileUpload(e.target.files[0], setFounderProofFile, setFounderProofPreview)}
+                      className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                    {founderProofPreview && (
+                      <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
+                        {founderProofPreview === 'pdf' ? (
+                          <div className="flex items-center gap-2 text-sm text-neutral-600">
+                            <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
+                            </svg>
+                            <span>PDF uploaded successfully</span>
+                          </div>
+                        ) : (
+                          <img src={founderProofPreview} alt="Founder Proof Preview" className="max-h-32 rounded" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* LinkedIn Profile */}
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                      Company LinkedIn Profile <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-xs text-neutral-600 mb-2">
+                      Enter your company's or personal LinkedIn profile URL
+                    </p>
+                    <input
+                      required
+                      type="url"
+                      value={linkedinProfile}
+                      onChange={(e) => {
+                        setLinkedinProfile(e.target.value);
+                        if (error) setError("");
+                      }}
+                      placeholder="https://www.linkedin.com/company/your-startup"
+                      className="w-full p-3 sm:p-3.5 text-sm sm:text-base bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
+                    />
+                  </div>
+
+                  {/* Co-Founder Question */}
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-3">
+                      Do you have a co-founder? <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="hasCoFounder"
+                          value="yes"
+                          checked={hasCoFounder === "yes"}
+                          onChange={(e) => {
+                            setHasCoFounder(e.target.value);
+                            if (error) setError("");
+                          }}
+                          className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                        />
+                        <span className="text-sm font-medium text-neutral-700">Yes</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="hasCoFounder"
+                          value="no"
+                          checked={hasCoFounder === "no"}
+                          onChange={(e) => {
+                            setHasCoFounder(e.target.value);
+                            setCoFounderStudentIdFile(null);
+                            setCoFounderStudentIdPreview(null);
+                            if (error) setError("");
+                          }}
+                          className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                        />
+                        <span className="text-sm font-medium text-neutral-700">No</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Co-Founder Student ID (Conditional) */}
+                  {hasCoFounder === "yes" && (
+                    <div className="pl-4 border-l-4 border-blue-300 bg-blue-50/50 p-4 rounded-r-lg">
+                      <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                        Co-Founder's Student ID <span className="text-red-500">*</span>
+                      </label>
+                      <p className="text-xs text-neutral-600 mb-2">
+                        Upload your co-founder's student ID to verify they are also a student
+                      </p>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/jpg,image/png,application/pdf"
+                        onChange={(e) => handleFileUpload(e.target.files[0], setCoFounderStudentIdFile, setCoFounderStudentIdPreview)}
+                        className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      />
+                      {coFounderStudentIdPreview && (
+                        <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
+                          {coFounderStudentIdPreview === 'pdf' ? (
+                            <div className="flex items-center gap-2 text-sm text-neutral-600">
+                              <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
+                              </svg>
+                              <span>PDF uploaded successfully</span>
+                            </div>
+                          ) : (
+                            <img src={coFounderStudentIdPreview} alt="Co-Founder Student ID Preview" className="max-h-32 rounded" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Terms & Conditions */}
+                  <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4">
+                    <div className="flex items-start gap-3 mb-3">
+                      <svg className="w-6 h-6 text-red-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <div>
+                        <h4 className="text-sm font-bold text-red-900 mb-2">Important Terms & Conditions</h4>
+                        <ul className="text-xs text-red-800 space-y-1.5 list-disc list-inside">
+                          <li>You must have a valid student ID proof to validate that you are currently a school/university student</li>
+                          <li>If you have any co-founder, that person must also be a student</li>
+                          <li>Only 1 All-Access Pass will be provided (only for the person buying this stall)</li>
+                          <li>A valid proof that shows that the student is the founder of the startup is required</li>
+                          <li className="font-bold text-red-900">If any of the conditions is found violated, no refund will be provided</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <label className="flex items-start gap-3 cursor-pointer mt-4 pt-4 border-t border-red-200">
+                      <input
+                        type="checkbox"
+                        checked={termsAccepted}
+                        onChange={(e) => {
+                          setTermsAccepted(e.target.checked);
+                          if (error) setError("");
+                        }}
+                        className="w-5 h-5 text-red-600 focus:ring-2 focus:ring-red-500 rounded mt-0.5 shrink-0"
+                      />
+                      <span className="text-xs sm:text-sm font-semibold text-red-900">
+                        I accept the terms and conditions and understand that no refund will be provided if any condition is found violated <span className="text-red-600">*</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
 
               {/* Total Summary */}
               <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 space-y-3">

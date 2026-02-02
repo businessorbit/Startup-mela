@@ -17,7 +17,7 @@ const ExhibitionStalls = () => {
       data-tail="black"
       className="relative w-full bg-white py-16 sm:py-24 md:py-32 lg:py-48"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-12">
         {/* --- Header Row --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 sm:mb-16 md:mb-20 items-end">
           <motion.h2
@@ -44,7 +44,7 @@ const ExhibitionStalls = () => {
         </div>
 
         {/* --- Cards Grid --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20 md:mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20 md:mb-24">
           {stalls.map((stall, index) => (
             <motion.div
               key={stall.id}
@@ -86,9 +86,21 @@ const ExhibitionStalls = () => {
                 {/* Price */}
                 <div className="mt-4 mb-6 sm:mb-8">
                   {stall.oldPrice && (
-                    <p className="text-sm text-neutral-400 line-through font-medium">
-                      {stall.oldPrice}
-                    </p>
+                    <div className="mb-3">
+                      <p className="text-lg text-neutral-400 line-through font-medium">
+                        {stall.oldPrice}
+                      </p>
+                      {stall.originalBasePrice && (
+                        <div className="mt-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30">
+                          <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                          </svg>
+                          <span className="text-xs font-bold text-green-400">
+                            Save ₹{((stall.originalBasePrice + (stall.originalBasePrice * stall.gstRate)) - stall.totalPrice).toLocaleString("en-IN")}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   )}
                   <div className="space-y-1">
                     <p className="text-sm text-neutral-400 font-medium">
@@ -103,6 +115,14 @@ const ExhibitionStalls = () => {
                         (incl. GST)
                       </span>
                     </p>
+                    {stall.discountNote && (
+                      <div className="mt-3 flex items-center gap-2 text-xs text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20">
+                        <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-semibold">{stall.discountNote}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 

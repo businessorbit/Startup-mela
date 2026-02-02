@@ -1,7 +1,29 @@
 export const stalls = [
-    {
-        id: 1,
-        title: "4 × 4 ft Exhibition Stall",
+  {
+    id: 1,
+    title: "Student Special Stall",
+    basePrice: 5499,
+    price: "₹5,499",
+    gstRate: 0.18, // 18% GST
+    gstAmount: 990, // 5499 * 0.18 (rounded)
+    totalPrice: 6489, // 5499 + 990
+    displayPrice: "₹6,489",
+    oldPrice: "₹23,600", // Original price with GST (20000 + 3600)
+    originalBasePrice: 20000,
+    discountNote: "Student ID Required",
+    features: [
+      "6 × 6 feet stall space",
+      "1 table",
+      "1 chair",
+      "Power supply included",
+      "2 All-Access Passes"
+    ],
+    bestFor: "Student entrepreneurs and college startups",
+    popular: false
+  },
+  {
+    id: 2,
+    title: "4 × 4 ft Exhibition Stall",
     basePrice: 12000,
     price: "₹12,000",
     gstRate: 0.18, // 18% GST
@@ -28,7 +50,7 @@ export const stalls = [
     gstAmount: 4500, // 25000 * 0.18
     totalPrice: 29500, // 25000 + 4500
     displayPrice: "₹29,500",
-    oldPrice: null, 
+    oldPrice: null,
     features: [
       "6 × 6 feet stall space",
       "Canopy with fabrication",
