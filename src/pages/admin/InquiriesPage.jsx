@@ -62,7 +62,7 @@ const InquiriesPage = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-3 bg-neutral-50 rounded-lg border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+            className="px-4 py-3 bg-neutral-50 rounded-lg border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-black"
           >
             <option value="">All Categories</option>
             <option value="Sponsorship">Sponsorship</option>

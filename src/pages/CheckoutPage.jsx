@@ -79,6 +79,16 @@ const CheckoutPage = () => {
     }
   }, [quantity]);
 
+  // Debug: Track studentIdFile state changes
+  useEffect(() => {
+    console.log('🔄 studentIdFile state changed to:', studentIdFile);
+  }, [studentIdFile]);
+
+  useEffect(() => {
+    console.log('🔄 founderProofFile state changed to:', founderProofFile);
+  }, [founderProofFile]);
+
+
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
@@ -118,8 +128,16 @@ const CheckoutPage = () => {
   };
 
   // File upload handlers for student stall
-  const handleFileUpload = (file, setFile, setPreview) => {
-    if (!file) return;
+  const handleFileUpload = (event, setFileState, setPreviewState) => {
+    console.log('📁 handleFileUpload called with event:', event);
+
+    const file = event?.target?.files?.[0];
+    console.log('📁 Extracted file from event:', file);
+
+    if (!file) {
+      console.log('⚠️ No file found in event');
+      return;
+    }
 
     // Validate file size (5MB max)
     const maxSize = 5 * 1024 * 1024; // 5MB
@@ -135,44 +153,61 @@ const CheckoutPage = () => {
       return;
     }
 
-    setFile(file);
+    console.log('✅ File validated, setting file state:', file.name);
+    console.log('🔧 About to call setFileState');
+    setFileState(file);
+    console.log('✔️ setFileState called');
 
     // Create preview for images
     if (file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result);
+        console.log('🖼️ Setting image preview');
+        setPreviewState(reader.result);
       };
       reader.readAsDataURL(file);
     } else {
-      setPreview('pdf');
+      console.log('📄 Setting PDF preview');
+      setPreviewState('pdf');
     }
 
     if (error) setError("");
   };
 
-  const uploadToCloudinary = async (file) => {
+  // Upload student documents to backend
+  const uploadStudentDocuments = async () => {
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'startup_mela_student_docs'); // You'll need to create this preset in Cloudinary
+
+    // Append files
+    formData.append('studentId', studentIdFile);
+    formData.append('founderProof', founderProofFile);
+    if (hasCoFounder === "yes" && coFounderStudentIdFile) {
+      formData.append('coFounderStudentId', coFounderStudentIdFile);
+    }
+
+    // Append other data
+    formData.append('linkedinProfile', linkedinProfile.trim());
+    formData.append('hasCoFounder', hasCoFounder === "yes");
 
     try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`,
-        {
-          method: 'POST',
-          body: formData
-        }
-      );
+      const API_URL = import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
+      const response = await fetch(`${API_URL}/api/upload/student-documents`, {
+        method: 'POST',
+        body: formData
+        // Don't set Content-Type header - browser will set it with boundary
+      });
 
       const data = await response.json();
-      if (data.secure_url) {
-        return data.secure_url;
-      } else {
-        throw new Error('Upload failed');
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Upload failed');
       }
+
+      console.log('✅ Documents uploaded successfully:', data.data);
+      return data.data; // Returns { studentIdUrl, founderProofUrl, linkedinProfile, hasCoFounder, coFounderStudentIdUrl, termsAccepted, termsAcceptedAt }
+
     } catch (err) {
-      console.error('Cloudinary upload error:', err);
+      console.error('Upload error:', err);
       throw err;
     }
   };
@@ -231,6 +266,7 @@ const CheckoutPage = () => {
     // Student Special Stall specific validation
     if (isStudentStall) {
       // Validate Student ID upload
+      console.log('🔍 Validating studentIdFile:', studentIdFile);
       if (!studentIdFile) {
         setError("Please upload your Student ID");
         return false;
@@ -323,23 +359,10 @@ const CheckoutPage = () => {
         setUploadingFiles(true);
         setError("Uploading documents...");
 
-        const [studentIdUrl, founderProofUrl, coFounderIdUrl] = await Promise.all([
-          uploadToCloudinary(studentIdFile),
-          uploadToCloudinary(founderProofFile),
-          hasCoFounder === "yes" && coFounderStudentIdFile
-            ? uploadToCloudinary(coFounderStudentIdFile)
-            : Promise.resolve(null)
-        ]);
+        const documents = await uploadStudentDocuments();
+        studentDocuments = documents;
 
-        studentDocuments = {
-          studentIdUrl,
-          founderProofUrl,
-          linkedinProfile: linkedinProfile.trim(),
-          hasCoFounder: hasCoFounder === "yes",
-          coFounderStudentIdUrl: coFounderIdUrl,
-          termsAccepted: true,
-          termsAcceptedAt: new Date().toISOString()
-        };
+
 
         setUploadingFiles(false);
         setError("Processing payment...");
@@ -756,7 +779,7 @@ const CheckoutPage = () => {
                     <input
                       type="file"
                       accept="image/jpeg,image/jpg,image/png,application/pdf"
-                      onChange={(e) => handleFileUpload(e.target.files[0], setStudentIdFile, setStudentIdPreview)}
+                      onChange={(e) => handleFileUpload(e, setStudentIdFile, setStudentIdPreview)}
                       className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {studentIdPreview && (
@@ -786,7 +809,7 @@ const CheckoutPage = () => {
                     <input
                       type="file"
                       accept="image/jpeg,image/jpg,image/png,application/pdf"
-                      onChange={(e) => handleFileUpload(e.target.files[0], setFounderProofFile, setFounderProofPreview)}
+                      onChange={(e) => handleFileUpload(e, setFounderProofFile, setFounderProofPreview)}
                       className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {founderProofPreview && (
@@ -877,7 +900,7 @@ const CheckoutPage = () => {
                       <input
                         type="file"
                         accept="image/jpeg,image/jpg,image/png,application/pdf"
-                        onChange={(e) => handleFileUpload(e.target.files[0], setCoFounderStudentIdFile, setCoFounderStudentIdPreview)}
+                        onChange={(e) => handleFileUpload(e, setCoFounderStudentIdFile, setCoFounderStudentIdPreview)}
                         className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       />
                       {coFounderStudentIdPreview && (

@@ -9,7 +9,7 @@ const navLinks = [
     label: "Event",
     href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3",
   },
-  { label: "Passes", href: "#passes" },
+  { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Work with Us", href: "/workwithus" },
@@ -28,7 +28,7 @@ const Navbar = () => {
           if (entry.isIntersecting && t) setTheme(t);
         });
       },
-      { threshold: 0.6 }
+      { threshold: 0.3 } // Reduced from 0.6 for better detection
     );
 
     document

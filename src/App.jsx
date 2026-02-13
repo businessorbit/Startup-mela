@@ -16,6 +16,8 @@ import OrdersPage from "./pages/admin/OrdersPage";
 import VerifyTicketPage from "./pages/admin/VerifyTicketPage";
 import VolunteersPage from "./pages/admin/VolunteersPage";
 import InquiriesPage from "./pages/admin/InquiriesPage";
+import LegalPage from "./pages/LegalPage";
+import SpotlightPage from "./pages/SpotlightPage";
 
 function App() {
   return (
@@ -30,10 +32,13 @@ function App() {
           {/* Home Route */}
           <Route path="/" element={<HomePage />} />
 
+          <Route path="/terms" element={<LegalPage />} />
+
           {/* Inner Pages */}
           <Route path="/sponsors" element={<SponsorsPage />} />
           <Route path="/workwithus" element={<WorkWithUsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/spotlight" element={<SpotlightPage />} />
           <Route path="/exhibition-stalls" element={<ExhibitionStallsPage />} />
 
           {/* Checkout Route */}
