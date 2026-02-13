@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
 import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
 import SpotlightSection from "../components/UI/SpotlightSection";
+import InvestorSection from "../components/UI/InvestorSection";
 import {
     speakers,
     comedians,
@@ -77,9 +78,9 @@ const SpotlightPage = () => {
                 </div>
 
                 {/* Investors Section */}
-                <SpotlightSection
+                <InvestorSection
                     category={spotlightCategories.investors}
-                    people={investors}
+                    investors={investors}
                 />
             </main>
 
