@@ -40,12 +40,12 @@ export const passes = [
     title: "Arena Pass",
     originalBasePrice: 0,
     discountPercent: 0,
-    basePrice: 0,
-    price: "",
+    basePrice: 499,
+    price: "499",
     gstRate: 0.18,
-    gstAmount: 0,
-    totalPrice: 0,
-    displayPrice: "",
+    gstAmount: 90,
+    totalPrice: 589,
+    displayPrice: "589",
     oldPrice: null,
     savings: 0,
     features: [
@@ -53,8 +53,8 @@ export const passes = [
       "Entry to Stage Side (Zone 2)",
       "Public viewing of Main Stage events"
     ],
-    popular: true,
-    comingSoon: true
+    popular: false,
+    comingSoon: false
   },
   {
     id: 3,

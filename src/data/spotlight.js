@@ -27,7 +27,7 @@ export const speakers = [
     },
     {
         id: 4,
-        name: "Saurabh Munjal",
+        name: "Mr. Saurabh Munjal",
         title: "Founder",
         company: "Lahori Jeera",
         image: "/speakers/Saurabh-Munjal founder lahori jeera.webp",
