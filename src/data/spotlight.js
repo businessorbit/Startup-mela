@@ -52,14 +52,6 @@ export const comedians = [
         image: "/artists/Standup Comedy by Pranav Sharma.jpeg",
         description: "Rising star in the comedy circuit with sharp wit and relatable humor.",
     },
-    {
-        id: 3,
-        name: "Vivek Samtani",
-        title: "Stand-up Comedian",
-        specialty: "Stand-up Comedy",
-        image: "https://res.cloudinary.com/dea5jtcup/image/upload/v1770963237/Standup_Comedy_by_vivek_samtani_b2f12j.webp",
-        description: "Experienced comedian known for his observational humor and engaging performances.",
-    },
 ];
 
 export const investors = [
