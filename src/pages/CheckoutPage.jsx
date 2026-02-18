@@ -346,7 +346,8 @@ const CheckoutPage = () => {
       }
     }
 
-    if (totalAmount <= 0) {
+    // Allow 0 amount (Free tickets)
+    if (totalAmount < 0) {
       setError("Invalid amount. Please try again.");
       setIsProcessing(false);
       return;
@@ -691,7 +692,13 @@ const CheckoutPage = () => {
                         required
                         type="tel"
                         value={attendee.phone}
-                        onChange={(e) => handleAttendeeChange(index, "phone", e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^0-9]/g, "");
+                          if (value.length <= 10) {
+                            handleAttendeeChange(index, "phone", value);
+                          }
+                        }}
+                        maxLength={10}
                         placeholder="+91 98765 43210"
                         className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                       />
