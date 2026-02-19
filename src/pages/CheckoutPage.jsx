@@ -68,27 +68,32 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // Initialize checkout socket for payment tracking
-    const socket = initializeCheckoutSocket();
+    const isRealtimeCheckoutEnabled = !import.meta.env.PROD;
 
     // Check for payment success
     if (paymentStatus === "success" && orderId) {
-      // Join order tracking room
-      joinOrderTracking(orderId);
+      let socket = null;
+      let handlePaymentConfirmed = null;
 
-      // Set up socket listener for payment confirmation
-      const handlePaymentConfirmed = (data) => {
-        console.log("💳 Payment confirmed via WebSocket:", data);
-        checkPaymentStatus(orderId);
-      };
+      if (isRealtimeCheckoutEnabled) {
+        socket = initializeCheckoutSocket();
 
-      // Subscribe to payment:confirmed event directly on socket instance
-      socket.on("payment:confirmed", handlePaymentConfirmed);
-      console.log(
-        "👂 Subscribed to 'payment:confirmed' event for order:",
-        orderId,
-      );
+        // Join order tracking room
+        joinOrderTracking(orderId);
+
+        // Set up socket listener for payment confirmation
+        handlePaymentConfirmed = (data) => {
+          console.log("💳 Payment confirmed via WebSocket:", data);
+          checkPaymentStatus(orderId);
+        };
+
+        // Subscribe to payment:confirmed event directly on socket instance
+        socket.on("payment:confirmed", handlePaymentConfirmed);
+        console.log(
+          "👂 Subscribed to 'payment:confirmed' event for order:",
+          orderId,
+        );
+      }
 
       // Also do an immediate check in case socket is slow
       checkPaymentStatus(orderId);
@@ -106,7 +111,9 @@ const CheckoutPage = () => {
       return () => {
         clearInterval(fallbackInterval);
         clearTimeout(fallbackTimeout);
-        socket.off("payment:confirmed", handlePaymentConfirmed);
+        if (socket && handlePaymentConfirmed) {
+          socket.off("payment:confirmed", handlePaymentConfirmed);
+        }
       };
     }
   }, [paymentStatus, orderId]);

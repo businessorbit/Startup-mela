@@ -54,22 +54,6 @@ export const initializeAdminSocket = (token, serverUrl = null) => {
     console.error('❌ Admin socket connection error:', error.message);
   });
 
-  adminSocket.on('reconnect', (attemptNumber) => {
-    console.log('🔄 Admin socket reconnected after', attemptNumber, 'attempts');
-  });
-
-  adminSocket.on('reconnect_attempt', (attemptNumber) => {
-    console.log('🔄 Admin socket reconnection attempt', attemptNumber);
-  });
-
-  adminSocket.on('reconnect_error', (error) => {
-    console.error('❌ Admin socket reconnection error:', error.message);
-  });
-
-  adminSocket.on('reconnect_failed', () => {
-    console.error('❌ Admin socket failed to reconnect after all attempts');
-  });
-
   return adminSocket;
 };
 
@@ -114,22 +98,6 @@ export const initializeCheckoutSocket = (serverUrl = null) => {
 
   checkoutSocket.on('connect_error', (error) => {
     console.error('❌ Checkout socket connection error:', error.message);
-  });
-
-  checkoutSocket.on('reconnect', (attemptNumber) => {
-    console.log('🔄 Checkout socket reconnected after', attemptNumber, 'attempts');
-  });
-
-  checkoutSocket.on('reconnect_attempt', (attemptNumber) => {
-    console.log('🔄 Checkout socket reconnection attempt', attemptNumber);
-  });
-
-  checkoutSocket.on('reconnect_error', (error) => {
-    console.error('❌ Checkout socket reconnection error:', error.message);
-  });
-
-  checkoutSocket.on('reconnect_failed', () => {
-    console.error('❌ Checkout socket failed to reconnect after all attempts');
   });
 
   return checkoutSocket;
