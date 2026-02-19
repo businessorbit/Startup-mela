@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AdminAuthContext = createContext();
 
 export const useAdminAuth = () => {
   const context = useContext(AdminAuthContext);
   if (!context) {
-    throw new Error('useAdminAuth must be used within AdminAuthProvider');
+    throw new Error("useAdminAuth must be used within AdminAuthProvider");
   }
   return context;
 };
@@ -17,9 +17,9 @@ export const AdminAuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check for stored token on mount
-    const storedToken = localStorage.getItem('adminToken');
-    const storedAdmin = localStorage.getItem('adminData');
-    
+    const storedToken = localStorage.getItem("adminToken");
+    const storedAdmin = localStorage.getItem("adminData");
+
     if (storedToken && storedAdmin) {
       setToken(storedToken);
       setAdmin(JSON.parse(storedAdmin));
@@ -28,12 +28,13 @@ export const AdminAuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'https://startupmelabackend.vercel.app';
-    
+    const API_URL =
+      import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
+
     const response = await fetch(`${API_URL}/api/admin/login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
@@ -41,13 +42,13 @@ export const AdminAuthProvider = ({ children }) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || 'Login failed');
+      throw new Error(data.message || "Login failed");
     }
 
     // Store token and admin data
-    localStorage.setItem('adminToken', data.token);
-    localStorage.setItem('adminData', JSON.stringify(data.admin));
-    
+    localStorage.setItem("adminToken", data.token);
+    localStorage.setItem("adminData", JSON.stringify(data.admin));
+
     setToken(data.token);
     setAdmin(data.admin);
 
@@ -55,8 +56,8 @@ export const AdminAuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminData');
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminData");
     setToken(null);
     setAdmin(null);
   };

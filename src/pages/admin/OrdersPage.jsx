@@ -12,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { initializeAdminSocket } from "../../utils/socketClient";
 
 const OrdersPage = () => {
   const { token } = useAdminAuth();
@@ -27,6 +28,91 @@ const OrdersPage = () => {
     fetchTickets();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, activeTab]);
+
+  // Real-time WebSocket listener for new orders
+  useEffect(() => {
+    if (!token) return;
+
+    console.log("🔌 Initializing admin socket for real-time orders...");
+    const socket = initializeAdminSocket(token);
+
+    const handleNewOrder = (newTicket) => {
+      console.log("📦 New order received via WebSocket:", newTicket);
+
+      setTickets((prevTickets) => {
+        // Check if ticket already exists
+        const exists = prevTickets.some((t) => t._id === newTicket.ticketId);
+        if (exists) {
+          console.log(
+            "⚠️ Ticket already exists, skipping:",
+            newTicket.ticketId,
+          );
+          return prevTickets;
+        }
+
+        // Only add if it matches current filter
+        if (activeTab && newTicket.itemType !== activeTab) {
+          console.log(
+            "⚠️ Ticket doesn't match filter, skipping. Current tab:",
+            activeTab,
+            "Ticket type:",
+            newTicket.itemType,
+          );
+          return prevTickets;
+        }
+
+        console.log("✅ Adding new ticket to list:", newTicket.ticketId);
+        // Add new ticket to the beginning
+        return [
+          {
+            _id: newTicket.ticketId,
+            orderId: newTicket.orderId,
+            name: newTicket.name,
+            email: newTicket.email,
+            phone: newTicket.phone,
+            itemType: newTicket.itemType,
+            passType: newTicket.passType || null,
+            stallType: newTicket.stallType || null,
+            amount: newTicket.amount,
+            verificationCode: newTicket.verificationCode,
+            status: "paid",
+            createdAt: newTicket.createdAt,
+            checkedIn: false,
+            profession: newTicket.profession,
+            professionOther: newTicket.professionOther,
+            startupName: newTicket.startupName,
+          },
+          ...prevTickets,
+        ];
+      });
+    };
+
+    // Add connection status listeners
+    socket.on("connect", () => {
+      console.log("✅ Socket connected successfully for OrdersPage");
+      console.log("👂 Subscribing to 'order:created' event");
+    });
+
+    socket.on("connect_error", (error) => {
+      console.error("❌ Socket connection error:", error.message);
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log("🔌 Socket disconnected:", reason);
+    });
+
+    // Subscribe directly on the socket instance
+    socket.on("order:created", handleNewOrder);
+    console.log("👂 Subscribed to 'order:created' event on socket");
+
+    return () => {
+      console.log("🔌 Cleaning up socket subscriptions");
+      socket.off("connect");
+      socket.off("connect_error");
+      socket.off("disconnect");
+      socket.off("order:created", handleNewOrder);
+    };
+  }, [token, activeTab]);
 
   useEffect(() => {
     // Group tickets by orderId

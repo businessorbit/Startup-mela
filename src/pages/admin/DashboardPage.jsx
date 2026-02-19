@@ -1,31 +1,145 @@
-import { useState, useEffect } from 'react';
-import { useAdminAuth } from '../../contexts/AdminAuthContext';
-import AdminLayout from '../../components/Admin/AdminLayout';
-import { TrendingUp, Users, Building2, MessageSquare, UserCheck, IndianRupee } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { useAdminAuth } from "../../contexts/AdminAuthContext";
+import AdminLayout from "../../components/Admin/AdminLayout";
+import {
+  TrendingUp,
+  Users,
+  Building2,
+  MessageSquare,
+  UserCheck,
+  IndianRupee,
+} from "lucide-react";
+import { initializeAdminSocket } from "../../utils/socketClient";
 
 const DashboardPage = () => {
   const { token } = useAdminAuth();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchDashboardStats();
   }, []);
 
+  // Real-time WebSocket listeners for live metrics
+  useEffect(() => {
+    if (!token) return;
+
+    // Initialize socket connection
+    const socket = initializeAdminSocket(token);
+
+    // Handler for new order event
+    const handleNewOrder = (data) => {
+      console.log("📦 New order event received:", data);
+      setStats((prevStats) => {
+        if (!prevStats) return prevStats;
+        return {
+          ...prevStats,
+          totalRevenue: (prevStats.totalRevenue || 0) + (data.amount || 0),
+          totalTickets: (prevStats.totalTickets || 0) + 1,
+          ...(data.itemType === "pass" && {
+            totalAttendees: (prevStats.totalAttendees || 0) + 1,
+          }),
+          ...(data.itemType === "stall" && {
+            totalStalls: (prevStats.totalStalls || 0) + 1,
+          }),
+          recentActivity: [
+            {
+              name: data.name,
+              email: data.email,
+              itemType: data.itemType,
+              passType: data.passType,
+              stallType: data.stallType,
+              amount: data.amount,
+              createdAt: data.createdAt,
+            },
+            ...(prevStats.recentActivity || []).slice(0, 9),
+          ],
+        };
+      });
+    };
+
+    // Handler for check-in event
+    const handleCheckIn = (data) => {
+      console.log("✓ Check-in event received:", data);
+      setStats((prevStats) => {
+        if (!prevStats) return prevStats;
+        return {
+          ...prevStats,
+          checkedInCount: (prevStats.checkedInCount || 0) + 1,
+        };
+      });
+    };
+
+    // Handler for new inquiry event
+    const handleNewInquiry = (data) => {
+      console.log("💬 New inquiry event received:", data);
+      setStats((prevStats) => {
+        if (!prevStats) return prevStats;
+        return {
+          ...prevStats,
+          pendingInquiries: (prevStats.pendingInquiries || 0) + 1,
+        };
+      });
+    };
+
+    // Handler for new volunteer event
+    const handleNewVolunteer = (data) => {
+      console.log("👥 New volunteer event received:", data);
+      setStats((prevStats) => {
+        if (!prevStats) return prevStats;
+        return {
+          ...prevStats,
+          volunteerApplications: (prevStats.volunteerApplications || 0) + 1,
+        };
+      });
+    };
+
+    // Handler for email sent event
+    const handleEmailSent = (data) => {
+      console.log("✉️ Email sent successfully:", data);
+    };
+
+    // Handler for email failed event
+    const handleEmailFailed = (data) => {
+      console.error("❌ Email failed:", data);
+    };
+
+    // Subscribe to all socket events directly on the socket instance
+    socket.on("order:created", handleNewOrder);
+    socket.on("ticket:checked-in", handleCheckIn);
+    socket.on("inquiry:created", handleNewInquiry);
+    socket.on("volunteer:created", handleNewVolunteer);
+    socket.on("email:sent", handleEmailSent);
+    socket.on("email:failed", handleEmailFailed);
+
+    console.log("👂 Subscribed to all admin events on Dashboard");
+
+    // Cleanup
+    return () => {
+      socket.off("order:created", handleNewOrder);
+      socket.off("ticket:checked-in", handleCheckIn);
+      socket.off("inquiry:created", handleNewInquiry);
+      socket.off("volunteer:created", handleNewVolunteer);
+      socket.off("email:sent", handleEmailSent);
+      socket.off("email:failed", handleEmailFailed);
+    };
+  }, [token]);
+
   const fetchDashboardStats = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://startupmelabackend.vercel.app';
+      const API_URL =
+        import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
       const response = await fetch(`${API_URL}/api/admin/dashboard`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch stats');
+        throw new Error(data.message || "Failed to fetch stats");
       }
 
       setStats(data.stats);
@@ -37,19 +151,19 @@ const DashboardPage = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
       maximumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -75,46 +189,46 @@ const DashboardPage = () => {
 
   const statCards = [
     {
-      title: 'Total Revenue',
+      title: "Total Revenue",
       value: formatCurrency(stats?.totalRevenue || 0),
       icon: IndianRupee,
-      iconColor: 'text-green-600',
-      bgColor: 'bg-green-50',
+      iconColor: "text-green-600",
+      bgColor: "bg-green-50",
     },
     {
-      title: 'Total Attendees',
+      title: "Total Attendees",
       value: stats?.totalAttendees || 0,
       icon: Users,
-      iconColor: 'text-blue-600',
-      bgColor: 'bg-blue-50',
+      iconColor: "text-blue-600",
+      bgColor: "bg-blue-50",
     },
     {
-      title: 'Stalls Booked',
+      title: "Stalls Booked",
       value: stats?.totalStalls || 0,
       icon: Building2,
-      iconColor: 'text-purple-600',
-      bgColor: 'bg-purple-50',
+      iconColor: "text-purple-600",
+      bgColor: "bg-purple-50",
     },
     {
-      title: 'Checked In',
+      title: "Checked In",
       value: stats?.checkedInCount || 0,
       icon: UserCheck,
-      iconColor: 'text-orange-600',
-      bgColor: 'bg-orange-50',
+      iconColor: "text-orange-600",
+      bgColor: "bg-orange-50",
     },
     {
-      title: 'Volunteer Applications',
+      title: "Volunteer Applications",
       value: stats?.volunteerApplications || 0,
       icon: Users,
-      iconColor: 'text-teal-600',
-      bgColor: 'bg-teal-50',
+      iconColor: "text-teal-600",
+      bgColor: "bg-teal-50",
     },
     {
-      title: 'Inquiries',
+      title: "Inquiries",
       value: stats?.pendingInquiries || 0,
       icon: MessageSquare,
-      iconColor: 'text-indigo-600',
-      bgColor: 'bg-indigo-50',
+      iconColor: "text-indigo-600",
+      bgColor: "bg-indigo-50",
     },
   ];
 
@@ -124,7 +238,9 @@ const DashboardPage = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-black mb-2">Dashboard</h1>
-          <p className="text-neutral-600">Welcome back! Here's what's happening.</p>
+          <p className="text-neutral-600">
+            Welcome back! Here's what's happening.
+          </p>
         </div>
 
         {/* Stats Grid */}
@@ -148,25 +264,38 @@ const DashboardPage = () => {
         {/* Revenue Breakdown */}
         {stats?.revenueByType && stats.revenueByType.length > 0 && (
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100 mb-8">
-            <h2 className="text-xl font-bold text-black mb-4">Revenue Breakdown</h2>
+            <h2 className="text-xl font-bold text-black mb-4">
+              Revenue Breakdown
+            </h2>
             <div className="space-y-3">
               {stats.revenueByType.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-neutral-50 rounded-xl">
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 bg-neutral-50 rounded-xl"
+                >
                   <div>
                     <p className="font-semibold text-black capitalize">
-                      {item._id === 'pass' ? 'Passes' : `${item._id}s`}
+                      {item._id === "pass" ? "Passes" : `${item._id}s`}
                     </p>
-                    <p className="text-sm text-neutral-600">{item.count} sold</p>
+                    <p className="text-sm text-neutral-600">
+                      {item.count} sold
+                    </p>
                   </div>
-                  <p className="text-xl font-bold text-black">{formatCurrency(item.total)}</p>
+                  <p className="text-xl font-bold text-black">
+                    {formatCurrency(item.total)}
+                  </p>
                 </div>
               ))}
             </div>
             {stats?.totalGST > 0 && (
               <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
                 <div className="flex items-center justify-between">
-                  <p className="font-semibold text-blue-900">Total GST Collected</p>
-                  <p className="text-xl font-bold text-blue-900">{formatCurrency(stats.totalGST)}</p>
+                  <p className="font-semibold text-blue-900">
+                    Total GST Collected
+                  </p>
+                  <p className="text-xl font-bold text-blue-900">
+                    {formatCurrency(stats.totalGST)}
+                  </p>
                 </div>
               </div>
             )}
@@ -181,25 +310,46 @@ const DashboardPage = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-neutral-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">Name</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">Email</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">Type</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">Amount</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">Date</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">
+                      Name
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">
+                      Email
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">
+                      Type
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">
+                      Amount
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-600">
+                      Date
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {stats.recentActivity.map((ticket, index) => (
-                    <tr key={index} className="border-b border-neutral-100 hover:bg-neutral-50">
-                      <td className="py-3 px-4 text-sm text-black font-medium">{ticket.name}</td>
-                      <td className="py-3 px-4 text-sm text-neutral-600">{ticket.email}</td>
+                    <tr
+                      key={index}
+                      className="border-b border-neutral-100 hover:bg-neutral-50"
+                    >
+                      <td className="py-3 px-4 text-sm text-black font-medium">
+                        {ticket.name}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-neutral-600">
+                        {ticket.email}
+                      </td>
                       <td className="py-3 px-4">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                          ticket.itemType === 'pass' 
-                            ? 'bg-blue-100 text-blue-700' 
-                            : 'bg-purple-100 text-purple-700'
-                        }`}>
-                          {ticket.itemType === 'pass' ? ticket.passType : ticket.stallType}
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                            ticket.itemType === "pass"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-purple-100 text-purple-700"
+                          }`}
+                        >
+                          {ticket.itemType === "pass"
+                            ? ticket.passType
+                            : ticket.stallType}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-sm font-semibold text-black">

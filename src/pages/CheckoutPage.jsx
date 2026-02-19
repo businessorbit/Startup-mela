@@ -6,6 +6,10 @@ import { stalls } from "../data/stalls";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
 import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
+import {
+  initializeCheckoutSocket,
+  joinOrderTracking,
+} from "../utils/socketClient";
 
 const PROFESSION_OPTIONS = [
   "Student",
@@ -65,9 +69,45 @@ const CheckoutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    // Initialize checkout socket for payment tracking
+    const socket = initializeCheckoutSocket();
+
     // Check for payment success
     if (paymentStatus === "success" && orderId) {
+      // Join order tracking room
+      joinOrderTracking(orderId);
+
+      // Set up socket listener for payment confirmation
+      const handlePaymentConfirmed = (data) => {
+        console.log("💳 Payment confirmed via WebSocket:", data);
+        checkPaymentStatus(orderId);
+      };
+
+      // Subscribe to payment:confirmed event directly on socket instance
+      socket.on("payment:confirmed", handlePaymentConfirmed);
+      console.log(
+        "👂 Subscribed to 'payment:confirmed' event for order:",
+        orderId,
+      );
+
+      // Also do an immediate check in case socket is slow
       checkPaymentStatus(orderId);
+
+      // Fallback: Poll every 3 seconds for 30 seconds if socket doesn't come through
+      const fallbackInterval = setInterval(() => {
+        checkPaymentStatus(orderId);
+      }, 3000);
+
+      const fallbackTimeout = setTimeout(() => {
+        clearInterval(fallbackInterval);
+      }, 30000);
+
+      // Cleanup
+      return () => {
+        clearInterval(fallbackInterval);
+        clearTimeout(fallbackTimeout);
+        socket.off("payment:confirmed", handlePaymentConfirmed);
+      };
     }
   }, [paymentStatus, orderId]);
 
@@ -542,7 +582,7 @@ const CheckoutPage = () => {
             transition={{ duration: 0.6 }}
             className="relative lg:sticky lg:top-32"
           >
-            <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[520px] shadow-2xl shadow-blue-900/10 border border-white/10">
+            <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-105 sm:min-h-120 md:min-h-130 shadow-2xl shadow-blue-900/10 border border-white/10">
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay z-0" />
               {selectedItem?.popular && (
@@ -645,7 +685,7 @@ const CheckoutPage = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl sm:rounded-3xl md:rounded-[2rem] p-6 sm:p-8 md:p-10 lg:p-12 text-black shadow-2xl"
+            className="bg-white rounded-2xl sm:rounded-3xl md:rounded-4xl p-6 sm:p-8 md:p-10 lg:p-12 text-black shadow-2xl"
           >
             <div className="mb-6 sm:mb-7 md:mb-8 border-b border-neutral-100 pb-4 sm:pb-5 md:pb-6">
               <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight mb-1.5 sm:mb-2">
@@ -1216,7 +1256,7 @@ const CheckoutPage = () => {
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full py-4 sm:py-5 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold text-base sm:text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full py-4 sm:py-5 rounded-lg sm:rounded-xl bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold text-base sm:text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center gap-2">
@@ -1311,7 +1351,7 @@ const CheckoutPage = () => {
                 </div>
                 <button
                   onClick={() => setShowSuccessModal(false)}
-                  className="w-full py-3 rounded-lg bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
+                  className="w-full py-3 rounded-lg bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
                 >
                   Close
                 </button>
