@@ -15,7 +15,7 @@ export const isDiscountActive = () => {
 export const passes = [
   {
     id: 1,
-    title: "General Entry Pass",
+    title: "Exhibition + Entertainment Pass",
     originalBasePrice: 50,
     discountPercent: 50,
     basePrice: isDiscountActive() ? 25 : 50,
@@ -31,33 +31,14 @@ export const passes = [
       "Explore 100+ startup stalls",
       "Product demos & brand showcases",
       "Food Court access",
-      "Vibrant festival experience"
+      "Entry to the comedy show by Pranav Sharma",
+      "Entry to the magic and mind reading show by Abhay Sharma",
+      "Entry to watch the theme modelling and fashion show",
     ],
     popular: false
   },
   {
     id: 2,
-    title: "Arena Pass",
-    originalBasePrice: 0,
-    discountPercent: 0,
-    basePrice: 0,
-    price: "Free",
-    gstRate: 0,
-    gstAmount: 0,
-    totalPrice: 0,
-    displayPrice: "Free",
-    oldPrice: null,
-    savings: 0,
-    features: [
-      "Everything in the General Entry Pass",
-      "Entry to Stage Side (Zone 2)",
-      "Public viewing of Main Stage events"
-    ],
-    popular: false,
-    comingSoon: false
-  },
-  {
-    id: 3,
     title: "All-Access Conference Pass",
     originalBasePrice: 2100,
     discountPercent: 50,
@@ -77,7 +58,7 @@ export const passes = [
     popular: false
   },
   {
-    id: 4,
+    id: 3,
     title: "Startup Pitching Pass",
     originalBasePrice: 3500,
     discountPercent: 50,
@@ -94,27 +75,6 @@ export const passes = [
       "Present your startup to Angel Investors",
       "High-stakes fundraising opportunity",
       "Choose if your ask < 20 lakhs"
-    ],
-    popular: false
-  },
-  {
-    id: 5,
-    title: "Startup Pitching Pass",
-    originalBasePrice: 9999,
-    discountPercent: 50,
-    basePrice: isDiscountActive() ? 4999.5 : 9999,
-    price: isDiscountActive() ? "₹4,999.50" : "₹9,999",
-    gstRate: 0.18,
-    gstAmount: isDiscountActive() ? 899.91 : 1799.82,
-    totalPrice: isDiscountActive() ? 5899.41 : 11798.82,
-    displayPrice: isDiscountActive() ? "₹5,899" : "₹11,799",
-    oldPrice: isDiscountActive() ? "₹11,799" : null,
-    savings: isDiscountActive() ? 5899.59 : 0,
-    features: [
-      "Reserved entry to the Official Pitching Event",
-      "Present your startup to VCs",
-      "High-stakes fundraising opportunity",
-      "Choose if your ask > 20 lakhs and you have received any grant or funding before"
     ],
     popular: false
   },
