@@ -475,7 +475,8 @@ const CheckoutPage = () => {
       // Select API URL and endpoint based on environment
       const API_URL =
         import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
-      const IS_TEST_MODE = import.meta.env.VITE_TEST_MODE === "true";
+      const IS_TEST_MODE =
+        import.meta.env.VITE_TEST_MODE === "true" && !import.meta.env.PROD;
       const paymentEndpoint = IS_TEST_MODE
         ? "/api/payment/test"
         : "/api/payment/create";
