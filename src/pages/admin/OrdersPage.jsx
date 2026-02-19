@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAdminAuth } from "../../contexts/AdminAuthContext";
 import AdminLayout from "../../components/Admin/AdminLayout";
 import {
@@ -9,6 +9,8 @@ import {
   Clock,
   Users,
   User,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const OrdersPage = () => {
@@ -19,9 +21,11 @@ const OrdersPage = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [activeTab, setActiveTab] = useState("pass");
   const [groupedTickets, setGroupedTickets] = useState([]);
+  const [collapsedGroups, setCollapsedGroups] = useState({});
 
   useEffect(() => {
     fetchTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, activeTab]);
 
   useEffect(() => {
@@ -66,6 +70,24 @@ const OrdersPage = () => {
 
   const handleSearch = () => {
     fetchTickets();
+  };
+
+  const toggleGroup = (orderId) => {
+    setCollapsedGroups(prev => ({
+      ...prev,
+      [orderId]: !prev[orderId]
+    }));
+  };
+
+  const getGroupColor = (index) => {
+    const colors = [
+      'border-blue-400 bg-blue-50/40',
+      'border-purple-400 bg-purple-50/40',
+      'border-green-400 bg-green-50/40',
+      'border-orange-400 bg-orange-50/40',
+      'border-pink-400 bg-pink-50/40',
+    ];
+    return colors[index % colors.length];
   };
 
   const exportToCSV = () => {
@@ -293,91 +315,151 @@ const OrdersPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tickets.map((ticket) => {
-                    const ticketsInOrder = tickets.filter(
-                      (t) => t.orderId === ticket.orderId,
-                    ).length;
-                    const isGroupBooking = ticketsInOrder > 1;
-
+                  {groupedTickets.map((group, groupIndex) => {
+                    const isGroupBooking = group.length > 1;
+                    const orderId = group[0].orderId;
+                    const isCollapsed = collapsedGroups[orderId];
+                    const groupColor = getGroupColor(groupIndex);
+                    const totalAmount = group.reduce((sum, t) => sum + t.amount, 0);
+                    
                     return (
-                      <tr
-                        key={ticket._id}
-                        className={`border-t border-neutral-100 hover:bg-neutral-50 ${
-                          isGroupBooking ? "bg-blue-50/30" : ""
-                        }`}
-                      >
-                        <td className="py-4 px-6">
-                          {isGroupBooking ? (
-                            <div className="flex items-center gap-2">
-                              <Users size={16} className="text-blue-600" />
-                              <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-                                Group ({ticketsInOrder})
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-2">
-                              <User size={16} className="text-gray-600" />
-                              <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                                Single
-                              </span>
-                            </div>
-                          )}
-                        </td>
-                        <td className="py-4 px-6">
-                          <p className="font-semibold text-black">
-                            {ticket.name}
-                          </p>
-                          <p className="text-xs text-neutral-500">
-                            {ticket.profession}
-                          </p>
-                          {isGroupBooking && (
-                            <p className="text-xs text-blue-600 font-mono mt-1">
-                              Order: {ticket.orderId.slice(-8)}
-                            </p>
-                          )}
-                        </td>
-                        <td className="py-4 px-6">
-                          <p className="text-sm text-neutral-700">
-                            {ticket.email}
-                          </p>
-                          <p className="text-xs text-neutral-500">
-                            {ticket.phone}
-                          </p>
-                        </td>
-                        <td className="py-4 px-6">
-                          <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                              ticket.itemType === "pass"
-                                ? "bg-blue-100 text-blue-700"
-                                : "bg-purple-100 text-purple-700"
-                            }`}
-                          >
-                            {ticket.itemType === "pass"
-                              ? ticket.passType
-                              : ticket.stallType}
-                          </span>
-                        </td>
-                        <td className="py-4 px-6 font-semibold text-black">
-                          ₹{ticket.amount.toLocaleString("en-IN")}
-                        </td>
-                        <td className="py-4 px-6">
-                          {getStatusBadge(ticket.status)}
-                        </td>
-                        <td className="py-4 px-6">
-                          <code className="px-2 py-1 bg-neutral-100 rounded text-xs font-mono text-black">
-                            {ticket.verificationCode}
-                          </code>
-                        </td>
-                        <td className="py-4 px-6">
-                          {ticket.checkedIn ? (
-                            <span className="text-green-600 font-semibold text-sm">
-                              ✓ Yes
-                            </span>
-                          ) : (
-                            <span className="text-neutral-400 text-sm">No</span>
-                          )}
-                        </td>
-                      </tr>
+                      <React.Fragment key={orderId}>
+                        {/* Group Header Row (only for multi-ticket orders) */}
+                        {isGroupBooking && (
+                          <tr className={`border-t-4 ${groupColor} border-l-4`}>
+                            <td colSpan="8" className="py-3 px-6">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                  <button
+                                    onClick={() => toggleGroup(orderId)}
+                                    className="flex items-center gap-2 hover:bg-white/50 px-3 py-1 rounded-lg transition-colors"
+                                  >
+                                    {isCollapsed ? (
+                                      <ChevronDown size={18} className="text-neutral-600" />
+                                    ) : (
+                                      <ChevronUp size={18} className="text-neutral-600" />
+                                    )}
+                                    <Users size={18} className="text-blue-600" />
+                                    <span className="font-bold text-black">
+                                      Group Order - {group.length} Tickets
+                                    </span>
+                                  </button>
+                                  <span className="text-sm text-neutral-600 font-mono">
+                                    Order ID: {orderId.slice(-12)}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-4 text-sm">
+                                  <span className="text-neutral-600">
+                                    Total Amount: <span className="font-bold text-black">₹{totalAmount.toLocaleString("en-IN")}</span>
+                                  </span>
+                                  {getStatusBadge(group[0].status)}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                        
+                        {/* Ticket Rows */}
+                        {(!isCollapsed || !isGroupBooking) && group.map((ticket, ticketIndex) => {
+                          const isPrimary = ticket.primaryContact;
+                          
+                          return (
+                            <tr
+                              key={ticket._id}
+                              className={`border-t hover:bg-neutral-50 transition-colors ${
+                                isGroupBooking 
+                                  ? `${groupColor} border-l-4` 
+                                  : 'border-neutral-100'
+                              }`}
+                            >
+                              <td className="py-4 px-6">
+                                {isGroupBooking ? (
+                                  <div className="flex items-center gap-2 pl-8">
+                                    <div className="w-1 h-8 bg-neutral-300 rounded"></div>
+                                    <div>
+                                      <span className="text-xs text-neutral-500 block">
+                                        Ticket {ticketIndex + 1} of {group.length}
+                                      </span>
+                                      {isPrimary && (
+                                        <span className="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-700 mt-1">
+                                          Primary
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-2">
+                                    <User size={16} className="text-gray-600" />
+                                    <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+                                      Single
+                                    </span>
+                                  </div>
+                                )}
+                              </td>
+                              <td className="py-4 px-6">
+                                <p className="font-semibold text-black">
+                                  {ticket.name}
+                                </p>
+                                <p className="text-xs text-neutral-500">
+                                  {ticket.profession || ticket.startupName}
+                                </p>
+                              </td>
+                              <td className="py-4 px-6">
+                                <p className="text-sm text-neutral-700">
+                                  {ticket.email}
+                                </p>
+                                <p className="text-xs text-neutral-500">
+                                  {ticket.phone}
+                                </p>
+                              </td>
+                              <td className="py-4 px-6">
+                                <span
+                                  className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                                    ticket.itemType === "pass"
+                                      ? "bg-blue-100 text-blue-700"
+                                      : "bg-purple-100 text-purple-700"
+                                  }`}
+                                >
+                                  {ticket.itemType === "pass"
+                                    ? ticket.passType
+                                    : ticket.stallType}
+                                </span>
+                              </td>
+                              <td className="py-4 px-6 font-semibold text-black">
+                                ₹{ticket.amount.toLocaleString("en-IN")}
+                              </td>
+                              <td className="py-4 px-6">
+                                {isGroupBooking && ticketIndex > 0 ? (
+                                  <span className="text-xs text-neutral-400">—</span>
+                                ) : (
+                                  getStatusBadge(ticket.status)
+                                )}
+                              </td>
+                              <td className="py-4 px-6">
+                                <code className="px-2 py-1 bg-neutral-100 rounded text-xs font-mono text-black">
+                                  {ticket.verificationCode}
+                                </code>
+                              </td>
+                              <td className="py-4 px-6">
+                                {ticket.checkedIn ? (
+                                  <span className="text-green-600 font-semibold text-sm">
+                                    ✓ Yes
+                                  </span>
+                                ) : (
+                                  <span className="text-neutral-400 text-sm">No</span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                        
+                        {/* Add spacing between groups */}
+                        {isGroupBooking && groupIndex < groupedTickets.length - 1 && (
+                          <tr className="h-2 bg-neutral-50">
+                            <td colSpan="8"></td>
+                          </tr>
+                        )}
+                      </React.Fragment>
                     );
                   })}
                 </tbody>
