@@ -16,7 +16,7 @@ const PROFESSION_OPTIONS = [
   "Developer/Engineer",
   "Designer",
   "Marketing Professional",
-  "Others"
+  "Others",
 ];
 
 const CheckoutPage = () => {
@@ -34,7 +34,14 @@ const CheckoutPage = () => {
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
-    { name: "", email: "", phone: "", profession: "", professionOther: "", startupName: "" }
+    {
+      name: "",
+      email: "",
+      phone: "",
+      profession: "",
+      professionOther: "",
+      startupName: "",
+    },
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
@@ -50,7 +57,8 @@ const CheckoutPage = () => {
   const [linkedinProfile, setLinkedinProfile] = useState("");
   const [hasCoFounder, setHasCoFounder] = useState("");
   const [coFounderStudentIdFile, setCoFounderStudentIdFile] = useState(null);
-  const [coFounderStudentIdPreview, setCoFounderStudentIdPreview] = useState(null);
+  const [coFounderStudentIdPreview, setCoFounderStudentIdPreview] =
+    useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [uploadingFiles, setUploadingFiles] = useState(false);
 
@@ -70,7 +78,14 @@ const CheckoutPage = () => {
       // Add more attendee slots
       const newAttendees = [...attendees];
       for (let i = currentLength; i < quantity; i++) {
-        newAttendees.push({ name: "", email: "", phone: "", profession: "", professionOther: "", startupName: "" });
+        newAttendees.push({
+          name: "",
+          email: "",
+          phone: "",
+          profession: "",
+          professionOther: "",
+          startupName: "",
+        });
       }
       setAttendees(newAttendees);
     } else if (quantity < currentLength) {
@@ -81,18 +96,17 @@ const CheckoutPage = () => {
 
   // Debug: Track studentIdFile state changes
   useEffect(() => {
-    console.log('🔄 studentIdFile state changed to:', studentIdFile);
+    console.log("🔄 studentIdFile state changed to:", studentIdFile);
   }, [studentIdFile]);
 
   useEffect(() => {
-    console.log('🔄 founderProofFile state changed to:', founderProofFile);
+    console.log("🔄 founderProofFile state changed to:", founderProofFile);
   }, [founderProofFile]);
-
 
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/status/${transactionId}`
+        `${import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app"}/api/payment/status/${transactionId}`,
       );
       const data = await response.json();
 
@@ -129,13 +143,13 @@ const CheckoutPage = () => {
 
   // File upload handlers for student stall
   const handleFileUpload = (event, setFileState, setPreviewState) => {
-    console.log('📁 handleFileUpload called with event:', event);
+    console.log("📁 handleFileUpload called with event:", event);
 
     const file = event?.target?.files?.[0];
-    console.log('📁 Extracted file from event:', file);
+    console.log("📁 Extracted file from event:", file);
 
     if (!file) {
-      console.log('⚠️ No file found in event');
+      console.log("⚠️ No file found in event");
       return;
     }
 
@@ -147,28 +161,33 @@ const CheckoutPage = () => {
     }
 
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "application/pdf",
+    ];
     if (!allowedTypes.includes(file.type)) {
       setError("Only JPG, PNG, and PDF files are allowed");
       return;
     }
 
-    console.log('✅ File validated, setting file state:', file.name);
-    console.log('🔧 About to call setFileState');
+    console.log("✅ File validated, setting file state:", file.name);
+    console.log("🔧 About to call setFileState");
     setFileState(file);
-    console.log('✔️ setFileState called');
+    console.log("✔️ setFileState called");
 
     // Create preview for images
-    if (file.type.startsWith('image/')) {
+    if (file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log('🖼️ Setting image preview');
+        console.log("🖼️ Setting image preview");
         setPreviewState(reader.result);
       };
       reader.readAsDataURL(file);
     } else {
-      console.log('📄 Setting PDF preview');
-      setPreviewState('pdf');
+      console.log("📄 Setting PDF preview");
+      setPreviewState("pdf");
     }
 
     if (error) setError("");
@@ -179,35 +198,35 @@ const CheckoutPage = () => {
     const formData = new FormData();
 
     // Append files
-    formData.append('studentId', studentIdFile);
-    formData.append('founderProof', founderProofFile);
+    formData.append("studentId", studentIdFile);
+    formData.append("founderProof", founderProofFile);
     if (hasCoFounder === "yes" && coFounderStudentIdFile) {
-      formData.append('coFounderStudentId', coFounderStudentIdFile);
+      formData.append("coFounderStudentId", coFounderStudentIdFile);
     }
 
     // Append other data
-    formData.append('linkedinProfile', linkedinProfile.trim());
-    formData.append('hasCoFounder', hasCoFounder === "yes");
+    formData.append("linkedinProfile", linkedinProfile.trim());
+    formData.append("hasCoFounder", hasCoFounder === "yes");
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
+      const API_URL =
+        import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
       const response = await fetch(`${API_URL}/api/upload/student-documents`, {
-        method: 'POST',
-        body: formData
+        method: "POST",
+        body: formData,
         // Don't set Content-Type header - browser will set it with boundary
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Upload failed');
+        throw new Error(data.message || "Upload failed");
       }
 
-      console.log('✅ Documents uploaded successfully:', data.data);
+      console.log("✅ Documents uploaded successfully:", data.data);
       return data.data; // Returns { studentIdUrl, founderProofUrl, linkedinProfile, hasCoFounder, coFounderStudentIdUrl, termsAccepted, termsAcceptedAt }
-
     } catch (err) {
-      console.error('Upload error:', err);
+      console.error("Upload error:", err);
       throw err;
     }
   };
@@ -220,8 +239,14 @@ const CheckoutPage = () => {
       const attendee = attendees[i];
 
       // Validate name
-      if (!attendee.name || !attendee.name.trim() || attendee.name.trim().length < 2) {
-        setError(`Attendee ${i + 1}: Please enter a valid name (minimum 2 characters)`);
+      if (
+        !attendee.name ||
+        !attendee.name.trim() ||
+        attendee.name.trim().length < 2
+      ) {
+        setError(
+          `Attendee ${i + 1}: Please enter a valid name (minimum 2 characters)`,
+        );
         return false;
       }
 
@@ -238,7 +263,9 @@ const CheckoutPage = () => {
       }
       const cleanPhone = attendee.phone.replace(/[\s+\-()]/g, "");
       if (!phoneRegex.test(cleanPhone.slice(-10))) {
-        setError(`Attendee ${i + 1}: Please enter a valid 10-digit Indian phone number (starting with 6-9)`);
+        setError(
+          `Attendee ${i + 1}: Please enter a valid 10-digit Indian phone number (starting with 6-9)`,
+        );
         return false;
       }
 
@@ -256,7 +283,10 @@ const CheckoutPage = () => {
           return false;
         }
 
-        if (attendee.profession === "Others" && (!attendee.professionOther || !attendee.professionOther.trim())) {
+        if (
+          attendee.profession === "Others" &&
+          (!attendee.professionOther || !attendee.professionOther.trim())
+        ) {
           setError(`Attendee ${i + 1}: Please specify your profession`);
           return false;
         }
@@ -266,7 +296,7 @@ const CheckoutPage = () => {
     // Student Special Stall specific validation
     if (isStudentStall) {
       // Validate Student ID upload
-      console.log('🔍 Validating studentIdFile:', studentIdFile);
+      console.log("🔍 Validating studentIdFile:", studentIdFile);
       if (!studentIdFile) {
         setError("Please upload your Student ID");
         return false;
@@ -279,7 +309,8 @@ const CheckoutPage = () => {
       }
 
       // Validate LinkedIn profile
-      const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/(company|in)\/.+$/i;
+      const linkedinRegex =
+        /^(https?:\/\/)?(www\.)?linkedin\.com\/(company|in)\/.+$/i;
       if (!linkedinProfile || !linkedinProfile.trim()) {
         setError("Please enter your company's LinkedIn profile URL");
         return false;
@@ -363,8 +394,6 @@ const CheckoutPage = () => {
         const documents = await uploadStudentDocuments();
         studentDocuments = documents;
 
-
-
         setUploadingFiles(false);
         setError("Processing payment...");
       } catch (uploadError) {
@@ -404,22 +433,26 @@ const CheckoutPage = () => {
       }
 
       // Select API URL and endpoint based on environment
-      const API_URL = import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
-      const IS_TEST_MODE = import.meta.env.VITE_TEST_MODE === 'true';
-      const paymentEndpoint = IS_TEST_MODE ? '/api/payment/test' : '/api/payment/create';
+      const API_URL =
+        import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
+      const IS_TEST_MODE = import.meta.env.VITE_TEST_MODE === "true";
+      const paymentEndpoint = IS_TEST_MODE
+        ? "/api/payment/test"
+        : "/api/payment/create";
 
-      console.log('Payment Config:', { API_URL, IS_TEST_MODE, paymentEndpoint });
+      console.log("Payment Config:", {
+        API_URL,
+        IS_TEST_MODE,
+        paymentEndpoint,
+      });
 
-      const response = await fetch(
-        `${API_URL}${paymentEndpoint}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderPayload),
-        }
-      );
+      const response = await fetch(`${API_URL}${paymentEndpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderPayload),
+      });
 
       const data = await response.json();
 
@@ -427,7 +460,15 @@ const CheckoutPage = () => {
         throw new Error(data.message || "Failed to initiate payment");
       }
 
-      // Redirect to PhonePe Gateway
+      // Handle free ticket success (no redirect needed)
+      if (data.isFreeTicket) {
+        setSuccessData(data);
+        setShowSuccessModal(true);
+        setIsProcessing(false);
+        return;
+      }
+
+      // Redirect to PhonePe Gateway for paid tickets
       if (data && data.redirectUrl) {
         window.location.href = data.redirectUrl;
       } else {
@@ -435,7 +476,9 @@ const CheckoutPage = () => {
       }
     } catch (err) {
       console.error(err);
-      setError(err.message || "Payment initialization failed. Please try again.");
+      setError(
+        err.message || "Payment initialization failed. Please try again.",
+      );
       setIsProcessing(false);
     }
   };
@@ -544,7 +587,9 @@ const CheckoutPage = () => {
                         </p>
                         {quantity > 1 && (
                           <p className="text-sm text-neutral-400 mt-2">
-                            {quantity} tickets × {selectedPass.displayPrice || selectedPass.price} = ₹{totalAmount.toLocaleString("en-IN")}
+                            {quantity} tickets ×{" "}
+                            {selectedPass.displayPrice || selectedPass.price} =
+                            ₹{totalAmount.toLocaleString("en-IN")}
                           </p>
                         )}
                       </div>
@@ -637,17 +682,24 @@ const CheckoutPage = () => {
                       +
                     </button>
                   </div>
-                  <p className="text-xs text-neutral-500 mt-2">Maximum 5 tickets per booking</p>
+                  <p className="text-xs text-neutral-500 mt-2">
+                    Maximum 5 tickets per booking
+                  </p>
                 </div>
               )}
 
               {/* Attendee Details */}
               <div className="space-y-6">
                 {attendees.map((attendee, index) => (
-                  <div key={index} className="border border-neutral-200 rounded-xl p-4 sm:p-5 space-y-3.5 sm:space-y-4">
+                  <div
+                    key={index}
+                    className="border border-neutral-200 rounded-xl p-4 sm:p-5 space-y-3.5 sm:space-y-4"
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-sm sm:text-base font-bold text-neutral-700">
-                        {index === 0 ? "Primary Contact" : `Attendee ${index + 1}`}
+                        {index === 0
+                          ? "Primary Contact"
+                          : `Attendee ${index + 1}`}
                       </h3>
                       {quantity > 1 && (
                         <span className="text-xs text-neutral-500">
@@ -664,7 +716,9 @@ const CheckoutPage = () => {
                         required
                         type="text"
                         value={attendee.name}
-                        onChange={(e) => handleAttendeeChange(index, "name", e.target.value)}
+                        onChange={(e) =>
+                          handleAttendeeChange(index, "name", e.target.value)
+                        }
                         placeholder="John Doe"
                         className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                       />
@@ -678,7 +732,9 @@ const CheckoutPage = () => {
                         required
                         type="email"
                         value={attendee.email}
-                        onChange={(e) => handleAttendeeChange(index, "email", e.target.value)}
+                        onChange={(e) =>
+                          handleAttendeeChange(index, "email", e.target.value)
+                        }
                         placeholder="john@example.com"
                         className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                       />
@@ -713,7 +769,13 @@ const CheckoutPage = () => {
                           required
                           type="text"
                           value={attendee.startupName}
-                          onChange={(e) => handleAttendeeChange(index, "startupName", e.target.value)}
+                          onChange={(e) =>
+                            handleAttendeeChange(
+                              index,
+                              "startupName",
+                              e.target.value,
+                            )
+                          }
                           placeholder="Your Startup Name"
                           className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                         />
@@ -726,7 +788,13 @@ const CheckoutPage = () => {
                         <select
                           required
                           value={attendee.profession}
-                          onChange={(e) => handleAttendeeChange(index, "profession", e.target.value)}
+                          onChange={(e) =>
+                            handleAttendeeChange(
+                              index,
+                              "profession",
+                              e.target.value,
+                            )
+                          }
                           className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                         >
                           <option value="">Select your profession</option>
@@ -748,7 +816,13 @@ const CheckoutPage = () => {
                           required
                           type="text"
                           value={attendee.professionOther}
-                          onChange={(e) => handleAttendeeChange(index, "professionOther", e.target.value)}
+                          onChange={(e) =>
+                            handleAttendeeChange(
+                              index,
+                              "professionOther",
+                              e.target.value,
+                            )
+                          }
                           placeholder="Enter your profession"
                           className="w-full p-3 sm:p-3.5 md:p-4 text-sm sm:text-base bg-neutral-50 rounded-lg sm:rounded-xl border border-neutral-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-medium transition-all"
                         />
@@ -762,15 +836,26 @@ const CheckoutPage = () => {
               {isStudentStall && (
                 <div className="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 sm:p-6 space-y-5 mt-6">
                   <div className="flex items-start gap-3 pb-4 border-b border-amber-200">
-                    <svg className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    <svg
+                      className="w-6 h-6 text-amber-600 shrink-0 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
                     </svg>
                     <div>
                       <h3 className="text-base sm:text-lg font-bold text-amber-900 mb-1">
                         Student Verification Required
                       </h3>
                       <p className="text-xs sm:text-sm text-amber-700">
-                        Please provide the following documents to validate your student status and startup details
+                        Please provide the following documents to validate your
+                        student status and startup details
                       </p>
                     </div>
                   </div>
@@ -781,25 +866,40 @@ const CheckoutPage = () => {
                       Student ID Photo <span className="text-red-500">*</span>
                     </label>
                     <p className="text-xs text-neutral-600 mb-2">
-                      Upload a valid student ID proof to validate that you are currently a school/university student
+                      Upload a valid student ID proof to validate that you are
+                      currently a school/university student
                     </p>
                     <input
                       type="file"
                       accept="image/jpeg,image/jpg,image/png,application/pdf"
-                      onChange={(e) => handleFileUpload(e, setStudentIdFile, setStudentIdPreview)}
+                      onChange={(e) =>
+                        handleFileUpload(
+                          e,
+                          setStudentIdFile,
+                          setStudentIdPreview,
+                        )
+                      }
                       className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {studentIdPreview && (
                       <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
-                        {studentIdPreview === 'pdf' ? (
+                        {studentIdPreview === "pdf" ? (
                           <div className="flex items-center gap-2 text-sm text-neutral-600">
-                            <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <svg
+                              className="w-5 h-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
                               <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
                             </svg>
                             <span>PDF uploaded successfully</span>
                           </div>
                         ) : (
-                          <img src={studentIdPreview} alt="Student ID Preview" className="max-h-32 rounded" />
+                          <img
+                            src={studentIdPreview}
+                            alt="Student ID Preview"
+                            className="max-h-32 rounded"
+                          />
                         )}
                       </div>
                     )}
@@ -808,28 +908,45 @@ const CheckoutPage = () => {
                   {/* Founder Proof Upload */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
-                      Founder Proof Document <span className="text-red-500">*</span>
+                      Founder Proof Document{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <p className="text-xs text-neutral-600 mb-2">
-                      Upload a valid proof that shows you are the founder of the startup (e.g., registration certificate, pitch deck cover, etc.)
+                      Upload a valid proof that shows you are the founder of the
+                      startup (e.g., registration certificate, pitch deck cover,
+                      etc.)
                     </p>
                     <input
                       type="file"
                       accept="image/jpeg,image/jpg,image/png,application/pdf"
-                      onChange={(e) => handleFileUpload(e, setFounderProofFile, setFounderProofPreview)}
+                      onChange={(e) =>
+                        handleFileUpload(
+                          e,
+                          setFounderProofFile,
+                          setFounderProofPreview,
+                        )
+                      }
                       className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {founderProofPreview && (
                       <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
-                        {founderProofPreview === 'pdf' ? (
+                        {founderProofPreview === "pdf" ? (
                           <div className="flex items-center gap-2 text-sm text-neutral-600">
-                            <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <svg
+                              className="w-5 h-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
                               <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
                             </svg>
                             <span>PDF uploaded successfully</span>
                           </div>
                         ) : (
-                          <img src={founderProofPreview} alt="Founder Proof Preview" className="max-h-32 rounded" />
+                          <img
+                            src={founderProofPreview}
+                            alt="Founder Proof Preview"
+                            className="max-h-32 rounded"
+                          />
                         )}
                       </div>
                     )}
@@ -838,7 +955,8 @@ const CheckoutPage = () => {
                   {/* LinkedIn Profile */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
-                      Company LinkedIn Profile <span className="text-red-500">*</span>
+                      Company LinkedIn Profile{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <p className="text-xs text-neutral-600 mb-2">
                       Enter your company's or personal LinkedIn profile URL
@@ -859,7 +977,8 @@ const CheckoutPage = () => {
                   {/* Co-Founder Question */}
                   <div>
                     <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-3">
-                      Do you have a co-founder? <span className="text-red-500">*</span>
+                      Do you have a co-founder?{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <div className="flex gap-4">
                       <label className="flex items-center gap-2 cursor-pointer">
@@ -874,7 +993,9 @@ const CheckoutPage = () => {
                           }}
                           className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
                         />
-                        <span className="text-sm font-medium text-neutral-700">Yes</span>
+                        <span className="text-sm font-medium text-neutral-700">
+                          Yes
+                        </span>
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -890,7 +1011,9 @@ const CheckoutPage = () => {
                           }}
                           className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
                         />
-                        <span className="text-sm font-medium text-neutral-700">No</span>
+                        <span className="text-sm font-medium text-neutral-700">
+                          No
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -899,28 +1022,44 @@ const CheckoutPage = () => {
                   {hasCoFounder === "yes" && (
                     <div className="pl-4 border-l-4 border-blue-300 bg-blue-50/50 p-4 rounded-r-lg">
                       <label className="block text-xs sm:text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
-                        Co-Founder's Student ID <span className="text-red-500">*</span>
+                        Co-Founder's Student ID{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <p className="text-xs text-neutral-600 mb-2">
-                        Upload your co-founder's student ID to verify they are also a student
+                        Upload your co-founder's student ID to verify they are
+                        also a student
                       </p>
                       <input
                         type="file"
                         accept="image/jpeg,image/jpg,image/png,application/pdf"
-                        onChange={(e) => handleFileUpload(e, setCoFounderStudentIdFile, setCoFounderStudentIdPreview)}
+                        onChange={(e) =>
+                          handleFileUpload(
+                            e,
+                            setCoFounderStudentIdFile,
+                            setCoFounderStudentIdPreview,
+                          )
+                        }
                         className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       />
                       {coFounderStudentIdPreview && (
                         <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
-                          {coFounderStudentIdPreview === 'pdf' ? (
+                          {coFounderStudentIdPreview === "pdf" ? (
                             <div className="flex items-center gap-2 text-sm text-neutral-600">
-                              <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                              <svg
+                                className="w-5 h-5 text-red-500"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
                                 <path d="M4 18h12V6h-4V2H4v16zm-2 1V0h12l4 4v16H2v-1z" />
                               </svg>
                               <span>PDF uploaded successfully</span>
                             </div>
                           ) : (
-                            <img src={coFounderStudentIdPreview} alt="Co-Founder Student ID Preview" className="max-h-32 rounded" />
+                            <img
+                              src={coFounderStudentIdPreview}
+                              alt="Co-Founder Student ID Preview"
+                              className="max-h-32 rounded"
+                            />
                           )}
                         </div>
                       )}
@@ -930,17 +1069,44 @@ const CheckoutPage = () => {
                   {/* Terms & Conditions */}
                   <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4">
                     <div className="flex items-start gap-3 mb-3">
-                      <svg className="w-6 h-6 text-red-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      <svg
+                        className="w-6 h-6 text-red-600 shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        />
                       </svg>
                       <div>
-                        <h4 className="text-sm font-bold text-red-900 mb-2">Important Terms & Conditions</h4>
+                        <h4 className="text-sm font-bold text-red-900 mb-2">
+                          Important Terms & Conditions
+                        </h4>
                         <ul className="text-xs text-red-800 space-y-1.5 list-disc list-inside">
-                          <li>You must have a valid student ID proof to validate that you are currently a school/university student</li>
-                          <li>If you have any co-founder, that person must also be a student</li>
-                          <li>Only 1 All-Access Pass will be provided (only for the person buying this stall)</li>
-                          <li>A valid proof that shows that the student is the founder of the startup is required</li>
-                          <li className="font-bold text-red-900">If any of the conditions is found violated, no refund will be provided</li>
+                          <li>
+                            You must have a valid student ID proof to validate
+                            that you are currently a school/university student
+                          </li>
+                          <li>
+                            If you have any co-founder, that person must also be
+                            a student
+                          </li>
+                          <li>
+                            Only 1 All-Access Pass will be provided (only for
+                            the person buying this stall)
+                          </li>
+                          <li>
+                            A valid proof that shows that the student is the
+                            founder of the startup is required
+                          </li>
+                          <li className="font-bold text-red-900">
+                            If any of the conditions is found violated, no
+                            refund will be provided
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -955,7 +1121,9 @@ const CheckoutPage = () => {
                         className="w-5 h-5 text-red-600 focus:ring-2 focus:ring-red-500 rounded mt-0.5 shrink-0"
                       />
                       <span className="text-xs sm:text-sm font-semibold text-red-900">
-                        I accept the terms and conditions and understand that no refund will be provided if any condition is found violated <span className="text-red-600">*</span>
+                        I accept the terms and conditions and understand that no
+                        refund will be provided if any condition is found
+                        violated <span className="text-red-600">*</span>
                       </span>
                     </label>
                   </div>
@@ -967,25 +1135,47 @@ const CheckoutPage = () => {
                 {/* Show breakdown for BOTH stalls and passes now */}
                 <>
                   {/* Show discount breakdown if applicable */}
-                  {!isStall && selectedPass.discountPercent > 0 && isDiscountActive() && (
-                    <>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-neutral-600">Original Price {quantity > 1 ? `(${quantity} x ₹${selectedPass.originalBasePrice})` : ''}</span>
-                        <span className="font-semibold text-neutral-400 line-through">
-                          ₹{(selectedPass.originalBasePrice * quantity).toLocaleString("en-IN")}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-green-600 font-semibold">Discount ({selectedPass.discountPercent}% OFF)</span>
-                        <span className="font-semibold text-green-600">
-                          -₹{((selectedPass.originalBasePrice - selectedPass.basePrice) * quantity).toLocaleString("en-IN")}
-                        </span>
-                      </div>
-                      <div className="h-px bg-neutral-200" />
-                    </>
-                  )}
+                  {!isStall &&
+                    selectedPass.discountPercent > 0 &&
+                    isDiscountActive() && (
+                      <>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-neutral-600">
+                            Original Price{" "}
+                            {quantity > 1
+                              ? `(${quantity} x ₹${selectedPass.originalBasePrice})`
+                              : ""}
+                          </span>
+                          <span className="font-semibold text-neutral-400 line-through">
+                            ₹
+                            {(
+                              selectedPass.originalBasePrice * quantity
+                            ).toLocaleString("en-IN")}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-green-600 font-semibold">
+                            Discount ({selectedPass.discountPercent}% OFF)
+                          </span>
+                          <span className="font-semibold text-green-600">
+                            -₹
+                            {(
+                              (selectedPass.originalBasePrice -
+                                selectedPass.basePrice) *
+                              quantity
+                            ).toLocaleString("en-IN")}
+                          </span>
+                        </div>
+                        <div className="h-px bg-neutral-200" />
+                      </>
+                    )}
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-neutral-600">Base Amount {(!isStall && quantity > 1) ? `(${quantity} x ₹${selectedPass.basePrice})` : ''}</span>
+                    <span className="text-neutral-600">
+                      Base Amount{" "}
+                      {!isStall && quantity > 1
+                        ? `(${quantity} x ₹${selectedPass.basePrice})`
+                        : ""}
+                    </span>
                     <span className="font-semibold text-black">
                       ₹{baseAmount.toLocaleString("en-IN")}
                     </span>
@@ -1007,13 +1197,19 @@ const CheckoutPage = () => {
                   </span>
                 </div>
                 {/* Show total savings message */}
-                {!isStall && selectedPass.discountPercent > 0 && isDiscountActive() && (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
-                    <p className="text-sm text-green-700 font-semibold text-center">
-                      🎉 You save ₹{Math.round(selectedPass.savings * quantity).toLocaleString("en-IN")} with this offer!
-                    </p>
-                  </div>
-                )}
+                {!isStall &&
+                  selectedPass.discountPercent > 0 &&
+                  isDiscountActive() && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
+                      <p className="text-sm text-green-700 font-semibold text-center">
+                        🎉 You save ₹
+                        {Math.round(
+                          selectedPass.savings * quantity,
+                        ).toLocaleString("en-IN")}{" "}
+                        with this offer!
+                      </p>
+                    </div>
+                  )}
               </div>
 
               {/* Submit Button */}
@@ -1083,17 +1279,31 @@ const CheckoutPage = () => {
             >
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-black mb-2">Payment Successful!</h3>
+                <h3 className="text-2xl font-bold text-black mb-2">
+                  Payment Successful!
+                </h3>
                 <p className="text-neutral-600 mb-6">
-                  Your booking has been confirmed. Confirmation emails with unique verification codes have been sent to all attendees.
+                  Your booking has been confirmed. Confirmation emails with
+                  unique verification codes have been sent to all attendees.
                 </p>
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                   <p className="text-sm text-blue-900">
-                    <strong>Order ID:</strong> {successData?.tickets?.[0]?.orderId}
+                    <strong>Order ID:</strong>{" "}
+                    {successData?.tickets?.[0]?.orderId}
                   </p>
                   <p className="text-sm text-blue-900 mt-1">
                     <strong>Tickets:</strong> {successData?.tickets?.length}
