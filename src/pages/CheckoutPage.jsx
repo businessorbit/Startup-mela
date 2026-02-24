@@ -413,20 +413,26 @@ const CheckoutPage = () => {
     } else {
       // Passes now have basePrice and gstAmount structured like stalls
       if (selectedPass.basePrice !== undefined) {
-        // Recompute price dynamically based on current discount status to avoid
-        // stale module-cached values sending incorrect amounts to the backend
+        // Use static pass values when no discount is active to ensure the
+        // amount sent to the backend matches the displayed price exactly.
+        // Only recompute dynamically when a discount is actually being applied
+        // (avoids GST rounding mismatches like 35.82 vs 36 for the ₹199 pass).
         const currentDiscountActive = isDiscountActive();
-        const effectiveBasePrice =
-          currentDiscountActive && selectedPass.discountPercent > 0
-            ? Math.round(
-                selectedPass.originalBasePrice *
-                  (1 - selectedPass.discountPercent / 100) *
-                  100,
-              ) / 100
-            : selectedPass.originalBasePrice;
-        const effectiveGstAmount =
-          Math.round(effectiveBasePrice * selectedPass.gstRate * 100) / 100;
-        const effectiveTotalPrice = effectiveBasePrice + effectiveGstAmount;
+        const hasActiveDiscount =
+          currentDiscountActive && selectedPass.discountPercent > 0;
+        const effectiveBasePrice = hasActiveDiscount
+          ? Math.round(
+              selectedPass.originalBasePrice *
+                (1 - selectedPass.discountPercent / 100) *
+                100,
+            ) / 100
+          : selectedPass.basePrice;
+        const effectiveGstAmount = hasActiveDiscount
+          ? Math.round(effectiveBasePrice * selectedPass.gstRate * 100) / 100
+          : selectedPass.gstAmount;
+        const effectiveTotalPrice = hasActiveDiscount
+          ? effectiveBasePrice + effectiveGstAmount
+          : selectedPass.totalPrice;
         numericPrice = effectiveTotalPrice;
         baseAmount = effectiveBasePrice * quantity;
         gstAmount = effectiveGstAmount * quantity;
