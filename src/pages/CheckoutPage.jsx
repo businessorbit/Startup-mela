@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { passes, isDiscountActive } from "../data/passes";
+import { passes } from "../data/passes";
 import { stalls } from "../data/stalls";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
@@ -411,34 +411,14 @@ const CheckoutPage = () => {
       baseAmount = selectedStall.basePrice;
       gstAmount = selectedStall.gstAmount;
     } else {
-      // Passes now have basePrice and gstAmount structured like stalls
+      // Passes have basePrice and gstAmount structured like stalls
       if (selectedPass.basePrice !== undefined) {
-        // Use static pass values when no discount is active to ensure the
-        // amount sent to the backend matches the displayed price exactly.
-        // Only recompute dynamically when a discount is actually being applied
-        // (avoids GST rounding mismatches like 35.82 vs 36 for the ₹199 pass).
-        const currentDiscountActive = isDiscountActive();
-        const hasActiveDiscount =
-          currentDiscountActive && selectedPass.discountPercent > 0;
-        const effectiveBasePrice = hasActiveDiscount
-          ? Math.round(
-              selectedPass.originalBasePrice *
-                (1 - selectedPass.discountPercent / 100) *
-                100,
-            ) / 100
-          : selectedPass.basePrice;
-        const effectiveGstAmount = hasActiveDiscount
-          ? Math.round(effectiveBasePrice * selectedPass.gstRate * 100) / 100
-          : selectedPass.gstAmount;
-        const effectiveTotalPrice = hasActiveDiscount
-          ? effectiveBasePrice + effectiveGstAmount
-          : selectedPass.totalPrice;
-        numericPrice = effectiveTotalPrice;
-        baseAmount = effectiveBasePrice * quantity;
-        gstAmount = effectiveGstAmount * quantity;
-        totalAmount = effectiveTotalPrice * quantity;
+        numericPrice = selectedPass.totalPrice;
+        baseAmount = selectedPass.basePrice * quantity;
+        gstAmount = selectedPass.gstAmount * quantity;
+        totalAmount = selectedPass.totalPrice * quantity;
       } else {
-        // Fallback for any old data structure (though we updated passes.js)
+        // Fallback for any old data structure
         numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
         totalAmount = isNaN(numericPrice) ? 0 : numericPrice * quantity;
       }
@@ -1202,41 +1182,6 @@ const CheckoutPage = () => {
               <div className="bg-neutral-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-7 md:mt-8 space-y-3">
                 {/* Show breakdown for BOTH stalls and passes now */}
                 <>
-                  {/* Show discount breakdown if applicable */}
-                  {!isStall &&
-                    selectedPass.discountPercent > 0 &&
-                    isDiscountActive() && (
-                      <>
-                        <div className="flex justify-between items-center text-sm">
-                          <span className="text-neutral-600">
-                            Original Price{" "}
-                            {quantity > 1
-                              ? `(${quantity} x ₹${selectedPass.originalBasePrice})`
-                              : ""}
-                          </span>
-                          <span className="font-semibold text-neutral-400 line-through">
-                            ₹
-                            {(
-                              selectedPass.originalBasePrice * quantity
-                            ).toLocaleString("en-IN")}
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm">
-                          <span className="text-green-600 font-semibold">
-                            Discount ({selectedPass.discountPercent}% OFF)
-                          </span>
-                          <span className="font-semibold text-green-600">
-                            -₹
-                            {(
-                              (selectedPass.originalBasePrice -
-                                selectedPass.basePrice) *
-                              quantity
-                            ).toLocaleString("en-IN")}
-                          </span>
-                        </div>
-                        <div className="h-px bg-neutral-200" />
-                      </>
-                    )}
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-neutral-600">
                       Base Amount{" "}
@@ -1264,20 +1209,6 @@ const CheckoutPage = () => {
                     ₹{totalAmount.toLocaleString("en-IN")}
                   </span>
                 </div>
-                {/* Show total savings message */}
-                {!isStall &&
-                  selectedPass.discountPercent > 0 &&
-                  isDiscountActive() && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
-                      <p className="text-sm text-green-700 font-semibold text-center">
-                        🎉 You save ₹
-                        {Math.round(
-                          selectedPass.savings * quantity,
-                        ).toLocaleString("en-IN")}{" "}
-                        with this offer!
-                      </p>
-                    </div>
-                  )}
               </div>
 
               {/* Submit Button */}
