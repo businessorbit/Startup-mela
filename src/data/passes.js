@@ -1,6 +1,6 @@
 // Discount Configuration
 export const DISCOUNT_CONFIG = {
-  active: true,
+  active: false,
   percentage: 50, // 50% off
   expiryDate: new Date('2026-01-25T23:59:59+05:30'), // January 25, 2026, 11:59:59 PM IST
 };
@@ -41,7 +41,7 @@ export const passes = [
     id: 2,
     title: "All-Access Conference Pass",
     originalBasePrice: 199,
-    discountPercent: 50,
+    discountPercent: 0,
     basePrice: 199,
     price: "₹199",
     gstRate: 0.18,
