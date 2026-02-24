@@ -1,31 +1,13 @@
-// Discount Configuration
-export const DISCOUNT_CONFIG = {
-  active: false,
-  percentage: 50, // 50% off
-  expiryDate: new Date('2026-01-25T23:59:59+05:30'), // January 25, 2026, 11:59:59 PM IST
-};
-
-// Helper function to check if discount is active
-export const isDiscountActive = () => {
-  if (!DISCOUNT_CONFIG.active) return false;
-  const now = new Date();
-  return now < DISCOUNT_CONFIG.expiryDate;
-};
-
 export const passes = [
   {
     id: 1,
     title: "Exhibition + Entertainment Pass",
-    originalBasePrice: 50,
-    discountPercent: 50,
-    basePrice: isDiscountActive() ? 25 : 50,
-    price: isDiscountActive() ? "₹25" : "₹50",
+    basePrice: 50,
+    price: "₹50",
     gstRate: 0.18,
-    gstAmount: isDiscountActive() ? 4.5 : 9,
-    totalPrice: isDiscountActive() ? 29.5 : 59,
-    displayPrice: isDiscountActive() ? "₹30" : "₹59",
-    oldPrice: isDiscountActive() ? "₹59" : null,
-    savings: isDiscountActive() ? 29.5 : 0,
+    gstAmount: 9,
+    totalPrice: 59,
+    displayPrice: "₹59",
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
       "Explore 100+ startup stalls",
@@ -40,16 +22,12 @@ export const passes = [
   {
     id: 2,
     title: "All-Access Conference Pass",
-    originalBasePrice: 199,
-    discountPercent: 0,
     basePrice: 199,
     price: "₹199",
     gstRate: 0.18,
     gstAmount: 36,
     totalPrice: 235,
     displayPrice: "₹235",
-    oldPrice: null,
-    savings: 0,
     features: [
       "Everything in the Arena Pass",
       "Exclusive entry to Conference Zone (Zone 3)",
@@ -60,16 +38,12 @@ export const passes = [
   {
     id: 3,
     title: "Startup Pitching Pass",
-    originalBasePrice: 3500,
-    discountPercent: 50,
-    basePrice: isDiscountActive() ? 1750 : 3500,
-    price: isDiscountActive() ? "₹1,750" : "₹3,500",
+    basePrice: 3500,
+    price: "₹3,500",
     gstRate: 0.18,
-    gstAmount: isDiscountActive() ? 315 : 630,
-    totalPrice: isDiscountActive() ? 2065 : 4130,
-    displayPrice: isDiscountActive() ? "₹2,065" : "₹4,130",
-    oldPrice: isDiscountActive() ? "₹4,130" : null,
-    savings: isDiscountActive() ? 2065 : 0,
+    gstAmount: 630,
+    totalPrice: 4130,
+    displayPrice: "₹4,130",
     features: [
       "Reserved entry to the Official Pitching Event",
       "Present your startup to Angel Investors",
