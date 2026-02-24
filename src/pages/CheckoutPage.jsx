@@ -413,10 +413,24 @@ const CheckoutPage = () => {
     } else {
       // Passes now have basePrice and gstAmount structured like stalls
       if (selectedPass.basePrice !== undefined) {
-        numericPrice = selectedPass.totalPrice;
-        baseAmount = selectedPass.basePrice * quantity;
-        gstAmount = selectedPass.gstAmount * quantity;
-        totalAmount = selectedPass.totalPrice * quantity;
+        // Recompute price dynamically based on current discount status to avoid
+        // stale module-cached values sending incorrect amounts to the backend
+        const currentDiscountActive = isDiscountActive();
+        const effectiveBasePrice =
+          currentDiscountActive && selectedPass.discountPercent > 0
+            ? Math.round(
+                selectedPass.originalBasePrice *
+                  (1 - selectedPass.discountPercent / 100) *
+                  100,
+              ) / 100
+            : selectedPass.originalBasePrice;
+        const effectiveGstAmount =
+          Math.round(effectiveBasePrice * selectedPass.gstRate * 100) / 100;
+        const effectiveTotalPrice = effectiveBasePrice + effectiveGstAmount;
+        numericPrice = effectiveTotalPrice;
+        baseAmount = effectiveBasePrice * quantity;
+        gstAmount = effectiveGstAmount * quantity;
+        totalAmount = effectiveTotalPrice * quantity;
       } else {
         // Fallback for any old data structure (though we updated passes.js)
         numericPrice = parseInt(selectedPass.price.replace(/[^0-9]/g, ""));
