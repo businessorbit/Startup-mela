@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import { passes, isDiscountActive, DISCOUNT_CONFIG } from "../../data/passes";
+import { passes } from "../../data/passes";
 import { useNavigate } from "react-router-dom";
 
 const PassesSection = () => {
   const navigate = useNavigate();
-  const discountActive = isDiscountActive();
 
   const handleTicketClick = (id) => {
     navigate(`/checkout?passId=${id}`);
@@ -32,13 +31,6 @@ const PassesSection = () => {
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black leading-none">
               Get <br /> Tickets
             </h2>
-            {discountActive && (
-              <div className="mt-4 inline-block">
-                <span className="px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white text-sm sm:text-base font-bold rounded-full shadow-lg">
-                  🎉 50% OFF - Limited Time!
-                </span>
-              </div>
-            )}
           </motion.div>
 
           <motion.div
@@ -52,16 +44,6 @@ const PassesSection = () => {
               Secure your spot at the region's largest startup festival. Choose
               the pass that fits your goals and get ready to connect.
             </p>
-            {discountActive && (
-              <p className="mt-3 text-sm sm:text-base font-semibold text-red-600">
-                ⏰ Offer ends {DISCOUNT_CONFIG.expiryDate.toLocaleDateString('en-IN', {
-                  month: 'short',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </p>
-            )}
           </motion.div>
         </div>
 
@@ -102,13 +84,6 @@ const PassesSection = () => {
                   {pass.title}
                 </h3>
 
-                {/* Discount Badge */}
-                {discountActive && !pass.comingSoon && pass.discountPercent > 0 && (
-                  <span className="inline-block self-start px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-gradient-to-r from-red-500 to-orange-500 text-white mb-3 shadow-lg">
-                    {pass.discountPercent}% OFF
-                  </span>
-                )}
-
                 {pass.popular && !pass.comingSoon && (
                   <span className="inline-block self-start px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white mb-4">
                     Best Value
@@ -126,12 +101,6 @@ const PassesSection = () => {
                 <div className="mt-4 mb-6 sm:mb-8">
                   {pass.price ? (
                     <div className="space-y-1">
-                      {/* Show original price with strikethrough if discount active */}
-                      {discountActive && pass.oldPrice && (
-                        <p className="text-lg text-neutral-500 line-through font-medium">
-                          {pass.oldPrice}
-                        </p>
-                      )}
                       <p className="text-sm text-neutral-400 font-medium">
                         Base Price: {pass.price}
                       </p>
@@ -144,12 +113,6 @@ const PassesSection = () => {
                           (incl. GST)
                         </span>
                       </p>
-                      {/* Show savings if discount active */}
-                      {discountActive && pass.savings > 0 && (
-                        <p className="text-sm text-green-400 font-semibold mt-2">
-                          Save ₹{Math.round(pass.savings).toLocaleString("en-IN")}!
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
