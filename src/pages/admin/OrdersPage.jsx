@@ -406,10 +406,7 @@ const OrdersPage = () => {
                     const orderId = group[0].orderId;
                     const isCollapsed = collapsedGroups[orderId];
                     const groupColor = getGroupColor(groupIndex);
-                    const totalAmount = group.reduce(
-                      (sum, t) => sum + t.amount,
-                      0,
-                    );
+                    const totalAmount = group[0]?.amount || 0;
 
                     return (
                       <React.Fragment key={orderId}>
@@ -464,6 +461,18 @@ const OrdersPage = () => {
                         {(!isCollapsed || !isGroupBooking) &&
                           group.map((ticket, ticketIndex) => {
                             const isPrimary = ticket.primaryContact;
+                            const perTicketAmount = isGroupBooking
+                              ? totalAmount / group.length
+                              : ticket.amount;
+                            const formattedPerTicketAmount =
+                              perTicketAmount.toLocaleString("en-IN", {
+                                minimumFractionDigits: Number.isInteger(
+                                  perTicketAmount,
+                                )
+                                  ? 0
+                                  : 2,
+                                maximumFractionDigits: 2,
+                              });
 
                             return (
                               <tr
@@ -532,7 +541,14 @@ const OrdersPage = () => {
                                   </span>
                                 </td>
                                 <td className="py-4 px-6 font-semibold text-black">
-                                  ₹{ticket.amount.toLocaleString("en-IN")}
+                                  <div>
+                                    ₹{formattedPerTicketAmount}
+                                    {isGroupBooking && (
+                                      <p className="text-xs text-neutral-500 font-normal">
+                                        Per ticket
+                                      </p>
+                                    )}
+                                  </div>
                                 </td>
                                 <td className="py-4 px-6">
                                   {isGroupBooking && ticketIndex > 0 ? (

@@ -18,6 +18,7 @@ import VolunteersPage from "./pages/admin/VolunteersPage";
 import InquiriesPage from "./pages/admin/InquiriesPage";
 import LegalPage from "./pages/LegalPage";
 import SpotlightPage from "./pages/SpotlightPage";
+import PrivateFreePassPage from "./pages/PrivateFreePassPage";
 
 function App() {
   return (
@@ -43,14 +44,50 @@ function App() {
 
           {/* Checkout Route */}
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/x9k2v7m4r1q8" element={<PrivateFreePassPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/dashboard" element={<AdminRoute><DashboardPage /></AdminRoute>} />
-          <Route path="/admin/orders" element={<AdminRoute><OrdersPage /></AdminRoute>} />
-          <Route path="/admin/verify" element={<AdminRoute><VerifyTicketPage /></AdminRoute>} />
-          <Route path="/admin/volunteers" element={<AdminRoute><VolunteersPage /></AdminRoute>} />
-          <Route path="/admin/inquiries" element={<AdminRoute><InquiriesPage /></AdminRoute>} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <DashboardPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminRoute>
+                <OrdersPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/verify"
+            element={
+              <AdminRoute>
+                <VerifyTicketPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/volunteers"
+            element={
+              <AdminRoute>
+                <VolunteersPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/inquiries"
+            element={
+              <AdminRoute>
+                <InquiriesPage />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </Router>
     </AdminAuthProvider>
