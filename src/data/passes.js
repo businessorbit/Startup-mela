@@ -10,11 +10,9 @@ export const passes = [
     displayPrice: "₹0",
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
-      "Explore 100+ startup stalls",
+      "Explore 400+ startup stalls",
       "Product demos & brand showcases",
       "Food Court access",
-      "Entry to the comedy show by Pranav Sharma",
-      "Entry to the magic and mind reading show by Abhay Sharma",
       "Entry to watch the theme modelling and fashion show",
     ],
     popular: false

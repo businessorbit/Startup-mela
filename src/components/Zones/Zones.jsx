@@ -5,7 +5,7 @@ const zones = [
     id: 1,
     title: "The Marketplace",
     subtitle:
-      "A high-energy exhibition space featuring 300+ startups, and 15,000+ footfall.",
+      "A high-energy exhibition space featuring 400+ startups, and 50,000+ footfall.",
     details: [
       "400+ Startups",
       "50,000+ Footfall",
@@ -27,7 +27,7 @@ const zones = [
     id: 3,
     title: "Conference Zone",
     subtitle:
-      "The learning and networking hub featuring speaker sessions, panels, investor meetings, ideathon finals, and pitching rounds.",
+      "The learning and networking hub featuring speaker sessions, panels, , and pitching rounds.",
     details: [
       "Expert Sessions 20+",
       "Networking Conference",
