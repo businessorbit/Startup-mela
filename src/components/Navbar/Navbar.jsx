@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 
@@ -19,23 +20,68 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState("light"); // "light" => dark text, "dark" => white text
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGetTickets = (e) => {
+    e.preventDefault();
+    setIsOpen(false);
+    
+    if (location.pathname === "/") {
+      const el = document.getElementById("passes");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById("passes");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    }
+  };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const t = entry.target.getAttribute("data-theme");
-          if (entry.isIntersecting && t) setTheme(t);
-        });
-      },
-      { threshold: 0.3 } // Reduced from 0.6 for better detection
-    );
+    // Re-observe all data-theme sections whenever the page/route changes.
+    // Using a small timeout to wait for the new page's DOM to be rendered
+    // before we query for [data-theme] elements.
+    const setup = () => {
+      // Set initial theme from the first visible [data-theme] element
+      const firstSection = document.querySelector("[data-theme]");
+      if (firstSection) {
+        setTheme(firstSection.getAttribute("data-theme") || "dark");
+      }
 
-    document
-      .querySelectorAll("[data-theme]")
-      .forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // Find the most-visible intersecting entry
+          const intersecting = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (intersecting.length > 0) {
+            const t = intersecting[0].target.getAttribute("data-theme");
+            if (t) setTheme(t);
+          }
+        },
+        { threshold: [0.2, 0.5], rootMargin: "-60px 0px 0px 0px" }
+      );
+
+      document
+        .querySelectorAll("[data-theme]")
+        .forEach((el) => observer.observe(el));
+
+      return observer;
+    };
+
+    let observer;
+    const timer = setTimeout(() => {
+      observer = setup();
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) observer.disconnect();
+    };
+  }, [location.pathname]);
 
   const textColorClass = theme === "dark" ? "text-white" : "text-black";
 
@@ -54,7 +100,12 @@ const Navbar = () => {
           className={`flex items-end gap-2 select-none ${textColorClass}`}
           onClick={(e) => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (location.pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              navigate("/");
+              setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+            }
           }}
         >
           {/* Logo Text: responsive sizing */}
@@ -83,11 +134,11 @@ const Navbar = () => {
           ))}
 
           {/* CTA */}
-          <motion.a
-            href="#passes"
+          <motion.button
+            onClick={handleGetTickets}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="pl-6 pr-5 py-2.5 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-neutral-200 transition-colors flex items-center gap-2 group"
+            className="pl-6 pr-5 py-2.5 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-neutral-200 transition-colors flex items-center gap-2 group cursor-pointer"
           >
             Get Tickets
             <ArrowRight
@@ -95,7 +146,7 @@ const Navbar = () => {
               strokeWidth={2.5}
               className="group-hover:translate-x-1 transition-transform duration-300"
             />
-          </motion.a>
+          </motion.button>
         </div>
 
         {/* Mobile hamburger */}
@@ -156,13 +207,10 @@ const Navbar = () => {
                     transition={{ delay: 0.5 }}
                     className="mt-8"
                   >
-                    <a href="#passes" onClick={() => setIsOpen(false)}>
-                      {/* Responsive Button: padded down for mobile, full size for tablets/up */}
-                      <button className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-white text-black text-lg sm:text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform">
-                        Get Tickets
-                        <ArrowRight size={24} strokeWidth={2.5} />
-                      </button>
-                    </a>
+                    <button onClick={handleGetTickets} className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-white text-black text-lg sm:text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform cursor-pointer">
+                      Get Tickets
+                      <ArrowRight size={24} strokeWidth={2.5} />
+                    </button>
                   </motion.div>
                 </div>
               </div>
