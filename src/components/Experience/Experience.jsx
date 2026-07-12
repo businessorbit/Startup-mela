@@ -5,19 +5,19 @@ const features = [
     id: "01",
     title: "Visionary talks",
     description:
-      "Don't just listen—participate. Join expert talks, then jump into the action with live pitching rounds, networking meets, and our student Ideathon.",
+      "Don't just listen—participate. Join expert talks, then jump into the action with live pitching rounds and networking meets.",
   },
   {
     id: "02",
-    title: "Live Entertainment ",
+    title: "Industry Experiences",
     description:
-      "Business festivals can be fun too. Unwind with stand-up comedy, influencer shows, a runway fashion walk, and a high-energy gaming tournament.",
+      "Sector-specific attractions and live activations, from drone shows for robotics startups to fashion showcases for apparel brands, creating memorable experiences for visitors and providing the startups a real audience.",
   },
   {
     id: "03",
     title: "Startup Expo",
     description:
-      "Explore a massive marketplace with 300+ startups. Discover new products, meet the founders, and see what the future of innovation looks like.",
+      "Explore a massive marketplace with 400+ startups. Discover new products, meet the founders, and see what the future of innovation looks like.",
   },
 ];
 
@@ -68,7 +68,7 @@ const ExperienceSection = () => {
             // Responsive text size: text-base mobile -> text-xl desktop
             className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-lg lg:justify-self-end leading-relaxed"
           >
-            Join us for a two day summit designed to spark ideas, forge
+            Join us for a three day summit designed to spark ideas, forge
             partnerships, and shape what's next.
           </motion.p>
         </div>

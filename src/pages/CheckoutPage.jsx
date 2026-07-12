@@ -700,7 +700,7 @@ const CheckoutPage = () => {
                 Checkout
               </h2>
               <p className="text-sm sm:text-base text-neutral-500">
-                Complete your registration for Startup Mela 2026.
+                Complete your registration for Startup Mela 2027.
               </p>
             </div>
 

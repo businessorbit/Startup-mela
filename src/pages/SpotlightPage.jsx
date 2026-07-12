@@ -49,39 +49,32 @@ const SpotlightPage = () => {
                             </h1>
                             <p className="text-lg sm:text-xl md:text-2xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
                                 Connect with industry leaders, investors, and entertainers who
-                                will make Startup Mela 2026 unforgettable.
+                                will make Startup Mela 2027 unforgettable.
                             </p>
                         </motion.div>
                     </div>
                 </section>
 
-                {/* Speakers Section */}
-                <SpotlightSection
-                    category={spotlightCategories.speakers}
-                    people={speakers}
-                />
-
-                {/* Divider */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-                    <div className="h-px w-full bg-white/10" />
-                </div>
-
-                {/* Comedians Section */}
-                <SpotlightSection
-                    category={spotlightCategories.comedians}
-                    people={comedians}
-                />
-
-                {/* Divider */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-                    <div className="h-px w-full bg-white/10" />
-                </div>
-
-                {/* Investors Section */}
-                <InvestorSection
-                    category={spotlightCategories.investors}
-                    investors={investors}
-                />
+                {/* To Be Revealed Placeholder */}
+                <section className="relative w-full py-16 sm:py-24 md:py-32 flex justify-center">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 w-full">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="flex flex-col items-center justify-center text-center p-10 sm:p-16 md:p-20 rounded-3xl bg-neutral-900/30 border border-white/5 backdrop-blur-sm"
+                        >
+                            <span className="text-5xl sm:text-6xl mb-6 inline-block animate-pulse">✨</span>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+                                To Be Revealed Soon
+                            </h2>
+                            <p className="text-base sm:text-lg text-neutral-400 max-w-2xl leading-relaxed">
+                                We're curating an incredible lineup. Check back later as we confirm and announce our speakers, investors, and entertainers!
+                            </p>
+                        </motion.div>
+                    </div>
+                </section>
             </main>
 
             <FooterSection />

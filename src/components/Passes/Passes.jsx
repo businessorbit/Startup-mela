@@ -41,7 +41,7 @@ const PassesSection = () => {
             className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-lg md:justify-self-end leading-relaxed"
           >
             <p>
-              Secure your spot at the region's largest startup festival. Choose
+              Secure your spot at the region's largest entrepreneurship summit. Choose
               the pass that fits your goals and get ready to connect.
             </p>
           </motion.div>

@@ -114,7 +114,7 @@ const AdminLoginPage = () => {
 
           {/* Footer */}
           <p className="text-center text-xs text-neutral-400 mt-6">
-            Startup Mela 2026 Admin Dashboard
+            Startup Mela 2027 Admin Dashboard
           </p>
         </div>
       </div>

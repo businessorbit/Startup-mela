@@ -99,9 +99,8 @@ const AboutSection = () => {
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight sm:leading-tight md:leading-[1.2] font-medium text-neutral-400 max-w-4xl"
             >
               Join the biggest{" "}
-              <span className="text-black font-bold">Startup Exhibition</span>,
-              in <span className="text-black font-bold">Chandigarh</span>.{" "}
-              <span className="text-black font-bold">Pitch</span> your ideas to
+              <span className="text-black font-bold">Startup Exhibition</span>. 
+              <span className="text-black font-bold"> pitch</span> your ideas to
               top <span className="text-black font-bold">investors</span>, and{" "}
               <span className="text-black font-bold">network</span> with
               thousands of founders.
@@ -113,7 +112,7 @@ const AboutSection = () => {
         {/* Responsive Grid: 1 col on small mobile, 2 cols mobile -> 4 cols on larger screens */}
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12 lg:gap-y-0 gap-x-6 sm:gap-x-8 lg:gap-x-12 border-t border-neutral-200 pt-8 sm:pt-12 lg:pt-16 font-bold">
           <Counter
-            value="10+"
+            value="8+"
             label="Sub-Events"
             icon={
               <svg
@@ -136,7 +135,7 @@ const AboutSection = () => {
           />
 
           <Counter
-            value="300+"
+            value="400+"
             label="Startups"
             icon={
               <svg
@@ -159,7 +158,7 @@ const AboutSection = () => {
           />
 
           <Counter
-            value="50+"
+            value="100+"
             label="Investors"
             icon={
               <svg
@@ -182,7 +181,7 @@ const AboutSection = () => {
           />
 
           <Counter
-            value="15000+"
+            value="50000+"
             label="Footfall"
             icon={
               <svg

@@ -19,7 +19,7 @@ const ExhibitionStalls = () => {
     >
       <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-12">
         {/* --- Header Row --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 sm:mb-16 md:mb-20 items-end">
+        <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16 md:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -27,24 +27,13 @@ const ExhibitionStalls = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black leading-none"
           >
-            Exhibition <br /> Stall Options
+            Exhibition Stall
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-lg md:justify-self-end leading-relaxed"
-          >
-            Choose a stall size that fits your goals—from early-stage exposure
-            to premium brand presence. Showcase your brand and connect with
-            thousands of attendees.
-          </motion.p>
         </div>
 
         {/* --- Cards Grid --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20 md:mb-24">
+        <div className="flex justify-center mb-16 sm:mb-20 md:mb-24">
+          <div className="w-full max-w-md">
           {stalls.map((stall, index) => (
             <motion.div
               key={stall.id}
@@ -154,15 +143,7 @@ const ExhibitionStalls = () => {
                   ))}
                 </ul>
 
-                {/* Best For Label */}
-                <div className="mb-6 pb-6 border-b border-white/10">
-                  <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">
-                    Best For
-                  </p>
-                  <p className="text-sm text-neutral-300 leading-relaxed">
-                    {stall.bestFor}
-                  </p>
-                </div>
+
 
                 {/* CTA Button */}
                 <button
@@ -175,6 +156,7 @@ const ExhibitionStalls = () => {
               </div>
             </motion.div>
           ))}
+          </div>
         </div>
 
         {/* --- Important Information Section --- */}
@@ -289,7 +271,7 @@ const ExhibitionStalls = () => {
           <div className="relative z-10">
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
               Interested in Exhibiting at <br className="hidden sm:block" />
-              Startup Mela 2026?
+              Startup Mela 2027?
             </h3>
             <p className="text-base sm:text-lg md:text-xl text-neutral-400 mb-8 sm:mb-10 max-w-2xl mx-auto">
               Reach out to our team to reserve your stall or get custom

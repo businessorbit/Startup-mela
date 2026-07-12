@@ -47,7 +47,7 @@ const FooterSection = () => {
         >
           Join us in <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
-            February 2026.
+            March 2027.
           </span>
         </motion.h2>
 
@@ -59,7 +59,7 @@ const FooterSection = () => {
           // Responsive text size: text-base mobile -> text-xl desktop
           className="text-base sm:text-lg md:text-xl text-neutral-400 mb-8 sm:mb-10 font-light px-2"
         >
-          Secure your spot for Startup Mela 2026 now.
+          Secure your spot for Startup Mela 2027 now.
         </motion.p>
         <a href="#passes">
           <motion.button
@@ -101,7 +101,7 @@ const FooterSection = () => {
 
         {/* Copyright: Adjusted margin for stacking on mobile */}
         <p className="text-[10px] text-neutral-700 font-mono mt-4 sm:mt-6 md:mt-0 md:absolute md:right-0">
-          © 2026 STARTUP MELA. ALL RIGHTS RESERVED.
+          © 2027 STARTUP MELA. ALL RIGHTS RESERVED.
         </p>
       </motion.div>
     </section>

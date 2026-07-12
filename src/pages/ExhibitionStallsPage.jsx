@@ -66,14 +66,14 @@ const ExhibitionStallsPage = () => {
                 </span>
               </span>
               <span className="block text-[8vw] xl:text-[100px] text-white mt-2">
-                2026
+                2027
               </span>
             </h1>
 
             {/* Tagline */}
             <p className="text-lg md:text-2xl font-light text-neutral-300 mb-6 tracking-wide max-w-3xl leading-relaxed">
               Showcase your brand, connect with thousands of attendees, and be
-              part of North India's largest startup and entrepreneurship event.
+              part of one of the North India's largest startup and entrepreneurship event.
             </p>
 
             {/* Supporting Text */}
@@ -83,7 +83,7 @@ const ExhibitionStallsPage = () => {
             </p>
 
             {/* CTA Button */}
-            <button
+            {/* <button
               onClick={() => {
                 document
                   .getElementById("exhibition-stalls")
@@ -107,7 +107,7 @@ const ExhibitionStallsPage = () => {
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-            </button>
+            </button> */}
           </div>
         </section>
 

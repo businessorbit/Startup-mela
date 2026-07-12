@@ -87,9 +87,9 @@ const Hero = () => {
             </span>
           </span>
 
-          {/* "2026" - White */}
+          {/* "2027" - White */}
           <span className="block text-[8vw] xl:text-[100px] text-white mt-2">
-            2026
+            2027
           </span>
         </motion.h1>
 
@@ -98,7 +98,7 @@ const Hero = () => {
           variants={itemVariants}
           className="text-xl md:text-3xl font-light text-neutral-300 mb-10 tracking-wide max-w-3xl"
         >
-          Chandigarh's largest networking event <br className="md:hidden" />
+          Chandigarh's largest entrepreneurship summit <br className="md:hidden" />
         </motion.p>
 
         {/* --- Single CTA Button --- */}
@@ -141,7 +141,7 @@ const Hero = () => {
             className="text-center sm:text-left"
           >
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white tracking-wide">
-              28th Feb & 1st March
+              27th, 28th and 29th March
             </p>
           </motion.div>
 
@@ -152,7 +152,7 @@ const Hero = () => {
             className="text-center sm:text-right"
           >
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white tracking-wide">
-              Sector 34 Exhibition Ground
+              Parade Ground, Sector 17, Chandigarh
             </p>
           </motion.div>
         </div>

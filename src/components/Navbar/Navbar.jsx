@@ -66,7 +66,7 @@ const Navbar = () => {
           </span>
           {/* Year Text: responsive sizing */}
           <span className="ml-2 text-xs sm:text-sm lg:text-base font-semibold text-neutral-400 align-top pb-2 lg:pb-5">
-            2026
+            2027
           </span>
         </a>
 

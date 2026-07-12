@@ -183,7 +183,7 @@ const VolunteerForm = () => {
             transition={{ delay: 0.4 }}
             className="text-neutral-600 text-lg sm:text-xl mb-8 sm:mb-10 leading-relaxed"
           >
-            Thank You For Your Interest In Joining Startup Mela 2026.
+            Thank You For Your Interest In Joining Startup Mela 2027.
           </motion.p>
 
           <motion.button
@@ -303,7 +303,7 @@ const VolunteerForm = () => {
 
         {/* ------------------ TEXTAREAS ------------------ */}
         <TextAreaField
-          label="Why do you want to be part of Startup Mela 2026?"
+          label="Why do you want to be part of Startup Mela 2027?"
           name="q1"
           value={formData.q1}
           onChange={handleChange}

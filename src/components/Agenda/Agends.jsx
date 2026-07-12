@@ -25,7 +25,6 @@ const agendaData = [
         activities: [
           "Influencer Show: The Digital Trailblazers",
           "Welcome Mixer: Connect & Collaborate",
-          "Comedy Show: Startup Hilarity Night",
         ],
       },
     ],
@@ -36,7 +35,7 @@ const agendaData = [
       {
         time: "Morning",
         activities: [
-          "Speaker Session 3: Tech Trends Shaping 2026",
+          "Speaker Session 3: Tech Trends Shaping 2027",
           "Product Launch (Part 2): Innovation Reveal",
           "Pitching Round (Part 2): Growth Stage Giants",
         ],
@@ -46,14 +45,13 @@ const agendaData = [
         activities: [
           "Ideathon (Finale): Judges' Choice",
           "Speaker Session 4: Scaling Culture in a Remote World",
-          "Gaming Tournament: Tech vs. Skill Challenge",
         ],
       },
       {
         time: "Evening",
         activities: [
           "Fashion Show: Future of Techwear",
-          "Award Show: Startup Mela 2026 Recognitions",
+          "Award Show: Startup Mela 2027 Recognitions",
           "Fireside Chat: What's Next for the Startup Ecosystem",
         ],
       },
@@ -94,10 +92,12 @@ const AgendaSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            // CHANGED: Responsive font sizing to prevent overflow on small screens (text-4xl -> text-8xl)
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 sm:mb-10"
+            className="flex flex-wrap items-center gap-3 sm:gap-5 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 sm:mb-10"
           >
             Agenda
+            <span className="px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-white/10 bg-white/5 text-neutral-400 text-sm sm:text-base md:text-lg font-medium tracking-wide backdrop-blur-md">
+              Tentative
+            </span>
           </motion.h2>
 
           <motion.div
@@ -204,6 +204,22 @@ const AgendaSection = () => {
             </div>
           ))}
         </div>
+
+        {/* --- Closing Note --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-16 md:mt-24 flex items-center justify-center"
+        >
+          <div className="px-6 py-5 sm:px-10 sm:py-6 rounded-2xl bg-neutral-900/50 border border-white/5 backdrop-blur-md max-w-4xl text-center">
+            <p className="text-neutral-400 text-sm sm:text-base md:text-lg font-medium tracking-wide leading-relaxed">
+              <span className="text-[#a78bfa] mr-2">✦</span>
+              The final itinerary with exact 20+ speaker sessions and other micro events will be shared soon.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

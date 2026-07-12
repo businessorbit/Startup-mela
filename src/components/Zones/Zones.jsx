@@ -7,22 +7,20 @@ const zones = [
     subtitle:
       "A high-energy exhibition space featuring 300+ startups, and 15,000+ footfall.",
     details: [
-      "300+ Startups",
-      "15,000+ Footfall",
+      "400+ Startups",
+      "50,000+ Footfall",
     ],
   },
   {
     id: 2,
     title: "Main Stage Experience",
     subtitle:
-      "Live entertainment arena for fashion shows, product launches, influencer shows, award ceremonies, gaming tournaments, and comedy acts.",
+      "Live entertainment arena for fashion shows, industry experiences, product launches, and award ceremonies.",
     details: [
       "Fashion Show",
       "Product Launches",
-      "Influencer Show",
       "Award Night",
-      "Gaming Tournament",
-      "Live Comedy",
+      "Industry Experiences",
     ],
   },
   {
@@ -31,9 +29,8 @@ const zones = [
     subtitle:
       "The learning and networking hub featuring speaker sessions, panels, investor meetings, ideathon finals, and pitching rounds.",
     details: [
-      "Expert Sessions",
+      "Expert Sessions 20+",
       "Networking Conference",
-      "Ideathon Finals",
       "Pitching Event",
     ],
   },
