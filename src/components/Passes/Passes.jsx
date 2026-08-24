@@ -99,7 +99,11 @@ const PassesSection = () => {
                 {/* Price */}
                 {/* Adjusted vertical margins */}
                 <div className="mt-4 mb-6 sm:mb-8">
-                  {pass.price ? (
+                  {pass.comingSoon ? (
+                    <p className="text-2xl sm:text-3xl font-bold text-neutral-500 tracking-tight">
+                      Price TBA
+                    </p>
+                  ) : pass.price ? (
                     <div className="space-y-1">
                       <p className="text-sm text-neutral-400 font-medium">
                         Base Price: {pass.price}

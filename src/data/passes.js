@@ -8,6 +8,7 @@ export const passes = [
     gstAmount: 0,
     totalPrice: 0,
     displayPrice: "₹0",
+    comingSoon: false,
     features: [
       "Entry to Exhibitor Zone (Zone 1)",
       "Explore 400+ startup stalls",
@@ -21,11 +22,14 @@ export const passes = [
     id: 2,
     title: "All-Access Conference Pass",
     basePrice: 199,
-    price: "TBA",
+    // GST @ 18%: 199 * 0.18 = 35.82 → rounded to 36
+    // Total: 199 + 36 = 235
+    price: "₹199",
     gstRate: 0.18,
-    gstAmount: 0,
-    totalPrice: 0,
-    displayPrice: "TBA",
+    gstAmount: 36,
+    totalPrice: 235,
+    displayPrice: "₹235",
+    comingSoon: true, // Set to false when this pass goes on sale
     features: [
       "Everything in the Arena Pass",
       "Exclusive entry to Conference Zone (Zone 3)",
@@ -37,11 +41,14 @@ export const passes = [
     id: 3,
     title: "Startup Pitching Pass",
     basePrice: 3500,
-    price: "TBA",
+    // GST @ 18%: 3500 * 0.18 = 630
+    // Total: 3500 + 630 = 4130
+    price: "₹3,500",
     gstRate: 0.18,
-    gstAmount: 0,
-    totalPrice: 0,
-    displayPrice: "TBA",
+    gstAmount: 630,
+    totalPrice: 4130,
+    displayPrice: "₹4,130",
+    comingSoon: true, // Set to false when this pass goes on sale
     features: [
       "Reserved entry to the Official Pitching Event",
       "Present your startup to Angel Investors",
