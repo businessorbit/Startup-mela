@@ -5,11 +5,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 
 // Links (use section ids or routes as needed)
 const navLinks = [
-  { label: "About", href: "/" },
-  {
-    label: "Event",
-    href: "/Start Up mela 2027 new.pdf",
-  },
+  { label: "Event", href: "/event" },
   { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },
   { label: "Sponsors", href: "/sponsors" },
@@ -26,17 +22,18 @@ const Navbar = () => {
   const handleGetTickets = (e) => {
     e.preventDefault();
     setIsOpen(false);
-    
-    if (location.pathname === "/") {
-      const el = document.getElementById("passes");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        const el = document.getElementById("passes");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 150);
+
+    if (location.pathname === "/" && location.hash === "#passes") {
+      document.getElementById("passes")?.scrollIntoView({ behavior: "smooth" });
+      return;
     }
+
+    if (location.pathname === "/") {
+      document.getElementById("passes")?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    navigate({ pathname: "/", hash: "passes" });
   };
 
   useEffect(() => {
@@ -167,11 +164,10 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 bg-black z-9999 flex flex-col w-screen h-dvh overflow-hidden"
+              className="fixed inset-0 bg-black z-9999 flex flex-col w-full h-dvh overflow-hidden"
             >
               {/* Close Button Header */}
-              {/* Adjusted padding: p-4 mobile -> p-6 sm -> p-12 md */}
-              <div className="flex justify-end p-4 sm:p-6 md:p-12">
+              <div className="flex justify-end p-4 sm:p-6 md:p-12 pt-[max(1rem,env(safe-area-inset-top))]">
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 text-white hover:text-neutral-300 transition-colors"
@@ -181,10 +177,9 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* Menu Links Container */}
-              <div className="flex flex-col items-center justify-center grow w-full pb-20 overflow-y-auto">
-                {/* Adjusted gap: gap-6 mobile -> gap-8 sm -> gap-10 md */}
-                <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-10">
+              {/* Menu Links Container — min-h-0 + my-auto avoids top clipping when content overflows */}
+              <div className="flex flex-col items-center grow min-h-0 w-full overflow-y-auto overscroll-contain px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+                <div className="flex flex-col items-center gap-5 sm:gap-7 md:gap-9 my-auto py-4">
                   {navLinks.map((link, index) => (
                     <motion.a
                       key={link.label}
@@ -192,9 +187,24 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
-                      onClick={() => setIsOpen(false)}
-                      // Responsive text size: text-3xl mobile -> text-4xl sm -> text-6xl md
-                      className="text-3xl sm:text-4xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        if (link.href.startsWith("/#")) {
+                          e.preventDefault();
+                          const hash = link.href.slice(1);
+                          if (location.pathname === "/") {
+                            document
+                              .querySelector(hash)
+                              ?.scrollIntoView({ behavior: "smooth" });
+                          } else {
+                            navigate({
+                              pathname: "/",
+                              hash: hash.replace(/^#/, ""),
+                            });
+                          }
+                        }
+                      }}
+                      className="text-2xl sm:text-3xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
                     >
                       {link.label}
                     </motion.a>
@@ -205,7 +215,7 @@ const Navbar = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-8"
+                    className="mt-6 sm:mt-8"
                   >
                     <button onClick={handleGetTickets} className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-white text-black text-lg sm:text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform cursor-pointer">
                       Get Tickets

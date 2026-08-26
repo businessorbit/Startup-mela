@@ -110,7 +110,7 @@ const AboutSection = () => {
 
         {/* Stats Row */}
         {/* Responsive Grid: 1 col on small mobile, 2 cols mobile -> 4 cols on larger screens */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12 lg:gap-y-0 gap-x-6 sm:gap-x-8 lg:gap-x-12 border-t border-neutral-200 pt-8 sm:pt-12 lg:pt-16 font-bold">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12 lg:gap-y-0 gap-x-6 sm:gap-x-8 lg:gap-x-12 border-t border-neutral-200 pt-8 sm:pt-12 lg:pt-16 font-bold">
           <Counter
             value="8+"
             label="Sub-Events"

@@ -210,11 +210,11 @@ const VolunteerForm = () => {
       transition={{ duration: 0.6 }}
       // Responsive Padding: p-4 for mobile, p-8/p-16 for larger screens.
       // Adjusted top padding to prevent excessive whitespace on mobile.
-      className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-black/5 p-4 pt-20 sm:p-8 sm:pt-32 md:p-16 max-w-5xl mx-auto"
+      className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-black/5 p-4 sm:p-8 md:p-16 max-w-5xl mx-auto"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
       {/* Responsive Heading Size */}
-      <h2 className="text-[12vw] md:text-[8rem] font-bold tracking-tighter text-black leading-[0.8] mt-8 mb-10 sm:mt-12 sm:mb-16 select-none border-b border-neutral-100 pb-6 sm:pb-10">
+      <h2 className="text-5xl sm:text-6xl md:text-[8rem] font-bold tracking-tighter text-black leading-[0.8] mt-4 mb-8 sm:mt-8 sm:mb-16 select-none border-b border-neutral-100 pb-6 sm:pb-10">
         Application
       </h2>
 

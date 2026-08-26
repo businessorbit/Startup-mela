@@ -7,7 +7,7 @@ export default function WorkwithusPage() {
     <main
       data-theme="light"
       data-tail="black"
-      className="min-h-screen w-full bg-white"
+      className="min-h-dvh w-full bg-white px-4 sm:px-6 pt-24 pb-12"
     >
       <Navbar />
       <VolunteerForm />

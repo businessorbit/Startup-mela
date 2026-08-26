@@ -114,12 +114,8 @@ nav {
   font-variant-numeric: tabular-nums;
 }
 
-/* --- 3. Zones Section Internal Scroll Logic --- */
-/* Container that holds the scrollable zones */
+/* --- 3. Zones Section Internal Scroll Logic (desktop only) --- */
 .snap-container {
-  scroll-snap-type: y mandatory;
-  height: 100vh; /* Ensures it fills the screen height */
-  overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
@@ -128,10 +124,17 @@ nav {
   display: none; /* Chrome/Safari/Opera */
 }
 
-/* Each child snaps to the start of the viewport */
-.snap-child {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+@media (min-width: 768px) {
+  .snap-container {
+    scroll-snap-type: y mandatory;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .snap-child {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 /* --- 4. Selection Colors --- */

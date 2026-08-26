@@ -18,6 +18,7 @@ const ContactPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // success | error | null
+  const [errorMsg, setErrorMsg] = useState("");
 
   // Pre-fill form if coming from stalls page
   useEffect(() => {
@@ -42,13 +43,15 @@ const ContactPage = () => {
   };
 
   const handleSubmit = async () => {
-    if (!formState.name || !formState.email || !formState.message) {
+    if (!formState.name || !formState.email || !formState.category || !formState.message) {
       setStatus("error");
+      setErrorMsg("Please fill name, email, category, and message.");
       return;
     }
 
     setLoading(true);
     setStatus(null);
+    setErrorMsg("");
 
     try {
       const response = await fetch(`${API_BASE}/api/contact`, {
@@ -64,10 +67,12 @@ const ContactPage = () => {
         setFormState({ name: "", email: "", category: "", message: "" });
       } else {
         setStatus("error");
+        setErrorMsg(data?.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
       console.log(error);
       setStatus("error");
+      setErrorMsg("Something went wrong. Please try again.");
     }
 
     setLoading(false);
@@ -82,19 +87,19 @@ const ContactPage = () => {
         fontFamily: "Inter, sans-serif",
       }}
     >
-      <main className="relative z-10 pt-32 pb-20 px-6 md:px-12">
+      <main className="relative z-10 pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto">
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-[18vw] md:text-[14rem] font-bold tracking-tighter leading-[0.8] mb-20 md:mb-32 select-none"
+            className="text-6xl sm:text-8xl md:text-[14rem] font-bold tracking-tighter leading-[0.8] mb-12 sm:mb-20 md:mb-32 select-none"
           >
             Contact
           </motion.h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-32 items-start">
             {/* Left Text */}
             <div>
               <motion.h2
@@ -213,7 +218,7 @@ const ContactPage = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={loading}
-                  className="px-10 py-4 rounded-full bg-black text-white font-bold text-lg hover:bg-neutral-800 transition-transform active:scale-95 shadow-xl"
+                  className="w-full sm:w-auto px-8 sm:px-10 py-4 rounded-full bg-black text-white font-bold text-lg hover:bg-neutral-800 transition-transform active:scale-95 shadow-xl"
                 >
                   {loading ? "Sending..." : "Send Message"}
                 </button>
@@ -228,7 +233,7 @@ const ContactPage = () => {
 
               {status === "error" && (
                 <p className="text-red-500 font-bold text-lg pt-4">
-                  Error Sending Message. Please Try Again.
+                  {errorMsg || "Error Sending Message. Please Try Again."}
                 </p>
               )}
             </motion.div>

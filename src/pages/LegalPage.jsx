@@ -33,34 +33,34 @@ export default function LegalPage() {
   return (
     <main className="min-h-screen bg-white text-gray-900">
         <Navbar />
-      <div className="max-w-5xl mx-auto px-6 py-20">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <p className="text-sm tracking-wide text-gray-500 uppercase">~~ Legal</p>
-        <h1 className="text-4xl md:text-5xl font-bold mt-3">Terms & Policies</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3">Terms & Policies</h1>
         <p className="text-gray-600 mt-4">Read our Terms of Use, Privacy Policy and Refund Policy below.</p>
 
         {/* Tabs */}
-        <div className="mt-8 flex items-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-4">
           <button
             onClick={() => setTab("terms")}
-            className={`px-4 py-2 rounded-md ${tab === "terms" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
+            className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base ${tab === "terms" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
           >
             Terms of Use
           </button>
           <button
             onClick={() => setTab("privacy")}
-            className={`px-4 py-2 rounded-md ${tab === "privacy" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
+            className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base ${tab === "privacy" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
           >
             Privacy Policy
           </button>
           <button
             onClick={() => setTab("refund")}
-            className={`px-4 py-2 rounded-md ${tab === "refund" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
+            className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base ${tab === "refund" ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
           >
             Refund Policy
           </button>
 
-          <div className="ml-auto flex items-center gap-3">
-            <button onClick={handlePrint} className="px-3 py-2 bg-indigo-600 text-white rounded-md">Print</button>
+          <div className="w-full sm:w-auto sm:ml-auto flex items-center gap-3 mt-2 sm:mt-0">
+            <button onClick={handlePrint} className="px-3 py-2 bg-indigo-600 text-white rounded-md text-sm">Print</button>
             <a
               href="#"
               onClick={(e) => {
@@ -69,14 +69,14 @@ export default function LegalPage() {
                 if (!el) return;
                 navigator.clipboard.writeText(el.innerText).then(() => alert("Copied to clipboard"));
               }}
-              className="px-3 py-2 bg-gray-100 rounded-md"
+              className="px-3 py-2 bg-gray-100 rounded-md text-sm"
             >
               Copy
             </a>
           </div>
         </div>
 
-        <article ref={printRef} className="mt-8 bg-white border border-gray-100 rounded-lg p-8 shadow-sm">
+        <article ref={printRef} className="mt-8 bg-white border border-gray-100 rounded-lg p-4 sm:p-8 shadow-sm">
           {tab === "terms" && (
             <div id="terms-content" className="prose max-w-none">
               <h2>Terms of Use</h2>

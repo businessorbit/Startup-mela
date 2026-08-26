@@ -11,7 +11,7 @@ const ExhibitionStallsPage = () => {
         {/* Hero Section with custom heading */}
         <section
           data-theme="dark"
-          className="relative h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12 py-8"
+          className="relative min-h-dvh h-auto md:h-dvh w-full flex items-center justify-center overflow-x-hidden md:overflow-hidden px-4 sm:px-6 lg:px-12 py-24 sm:py-16 md:py-8"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
           {/* Reuse AnimatedBg from Hero */}
@@ -55,41 +55,41 @@ const ExhibitionStallsPage = () => {
 
           <div className="relative z-10 flex flex-col items-center text-center w-full max-w-350 mx-auto">
             {/* Main Heading */}
-            <h1 className="w-full font-extrabold tracking-tighter leading-none mb-6">
-              <span className="block text-[10vw] xl:text-[120px] text-white">
+            <h1 className="w-full font-extrabold tracking-tighter leading-none mb-4 sm:mb-6">
+              <span className="block text-4xl sm:text-[10vw] xl:text-[120px] text-white">
                 Exhibit at
               </span>
-              <span className="block text-[12vw] xl:text-[160px] mt-2">
+              <span className="block text-5xl sm:text-[12vw] xl:text-[160px] mt-2">
                 <span className="text-white">Startup </span>
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
                   Mela
                 </span>
               </span>
-              <span className="block text-[8vw] xl:text-[100px] text-white mt-2">
+              <span className="block text-3xl sm:text-[8vw] xl:text-[100px] text-white mt-2">
                 2027
               </span>
             </h1>
 
             {/* Tagline */}
-            <p className="text-lg md:text-2xl font-light text-neutral-300 mb-6 tracking-wide max-w-3xl leading-relaxed">
+            <p className="text-sm sm:text-lg md:text-2xl font-light text-neutral-300 mb-4 sm:mb-6 tracking-wide max-w-3xl leading-relaxed">
               Showcase your brand, connect with thousands of attendees, and be
               part of one of the North India's largest startup and entrepreneurship event.
             </p>
 
             {/* Supporting Text */}
-            <p className="text-base md:text-lg text-neutral-400 mb-10 max-w-2xl">
+            <p className="text-sm sm:text-base md:text-lg text-neutral-400 mb-6 sm:mb-10 max-w-2xl">
               Choose a stall size that fits your goals—from early-stage exposure
               to premium brand presence.
             </p>
 
             {/* CTA Button */}
-            {/* <button
+            <button
               onClick={() => {
                 document
                   .getElementById("exhibition-stalls")
-                  .scrollIntoView({ behavior: "smooth" });
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group relative px-12 py-5 rounded-full bg-white text-black font-bold text-xl shadow-lg shadow-white/10 hover:shadow-white/25 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden flex items-center gap-3"
+              className="group relative px-8 py-4 sm:px-12 sm:py-5 rounded-full bg-white text-black font-bold text-base sm:text-xl shadow-lg shadow-white/10 hover:shadow-white/25 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden flex items-center gap-3"
             >
               <span className="relative z-10">View Stall Options</span>
               <svg
@@ -107,7 +107,7 @@ const ExhibitionStallsPage = () => {
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-            </button> */}
+            </button>
           </div>
         </section>
 

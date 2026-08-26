@@ -19,7 +19,7 @@ const SpotlightPage = () => {
 
     return (
         <div
-            className="relative min-h-screen w-full selection:bg-[#00C2FF]/30 text-white font-sans"
+            className="relative min-h-dvh w-full selection:bg-[#00C2FF]/30 text-white font-sans"
             style={{
                 backgroundColor: "#0a0a0a",
                 fontFamily: '"TT Chocolates", sans-serif',
@@ -41,13 +41,13 @@ const SpotlightPage = () => {
                             transition={{ duration: 0.8 }}
                             className="text-center"
                         >
-                            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-none mb-6">
+                            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-none mb-6">
                                 <span className="text-white">Meet the </span>
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
                                     Spotlight
                                 </span>
                             </h1>
-                            <p className="text-lg sm:text-xl md:text-2xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+                            <p className="text-base sm:text-xl md:text-2xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
                                 Connect with industry leaders, investors, and entertainers who
                                 will make Startup Mela 2027 unforgettable.
                             </p>

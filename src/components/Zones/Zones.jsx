@@ -43,7 +43,7 @@ const ZonesSection = () => {
       data-tail="black"
       // CHANGED: Switched from fixed h-screen to min-h-screen for mobile scrolling, fixed height only on desktop
       // CHANGED: Removed overflow-hidden on mobile to allow natural page scroll
-      className="relative w-full min-h-screen md:h-screen bg-white overflow-visible md:overflow-hidden"
+      className="relative w-full min-h-dvh md:h-dvh bg-white overflow-visible md:overflow-hidden"
     >
       {/* CHANGED: Removed gap on mobile for tighter stacking, kept gap on desktop */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-16 h-full">
@@ -51,7 +51,7 @@ const ZonesSection = () => {
         {/* CHANGED: Un-hid this section on mobile (flex instead of hidden) so users see the title */}
         {/* CHANGED: Adjusted padding for mobile vs desktop */}
         <div className="flex flex-col justify-center px-6 py-12 md:p-10 md:pl-20 md:pr-10 h-auto md:h-full relative border-b md:border-b-0 border-neutral-100">
-          <div className="w-full max-w-xl sticky top-[20%]">
+          <div className="w-full max-w-xl relative md:sticky md:top-[20%]">
             {/* Label */}
             <motion.p
               initial={{ opacity: 0, x: -20 }}
@@ -100,9 +100,7 @@ const ZonesSection = () => {
           {zones.map((zone) => (
             <div
               key={zone.id}
-              // CHANGED: Removed forced min-h-screen on mobile, replaced with comfortable padding (py-16)
-              // CHANGED: Adjusted padding (p-6 -> p-20)
-              className="snap-child relative w-full h-auto min-h-[50vh] md:min-h-screen flex flex-col justify-center p-6 sm:p-10 md:p-20 border-b md:border-b-0 border-neutral-200 last:border-0"
+              className="snap-child relative w-full h-auto min-h-[50vh] md:min-h-dvh flex flex-col justify-center p-6 sm:p-10 md:p-20 border-b md:border-b-0 border-neutral-200 last:border-0"
             >
               <div className="max-w-xl">
                 {/* Zone ID Background Effect */}

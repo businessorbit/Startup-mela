@@ -18,6 +18,7 @@ import VolunteersPage from "./pages/admin/VolunteersPage";
 import InquiriesPage from "./pages/admin/InquiriesPage";
 import LegalPage from "./pages/LegalPage";
 import SpotlightPage from "./pages/SpotlightPage";
+import EventPage from "./pages/EventPage";
 import PrivateFreePassPage from "./pages/PrivateFreePassPage";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/workwithus" element={<WorkWithUsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/spotlight" element={<SpotlightPage />} />
+          <Route path="/event" element={<EventPage />} />
           <Route path="/exhibition-stalls" element={<ExhibitionStallsPage />} />
 
           {/* Checkout Route */}

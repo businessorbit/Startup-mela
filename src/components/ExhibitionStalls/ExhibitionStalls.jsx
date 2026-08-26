@@ -46,7 +46,7 @@ const ExhibitionStalls = () => {
               }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-130 sm:min-h-140 group"
+              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-0 sm:min-h-140 group"
             >
               {/* Dark Gradient Background */}
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
@@ -281,7 +281,7 @@ const ExhibitionStalls = () => {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block px-10 py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg shadow-lg shadow-white/10 hover:bg-neutral-200 transition-all duration-300"
+              className="inline-block px-8 sm:px-10 py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg shadow-lg shadow-white/10 hover:bg-neutral-200 transition-all duration-300"
             >
               Get in Touch
             </motion.a>
