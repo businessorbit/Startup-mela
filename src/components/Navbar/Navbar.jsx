@@ -5,9 +5,10 @@ import { Menu, X, ArrowRight } from "lucide-react";
 
 // Links (use section ids or routes as needed)
 const navLinks = [
+  { label: "About", href: "/" },
   {
     label: "Event",
-    href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3",
+    href: "/Start Up mela 2027 new.pdf",
   },
   { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },
@@ -191,20 +192,7 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
-                      onClick={(e) => {
-                        setIsOpen(false);
-                        if (link.href.startsWith("/#")) {
-                          e.preventDefault();
-                          const hash = link.href.slice(1);
-                          if (location.pathname === "/") {
-                            document
-                              .querySelector(hash)
-                              ?.scrollIntoView({ behavior: "smooth" });
-                          } else {
-                            navigate(`/${hash}`);
-                          }
-                        }
-                      }}
+                      onClick={() => setIsOpen(false)}
                       // Responsive text size: text-3xl mobile -> text-4xl sm -> text-6xl md
                       className="text-3xl sm:text-4xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
                     >
@@ -249,27 +237,11 @@ const Navbar = () => {
 const NavLink = ({ text, href, theme }) => {
   // base color depending on theme
   const baseClass = theme === "dark" ? "text-white" : "text-black";
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleClick = (e) => {
-    // In-app hash links (e.g. /#about) should scroll reliably in the SPA
-    if (href.startsWith("/#")) {
-      e.preventDefault();
-      const hash = href.slice(1); // "#about"
-      if (location.pathname === "/") {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        navigate(`/${hash}`);
-      }
-    }
-  };
 
   // Desktop-only styling: keep uppercase small text as in original design
   return (
     <a
       href={href}
-      onClick={handleClick}
       className={`relative group block whitespace-nowrap select-none`}
       aria-label={text}
     >

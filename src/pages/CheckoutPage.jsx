@@ -34,12 +34,7 @@ const CheckoutPage = () => {
   const isStall = !!stallId;
   const selectedPass = passId ? passes.find((p) => p.id === passId) : null;
   const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
-  const isComingSoonPass = !isStall && !!selectedPass?.comingSoon;
-  const selectedItem = isStall
-    ? selectedStall
-    : isComingSoonPass
-      ? null
-      : selectedPass;
+  const selectedItem = isStall ? selectedStall : selectedPass;
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
@@ -70,38 +65,6 @@ const CheckoutPage = () => {
     useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [uploadingFiles, setUploadingFiles] = useState(false);
-
-  const emptyAttendee = () => ({
-    name: "",
-    email: "",
-    phone: "",
-    profession: "",
-    professionOther: "",
-    startupName: "",
-  });
-
-  const resetForm = () => {
-    setQuantity(1);
-    setAttendees([emptyAttendee()]);
-    setError("");
-    setIsProcessing(false);
-    setUploadingFiles(false);
-    setStudentIdFile(null);
-    setStudentIdPreview(null);
-    setFounderProofFile(null);
-    setFounderProofPreview(null);
-    setLinkedinProfile("");
-    setHasCoFounder("");
-    setCoFounderStudentIdFile(null);
-    setCoFounderStudentIdPreview(null);
-    setTermsAccepted(false);
-  };
-
-  const closeSuccessModal = () => {
-    setShowSuccessModal(false);
-    setSuccessData(null);
-    resetForm();
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -178,15 +141,6 @@ const CheckoutPage = () => {
     }
   }, [quantity]);
 
-  // Debug: Track studentIdFile state changes
-  useEffect(() => {
-    console.log("🔄 studentIdFile state changed to:", studentIdFile);
-  }, [studentIdFile]);
-
-  useEffect(() => {
-    console.log("🔄 founderProofFile state changed to:", founderProofFile);
-  }, [founderProofFile]);
-
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
@@ -197,7 +151,6 @@ const CheckoutPage = () => {
       if (data.success) {
         setSuccessData(data);
         setShowSuccessModal(true);
-        resetForm();
         // Clean up URL parameters
         const newParams = new URLSearchParams(searchParams);
         newParams.delete("paymentStatus");
@@ -228,15 +181,9 @@ const CheckoutPage = () => {
 
   // File upload handlers for student stall
   const handleFileUpload = (event, setFileState, setPreviewState) => {
-    console.log("📁 handleFileUpload called with event:", event);
-
     const file = event?.target?.files?.[0];
-    console.log("📁 Extracted file from event:", file);
 
-    if (!file) {
-      console.log("⚠️ No file found in event");
-      return;
-    }
+    if (!file) return;
 
     // Validate file size (5MB max)
     const maxSize = 5 * 1024 * 1024; // 5MB
@@ -257,21 +204,14 @@ const CheckoutPage = () => {
       return;
     }
 
-    console.log("✅ File validated, setting file state:", file.name);
-    console.log("🔧 About to call setFileState");
     setFileState(file);
-    console.log("✔️ setFileState called");
 
     // Create preview for images
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        console.log("🖼️ Setting image preview");
-        setPreviewState(reader.result);
-      };
+      reader.onloadend = () => setPreviewState(reader.result);
       reader.readAsDataURL(file);
     } else {
-      console.log("📄 Setting PDF preview");
       setPreviewState("pdf");
     }
 
@@ -522,9 +462,14 @@ const CheckoutPage = () => {
         import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
       const IS_TEST_MODE =
         import.meta.env.VITE_TEST_MODE === "true" && !import.meta.env.PROD;
-      const paymentEndpoint = IS_TEST_MODE
-        ? "/api/payment/test"
-        : "/api/payment/create";
+      // Free passes (₹0) must always use the real endpoint — they never touch
+      // the payment gateway, so test-mode routing is irrelevant and harmful.
+      const paymentEndpoint =
+        totalAmount === 0
+          ? "/api/payment/create"
+          : IS_TEST_MODE
+          ? "/api/payment/test"
+          : "/api/payment/create";
 
       console.log("Payment Config:", {
         API_URL,
@@ -550,7 +495,7 @@ const CheckoutPage = () => {
       if (data.isFreeTicket) {
         setSuccessData(data);
         setShowSuccessModal(true);
-        resetForm();
+        setIsProcessing(false);
         return;
       }
 
@@ -573,17 +518,8 @@ const CheckoutPage = () => {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4">
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
-          {isComingSoonPass
-            ? "This pass is coming soon"
-            : isStall
-              ? "Stall not found"
-              : "Pass not found"}
+          {isStall ? "Stall" : "Pass"} not found
         </h2>
-        {isComingSoonPass && (
-          <p className="text-neutral-400 text-sm sm:text-base mb-4 text-center max-w-md">
-            {selectedPass?.title} is not available for purchase yet.
-          </p>
-        )}
         <Link
           to="/"
           className="text-blue-500 hover:underline text-sm sm:text-base"
@@ -1314,7 +1250,7 @@ const CheckoutPage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={closeSuccessModal}
+            onClick={() => setShowSuccessModal(false)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -1356,7 +1292,7 @@ const CheckoutPage = () => {
                   </p>
                 </div>
                 <button
-                  onClick={closeSuccessModal}
+                  onClick={() => setShowSuccessModal(false)}
                   className="w-full py-3 rounded-lg bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
                 >
                   Close
