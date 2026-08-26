@@ -5,6 +5,10 @@ import { Menu, X, ArrowRight } from "lucide-react";
 
 // Links (use section ids or routes as needed)
 const navLinks = [
+  {
+    label: "Event",
+    href: "/Start Up mela 2027 new.pdf",
+  },
   { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },
   { label: "Sponsors", href: "/sponsors" },
