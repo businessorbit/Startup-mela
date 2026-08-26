@@ -7,7 +7,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 const navLinks = [
   {
     label: "Event",
-    href: "/Start Up mela 2027 new.pdf",
+    href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:6c1a6aa5-3e9e-4275-a4b2-faba0c612eb3",
   },
   { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },

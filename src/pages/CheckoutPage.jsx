@@ -178,6 +178,15 @@ const CheckoutPage = () => {
     }
   }, [quantity]);
 
+  // Debug: Track studentIdFile state changes
+  useEffect(() => {
+    console.log("🔄 studentIdFile state changed to:", studentIdFile);
+  }, [studentIdFile]);
+
+  useEffect(() => {
+    console.log("🔄 founderProofFile state changed to:", founderProofFile);
+  }, [founderProofFile]);
+
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
@@ -219,9 +228,15 @@ const CheckoutPage = () => {
 
   // File upload handlers for student stall
   const handleFileUpload = (event, setFileState, setPreviewState) => {
-    const file = event?.target?.files?.[0];
+    console.log("📁 handleFileUpload called with event:", event);
 
-    if (!file) return;
+    const file = event?.target?.files?.[0];
+    console.log("📁 Extracted file from event:", file);
+
+    if (!file) {
+      console.log("⚠️ No file found in event");
+      return;
+    }
 
     // Validate file size (5MB max)
     const maxSize = 5 * 1024 * 1024; // 5MB
@@ -242,14 +257,21 @@ const CheckoutPage = () => {
       return;
     }
 
+    console.log("✅ File validated, setting file state:", file.name);
+    console.log("🔧 About to call setFileState");
     setFileState(file);
+    console.log("✔️ setFileState called");
 
     // Create preview for images
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onloadend = () => setPreviewState(reader.result);
+      reader.onloadend = () => {
+        console.log("🖼️ Setting image preview");
+        setPreviewState(reader.result);
+      };
       reader.readAsDataURL(file);
     } else {
+      console.log("📄 Setting PDF preview");
       setPreviewState("pdf");
     }
 
@@ -500,14 +522,9 @@ const CheckoutPage = () => {
         import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
       const IS_TEST_MODE =
         import.meta.env.VITE_TEST_MODE === "true" && !import.meta.env.PROD;
-      // Free passes (₹0) must always use the real endpoint — they never touch
-      // the payment gateway, so test-mode routing is irrelevant and harmful.
-      const paymentEndpoint =
-        totalAmount === 0
-          ? "/api/payment/create"
-          : IS_TEST_MODE
-          ? "/api/payment/test"
-          : "/api/payment/create";
+      const paymentEndpoint = IS_TEST_MODE
+        ? "/api/payment/test"
+        : "/api/payment/create";
 
       console.log("Payment Config:", {
         API_URL,
