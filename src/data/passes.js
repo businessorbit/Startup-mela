@@ -26,6 +26,7 @@ export const passes = [
     gstAmount: 0,
     totalPrice: 0,
     displayPrice: "TBA",
+    comingSoon: true,
     features: [
       "Everything in the Arena Pass",
       "Exclusive entry to Conference Zone (Zone 3)",
@@ -42,6 +43,7 @@ export const passes = [
     gstAmount: 0,
     totalPrice: 0,
     displayPrice: "TBA",
+    comingSoon: true,
     features: [
       "Reserved entry to the Official Pitching Event",
       "Present your startup to Angel Investors",

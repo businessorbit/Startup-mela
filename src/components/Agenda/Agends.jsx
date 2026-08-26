@@ -10,7 +10,6 @@ const AgendaSection = () => {
       style={{ fontFamily: '"TT Chocolates", sans-serif' }}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
-        {/* --- Header --- */}
         <div className="mb-12 sm:mb-16 md:mb-24">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
@@ -44,7 +43,6 @@ const AgendaSection = () => {
           />
         </div>
 
-        {/* --- Closing Note --- */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,8 +53,7 @@ const AgendaSection = () => {
           <div className="px-6 py-5 sm:px-10 sm:py-6 rounded-2xl bg-neutral-900/50 border border-white/5 backdrop-blur-md max-w-4xl text-center">
             <p className="text-neutral-400 text-sm sm:text-base md:text-lg font-medium tracking-wide leading-relaxed">
               <span className="text-[#a78bfa] mr-2">✦</span>
-              The final itinerary with exact 20+ speaker sessions and other micro
-              events will be shared soon.
+              The final itinerary with exact 20+ speaker sessions and other micro events will be shared soon.
             </p>
           </div>
         </motion.div>
