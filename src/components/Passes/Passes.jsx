@@ -100,7 +100,7 @@ const PassesSection = () => {
                 {/* Adjusted vertical margins */}
                 <div className="mt-4 mb-6 sm:mb-8">
                   {pass.comingSoon ? (
-                    <p className="text-2xl sm:text-3xl font-bold text-neutral-500 tracking-tight">
+                    <p className="text-3xl sm:text-4xl font-bold text-neutral-500 tracking-tight">
                       Price TBA
                     </p>
                   ) : pass.price ? (
