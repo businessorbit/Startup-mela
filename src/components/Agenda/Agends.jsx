@@ -1,78 +1,15 @@
 import { motion } from "framer-motion";
 
-const agendaData = [
-  {
-    day: "Day 1",
-    schedule: [
-      {
-        time: "Morning",
-        activities: [
-          "Opening Keynote: The Future of Innovation",
-          "Speaker Session 1: Mastering Early-Stage Funding",
-          "Pitching Round (Part 1): Seed Stage Showdown",
-        ],
-      },
-      {
-        time: "Afternoon",
-        activities: [
-          "Ideathon (Kickoff): Problem-Solving Sprint",
-          "Speaker Session 2: Building a Global Brand from Day One",
-          "Product Launch (Part 1): Disruptor Showcase",
-        ],
-      },
-      {
-        time: "Evening",
-        activities: [
-          "Influencer Show: The Digital Trailblazers",
-          "Welcome Mixer: Connect & Collaborate",
-        ],
-      },
-    ],
-  },
-  {
-    day: "Day 2",
-    schedule: [
-      {
-        time: "Morning",
-        activities: [
-          "Speaker Session 3: Tech Trends Shaping 2027",
-          "Product Launch (Part 2): Innovation Reveal",
-          "Pitching Round (Part 2): Growth Stage Giants",
-        ],
-      },
-      {
-        time: "Afternoon",
-        activities: [
-          "Ideathon (Finale): Judges' Choice",
-          "Speaker Session 4: Scaling Culture in a Remote World",
-        ],
-      },
-      {
-        time: "Evening",
-        activities: [
-          "Fashion Show: Future of Techwear",
-          "Award Show: Startup Mela 2027 Recognitions",
-          "Fireside Chat: What's Next for the Startup Ecosystem",
-        ],
-      },
-    ],
-  },
-];
-
 const AgendaSection = () => {
   return (
     <section
       id="agenda"
       data-theme="dark"
       data-tail="white"
-      // CHANGED: Reduced vertical padding on mobile (py-16) -> scaled up for desktop (md:py-32)
       className="relative w-full bg-black py-16 sm:py-24 md:py-32"
       style={{ fontFamily: '"TT Chocolates", sans-serif' }}
     >
-      {/* CHANGED: Adjusted horizontal padding for safe areas on mobile (px-4) */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
-        {/* --- Header --- */}
-        {/* CHANGED: Reduced bottom margin on mobile to tighten layout */}
         <div className="mb-12 sm:mb-16 md:mb-24">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
@@ -95,9 +32,6 @@ const AgendaSection = () => {
             className="flex flex-wrap items-center gap-3 sm:gap-5 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 sm:mb-10"
           >
             Agenda
-            <span className="px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-white/10 bg-white/5 text-neutral-400 text-sm sm:text-base md:text-lg font-medium tracking-wide backdrop-blur-md">
-              Tentative
-            </span>
           </motion.h2>
 
           <motion.div
@@ -109,109 +43,12 @@ const AgendaSection = () => {
           />
         </div>
 
-        {/* --- Agenda Layout (Side-by-Side Day & Content) --- */}
-        {/* CHANGED: Reduced gap between Days on mobile (gap-20 -> gap-32) */}
-        <div className="flex flex-col gap-20 md:gap-32">
-          {agendaData.map((dayBlock, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-8 lg:gap-24 relative"
-            >
-              {/* --- Left Column: Sticky Day Label --- */}
-              <div className="hidden lg:block relative">
-                <div className="sticky top-32">
-                  <motion.h3
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="text-7xl font-bold text-white tracking-tighter leading-none"
-                  >
-                    {dayBlock.day}
-                  </motion.h3>
-                </div>
-              </div>
-
-              {/* --- Right Column: Schedule Content --- */}
-              <div>
-                {/* Mobile Day Header */}
-                <motion.h3
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  // CHANGED: Scaled down text size for mobile headers
-                  className="lg:hidden text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 sm:mb-10 tracking-tighter"
-                >
-                  {dayBlock.day}
-                </motion.h3>
-
-                {/* Table Headers */}
-                <div className="hidden md:grid grid-cols-[180px_1fr] gap-8 mb-8 text-neutral-500 text-sm font-bold uppercase tracking-wider border-b border-neutral-800 pb-4">
-                  <span>Time Slot</span>
-                  <span>Activity Details</span>
-                </div>
-
-                {/* Rows */}
-                {/* CHANGED: Reduced gap between time slots on mobile */}
-                <div className="flex flex-col gap-8 md:gap-0">
-                  {dayBlock.schedule.map((slot, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      // CHANGED: Adjusted padding and borders for mobile readability
-                      className="flex flex-col md:grid md:grid-cols-[180px_1fr] gap-4 md:gap-8 py-0 md:py-10 border-b border-neutral-900 last:border-0"
-                    >
-                      {/* Time Slot */}
-                      <div className="md:pt-1">
-                        <span className="text-xl font-bold text-white block md:hidden mb-1 text-neutral-500 text-xs uppercase tracking-wide">
-                          Time Slot
-                        </span>
-                        {/* CHANGED: Font size scaling for time (text-2xl -> text-4xl) */}
-                        <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-500">
-                          {slot.time}
-                        </span>
-                      </div>
-
-                      {/* Activity Details */}
-                      <div>
-                        <span className="text-xl font-bold text-white block md:hidden mb-2 text-neutral-500 text-xs uppercase tracking-wide">
-                          Activity Details
-                        </span>
-                        {/* CHANGED: Tighter spacing for list items on mobile (space-y-4 -> space-y-6) */}
-                        <ul className="space-y-4 md:space-y-6">
-                          {slot.activities.map((activity, actIdx) => (
-                            // CHANGED: Font size scaling for list items (text-base -> text-xl)
-                            <li
-                              key={actIdx}
-                              className="flex items-start text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed group"
-                            >
-                              <span className="text-[#a78bfa] font-medium mr-3 md:mr-4 mt-1 md:mt-1.5 inline-block transition-transform duration-300 group-hover:translate-x-1">
-                                ~
-                              </span>
-                              <span className="group-hover:text-white transition-colors duration-300 font-medium">
-                                {activity}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* --- Closing Note --- */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mt-16 md:mt-24 flex items-center justify-center"
+          className="flex items-center justify-center"
         >
           <div className="px-6 py-5 sm:px-10 sm:py-6 rounded-2xl bg-neutral-900/50 border border-white/5 backdrop-blur-md max-w-4xl text-center">
             <p className="text-neutral-400 text-sm sm:text-base md:text-lg font-medium tracking-wide leading-relaxed">
