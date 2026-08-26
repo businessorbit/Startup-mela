@@ -62,6 +62,7 @@ const Counter = ({ value, label, icon }) => {
 const AboutSection = () => {
   return (
     <section
+      id="about"
       data-theme="light"
       data-tail="black"
       // Responsive padding: py-16 mobile -> py-32 desktop

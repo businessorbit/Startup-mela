@@ -2,7 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 // Backend API Base
-const API_BASE = import.meta.env.VITE_API_URL; // <-- CHANGE THIS
+const API_BASE =
+  import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
 
 const ROLES = [
   "Video Editing",

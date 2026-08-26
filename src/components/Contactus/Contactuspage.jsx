@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 
+import { stalls } from "../../data/stalls";
+
 // Backend API Base
-const API_BASE = import.meta.env.VITE_API_URL; // <-- REPLACE THIS
+const API_BASE =
+  import.meta.env.VITE_API_URL || "https://startupmelabackend.vercel.app";
 
 const ContactPage = () => {
   const [searchParams] = useSearchParams();
@@ -21,20 +24,18 @@ const ContactPage = () => {
 
   // Pre-fill form if coming from stalls page
   useEffect(() => {
-    if (stallId) {
-      const stallMessages = {
-        1: "I'm interested in the 4 × 4 ft Exhibition Stall (₹12,000). Please provide more details.",
-        2: "I'm interested in the 6 × 6 ft Exhibition Stall (₹25,000). Please provide more details.",
-        3: "I'm interested in the 8 × 8 ft Premium Exhibition Stall (₹35,000). Please provide more details.",
-      };
-      setFormState({
-        ...formState,
-        category: "stalls",
-        message:
-          stallMessages[stallId] ||
-          "I'm interested in exhibition stalls. Please provide more details.",
-      });
-    }
+    if (!stallId) return;
+
+    const stall = stalls.find((s) => String(s.id) === String(stallId));
+    const message = stall
+      ? `I'm interested in the ${stall.title} (${stall.displayPrice}). Please provide more details.`
+      : "I'm interested in exhibition stalls. Please provide more details.";
+
+    setFormState((prev) => ({
+      ...prev,
+      category: "stalls",
+      message,
+    }));
   }, [stallId]);
 
   const handleChange = (e) => {

@@ -34,7 +34,12 @@ const CheckoutPage = () => {
   const isStall = !!stallId;
   const selectedPass = passId ? passes.find((p) => p.id === passId) : null;
   const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
-  const selectedItem = isStall ? selectedStall : selectedPass;
+  const isComingSoonPass = !isStall && !!selectedPass?.comingSoon;
+  const selectedItem = isStall
+    ? selectedStall
+    : isComingSoonPass
+      ? null
+      : selectedPass;
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
@@ -65,6 +70,38 @@ const CheckoutPage = () => {
     useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [uploadingFiles, setUploadingFiles] = useState(false);
+
+  const emptyAttendee = () => ({
+    name: "",
+    email: "",
+    phone: "",
+    profession: "",
+    professionOther: "",
+    startupName: "",
+  });
+
+  const resetForm = () => {
+    setQuantity(1);
+    setAttendees([emptyAttendee()]);
+    setError("");
+    setIsProcessing(false);
+    setUploadingFiles(false);
+    setStudentIdFile(null);
+    setStudentIdPreview(null);
+    setFounderProofFile(null);
+    setFounderProofPreview(null);
+    setLinkedinProfile("");
+    setHasCoFounder("");
+    setCoFounderStudentIdFile(null);
+    setCoFounderStudentIdPreview(null);
+    setTermsAccepted(false);
+  };
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false);
+    setSuccessData(null);
+    resetForm();
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -151,6 +188,7 @@ const CheckoutPage = () => {
       if (data.success) {
         setSuccessData(data);
         setShowSuccessModal(true);
+        resetForm();
         // Clean up URL parameters
         const newParams = new URLSearchParams(searchParams);
         newParams.delete("paymentStatus");
@@ -495,7 +533,7 @@ const CheckoutPage = () => {
       if (data.isFreeTicket) {
         setSuccessData(data);
         setShowSuccessModal(true);
-        setIsProcessing(false);
+        resetForm();
         return;
       }
 
@@ -518,8 +556,17 @@ const CheckoutPage = () => {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4">
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
-          {isStall ? "Stall" : "Pass"} not found
+          {isComingSoonPass
+            ? "This pass is coming soon"
+            : isStall
+              ? "Stall not found"
+              : "Pass not found"}
         </h2>
+        {isComingSoonPass && (
+          <p className="text-neutral-400 text-sm sm:text-base mb-4 text-center max-w-md">
+            {selectedPass?.title} is not available for purchase yet.
+          </p>
+        )}
         <Link
           to="/"
           className="text-blue-500 hover:underline text-sm sm:text-base"
@@ -1250,7 +1297,7 @@ const CheckoutPage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowSuccessModal(false)}
+            onClick={closeSuccessModal}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -1292,7 +1339,7 @@ const CheckoutPage = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => setShowSuccessModal(false)}
+                  onClick={closeSuccessModal}
                   className="w-full py-3 rounded-lg bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
                 >
                   Close

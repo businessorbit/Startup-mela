@@ -141,7 +141,7 @@ const Hero = () => {
             className="text-center sm:text-left"
           >
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white tracking-wide">
-              27th, 28th and 29th March
+              25th, 26th and 27th March
             </p>
           </motion.div>
 
