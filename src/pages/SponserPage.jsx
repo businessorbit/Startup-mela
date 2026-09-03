@@ -2,17 +2,30 @@ import React from "react";
 import SponsorsSection from "../components/Sponsers/Sponsers";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
+import SEO from "../components/SEO/SEO";
+import { pageSEO, buildBreadcrumbSchema } from "../data/seo";
 
 export default function SponsorsPage() {
+  const seo = pageSEO.sponsors;
+
   return (
     <main
       data-theme="light"
       data-tail="black"
       className="min-h-screen w-full bg-white"
     >
-        <Navbar />
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        keywords={seo.keywords}
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Sponsors", path: "/sponsors" },
+        ])}
+      />
+      <Navbar />
       <SponsorsSection />
-
       <FooterSection />
     </main>
   );

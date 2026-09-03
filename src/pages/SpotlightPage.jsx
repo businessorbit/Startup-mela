@@ -11,8 +11,12 @@ import {
     investors,
     spotlightCategories,
 } from "../data/spotlight";
+import SEO from "../components/SEO/SEO";
+import { pageSEO, buildBreadcrumbSchema } from "../data/seo";
 
 const SpotlightPage = () => {
+    const seo = pageSEO.spotlight;
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -25,6 +29,16 @@ const SpotlightPage = () => {
                 fontFamily: '"TT Chocolates", sans-serif',
             }}
         >
+            <SEO
+                title={seo.title}
+                description={seo.description}
+                path={seo.path}
+                keywords={seo.keywords}
+                jsonLd={buildBreadcrumbSchema([
+                    { name: "Home", path: "/" },
+                    { name: "Spotlight", path: "/spotlight" },
+                ])}
+            />
             <AnimatedBg />
             <Navbar />
 

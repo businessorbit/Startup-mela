@@ -1,16 +1,30 @@
 import { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
+import SEO from "../components/SEO/SEO";
+import { pageSEO, buildBreadcrumbSchema } from "../data/seo";
 
 const PDF_SRC = "/Start%20Up%20mela%202027%20new.pdf";
 
 const EventPage = () => {
+  const seo = pageSEO.event;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="relative min-h-dvh w-full bg-black text-white">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        keywords={seo.keywords}
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Event", path: "/event" },
+        ])}
+      />
       <Navbar />
 
       <main
@@ -22,7 +36,6 @@ const EventPage = () => {
             Event Details
           </h1>
 
-          {/* Mobile: open PDF in-browser (iframe often blank on iOS) */}
           <div className="sm:hidden flex flex-col items-center gap-6 py-10 px-4 rounded-2xl border border-white/10 bg-neutral-950 text-center">
             <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
               View the full Startup Mela 2027 brochure on your phone.
@@ -35,7 +48,6 @@ const EventPage = () => {
             </a>
           </div>
 
-          {/* Desktop / tablet: embedded viewer */}
           <div className="hidden sm:block w-full h-[75vh] md:h-[80vh] rounded-2xl overflow-hidden border border-white/10 bg-neutral-950">
             <iframe
               title="Startup Mela 2027 Event Brochure"

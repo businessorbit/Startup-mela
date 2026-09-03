@@ -15,7 +15,8 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState("light"); // "light" => dark text, "dark" => white text
+  // Match hero (dark) so white logo shows on first paint — avoids blank "Startup"
+  const [theme, setTheme] = useState("dark");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,64 +38,52 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // Re-observe all data-theme sections whenever the page/route changes.
-    // Using a small timeout to wait for the new page's DOM to be rendered
-    // before we query for [data-theme] elements.
-    const setup = () => {
-      // Set initial theme from the first visible [data-theme] element
-      const firstSection = document.querySelector("[data-theme]");
-      if (firstSection) {
-        setTheme(firstSection.getAttribute("data-theme") || "dark");
-      }
+    let removeListeners = null;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          // Find the most-visible intersecting entry
-          const intersecting = entries
-            .filter((e) => e.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-          if (intersecting.length > 0) {
-            const t = intersecting[0].target.getAttribute("data-theme");
-            if (t) setTheme(t);
-          }
-        },
-        { threshold: [0.2, 0.5], rootMargin: "-60px 0px 0px 0px" }
-      );
-
-      document
-        .querySelectorAll("[data-theme]")
-        .forEach((el) => observer.observe(el));
-
-      return observer;
-    };
-
-    let observer;
     const timer = setTimeout(() => {
-      observer = setup();
+      const sections = Array.from(document.querySelectorAll("[data-theme]"));
+      if (sections.length === 0) return;
+
+      const themeAtNavbar = () => {
+        // Sample the band under the fixed navbar (where the logo sits)
+        const probeY = 72;
+        let current = "dark";
+        for (const el of sections) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= probeY && rect.bottom > probeY) {
+            current = el.getAttribute("data-theme") || "dark";
+            break;
+          }
+        }
+        setTheme(current);
+      };
+
+      themeAtNavbar();
+      window.addEventListener("scroll", themeAtNavbar, { passive: true });
+      window.addEventListener("resize", themeAtNavbar);
+      removeListeners = () => {
+        window.removeEventListener("scroll", themeAtNavbar);
+        window.removeEventListener("resize", themeAtNavbar);
+      };
     }, 50);
 
     return () => {
       clearTimeout(timer);
-      if (observer) observer.disconnect();
+      if (removeListeners) removeListeners();
     };
   }, [location.pathname]);
 
-  const textColorClass = theme === "dark" ? "text-white" : "text-black";
-
   return (
     <nav
-      // Adjusted vertical padding: py-4 for mobile, increasing to py-7 for desktop
-      className={`fixed left-0 w-full z-[9998] bg-transparent py-4 sm:py-6 md:py-7 transition-all uppercase`}
+      className="fixed left-0 top-0 w-full z-[9998] bg-transparent uppercase"
       aria-label="Main navigation"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* Adjusted horizontal padding: px-4 mobile -> px-6 sm -> px-8 md -> px-12 desktop */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex justify-between">
-        {/* Logo */}
+      <div className="max-w-[1600px] mx-auto h-16 sm:h-[4.5rem] md:h-20 px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-between">
+        {/* Fixed logo slot — both assets stacked so theme swap never changes size */}
         <a
           href="/"
-          className={`flex items-end gap-2 select-none ${textColorClass}`}
+          className="relative block shrink-0 select-none h-10 w-[168px] sm:h-11 sm:w-[188px] md:h-12 md:w-[210px]"
           onClick={(e) => {
             e.preventDefault();
             if (location.pathname === "/") {
@@ -105,17 +94,23 @@ const Navbar = () => {
             }
           }}
         >
-          {/* Logo Text: responsive sizing */}
-          <span className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight pb-2">
-            Startup
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
-              Mela
-            </span>
-          </span>
-          {/* Year Text: responsive sizing */}
-          <span className="ml-2 text-xs sm:text-sm lg:text-base font-semibold text-neutral-400 align-top pb-2 lg:pb-5">
-            2027
-          </span>
+          <img
+            src="/logo-light.png?v=5"
+            alt=""
+            aria-hidden={theme !== "dark"}
+            className={`absolute inset-0 h-full w-full object-contain object-left pointer-events-none transition-opacity duration-200 ${
+              theme === "dark" ? "opacity-100" : "opacity-0"
+            }`}
+            draggable={false}
+          />
+          <img
+            src="/logo-dark.png?v=5"
+            alt="Startup Mela"
+            className={`absolute inset-0 h-full w-full object-contain object-left pointer-events-none transition-opacity duration-200 ${
+              theme === "dark" ? "opacity-0" : "opacity-100"
+            }`}
+            draggable={false}
+          />
         </a>
 
         {/* Desktop Links */}

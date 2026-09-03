@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import SEO from '../../components/SEO/SEO';
+import { pageSEO } from '../../data/seo';
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,7 @@ const AdminLoginPage = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAdminAuth();
   const navigate = useNavigate();
+  const seo = pageSEO.admin;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +31,7 @@ const AdminLoginPage = () => {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-black">
+      <SEO title={seo.title} description={seo.description} path="/admin/login" noindex />
       <AnimatedBg />
       
       <div className="relative z-10 w-full max-w-md px-6">

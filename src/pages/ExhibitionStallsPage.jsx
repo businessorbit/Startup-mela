@@ -1,11 +1,24 @@
 import Navbar from "../components/Navbar/Navbar";
-import Hero from "../components/Hero/Hero";
 import ExhibitionStalls from "../components/ExhibitionStalls/ExhibitionStalls";
 import FooterSection from "../components/Footer/FooterSection";
+import SEO from "../components/SEO/SEO";
+import { pageSEO, buildBreadcrumbSchema } from "../data/seo";
 
 const ExhibitionStallsPage = () => {
+  const seo = pageSEO.exhibitionStalls;
+
   return (
     <>
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        keywords={seo.keywords}
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Exhibition Stalls", path: "/exhibition-stalls" },
+        ])}
+      />
       <Navbar />
       <main>
         {/* Hero Section with custom heading */}

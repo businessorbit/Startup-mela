@@ -8,9 +8,17 @@ import ZonesSection from "../components/Zones/Zones";
 import PassesSection from "../components/Passes/Passes";
 import AgendaSection from "../components/Agenda/Agends";
 import FooterSection from "../components/Footer/FooterSection";
+import SEO from "../components/SEO/SEO";
+import {
+  pageSEO,
+  buildEventSchema,
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+} from "../data/seo";
 
 const HomePage = () => {
   const location = useLocation();
+  const seo = pageSEO.home;
 
   useEffect(() => {
     if (!location.hash) return;
@@ -26,6 +34,17 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen w-full selection:bg-[#00C2FF]/30">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        keywords={seo.keywords}
+        jsonLd={[
+          buildOrganizationSchema(),
+          buildWebSiteSchema(),
+          buildEventSchema(),
+        ]}
+      />
       <Navbar />
 
       <main className="relative z-10">

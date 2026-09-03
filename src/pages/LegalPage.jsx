@@ -2,6 +2,8 @@
 import React, { useState, useRef } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import FooterSection from "../components/Footer/FooterSection";
+import SEO from "../components/SEO/SEO";
+import { pageSEO, buildBreadcrumbSchema } from "../data/seo";
 
 function SectionTitle({ children }) {
   return <h2 className="text-2xl md:text-3xl font-semibold mt-6 mb-4">{children}</h2>;
@@ -14,6 +16,7 @@ function SmallHeader({ children }) {
 export default function LegalPage() {
   const [tab, setTab] = useState("terms");
   const printRef = useRef();
+  const seo = pageSEO.terms;
 
   const handlePrint = () => {
     // print the legal area
@@ -32,7 +35,17 @@ export default function LegalPage() {
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
-        <Navbar />
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        keywords={seo.keywords}
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Terms & Policies", path: "/terms" },
+        ])}
+      />
+      <Navbar />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <p className="text-sm tracking-wide text-gray-500 uppercase">~~ Legal</p>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3">Terms & Policies</h1>

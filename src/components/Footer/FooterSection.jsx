@@ -49,10 +49,13 @@ const FooterSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-900/20 to-neutral-900/80 pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="absolute top-8 left-8 md:left-12 opacity-50 hidden md:block">
-        <span className="text-xl font-bold text-white tracking-tighter">
-          Startup<span className="text-blue-500">Mela</span>
-        </span>
+      <div className="absolute top-8 left-8 md:left-12 hidden md:block">
+        <img
+          src="/logo-light.png?v=5"
+          alt="Startup Mela"
+          className="h-10 w-auto max-w-[180px] object-contain object-left opacity-90"
+          draggable={false}
+        />
       </div>
 
       <div className="absolute top-8 right-8 md:right-12 text-xs font-mono text-neutral-600 hidden md:block">

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /checkout
+Disallow: /x9k2v7m4r1q8
+
+Sitemap: https://startupmela.com/sitemap.xml

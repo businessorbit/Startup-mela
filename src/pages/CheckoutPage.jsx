@@ -10,6 +10,8 @@ import {
   initializeCheckoutSocket,
   joinOrderTracking,
 } from "../utils/socketClient";
+import SEO from "../components/SEO/SEO";
+import { pageSEO } from "../data/seo";
 
 const PROFESSION_OPTIONS = [
   "Student",
@@ -35,6 +37,7 @@ const CheckoutPage = () => {
   const selectedPass = passId ? passes.find((p) => p.id === passId) : null;
   const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
   const selectedItem = isStall ? selectedStall : selectedPass;
+  const checkoutSeo = pageSEO.checkout;
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
@@ -540,6 +543,12 @@ const CheckoutPage = () => {
     if (isPaymentReturn || showSuccessModal) {
       return (
         <div className="relative min-h-dvh w-full bg-black text-white font-sans">
+          <SEO
+            title={checkoutSeo.title}
+            description={checkoutSeo.description}
+            path={checkoutSeo.path}
+            noindex
+          />
           <AnimatedBg />
           <Navbar />
           <main className="relative z-10 min-h-dvh flex flex-col items-center justify-center px-4 pt-24 pb-12">
@@ -618,6 +627,12 @@ const CheckoutPage = () => {
 
     return (
       <div className="min-h-dvh bg-black flex flex-col items-center justify-center text-white px-4">
+        <SEO
+          title={checkoutSeo.title}
+          description={checkoutSeo.description}
+          path={checkoutSeo.path}
+          noindex
+        />
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
           {isStall ? "Stall" : "Pass"} not found
         </h2>
@@ -662,6 +677,12 @@ const CheckoutPage = () => {
         fontFamily: '"TT Chocolates", sans-serif',
       }}
     >
+      <SEO
+        title={checkoutSeo.title}
+        description={checkoutSeo.description}
+        path={checkoutSeo.path}
+        noindex
+      />
       <AnimatedBg />
       <Navbar />
 
