@@ -24,9 +24,7 @@ const ContactPage = () => {
   useEffect(() => {
     if (stallId) {
       const stallMessages = {
-        1: "I'm interested in the 4 × 4 ft Exhibition Stall (₹12,000). Please provide more details.",
-        2: "I'm interested in the 6 × 6 ft Exhibition Stall (₹25,000). Please provide more details.",
-        3: "I'm interested in the 8 × 8 ft Premium Exhibition Stall (₹35,000). Please provide more details.",
+        3: "I'm interested in the 8 × 8 ft Premium Exhibition Stall (₹30,000 + 18% GST). Please provide more details.",
       };
       setFormState({
         ...formState,

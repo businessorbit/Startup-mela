@@ -91,7 +91,7 @@ export default function LegalPage() {
 
         <article ref={printRef} className="mt-8 bg-white border border-gray-100 rounded-lg p-4 sm:p-8 shadow-sm">
           {tab === "terms" && (
-            <div id="terms-content" className="prose max-w-none">
+            <div id="terms-content" className="prose max-w-none [&_p]:text-justify">
               <h2>Terms of Use</h2>
 
               <p>
@@ -105,8 +105,8 @@ export default function LegalPage() {
               </p>
 
               <SmallHeader>Platform Owner</SmallHeader>
-              <p>
-                The Platform is owned by NITIN, a company incorporated under the Companies Act, 1956 with its registered office at 3505, Mohali Sector 89-D ,Rupnagar ,India (hereinafter referred to as “Platform Owner”, 'we', 'us', 'our').
+              <p className="text-justify">
+                The Platform is owned by NITIN, a Proprietorship firm with its registered office at 3505, Mohali Sector 89-D, SAS Nager Mohali, Punjab, India (hereinafter referred to as “Platform Owner”, 'we', 'us', 'our').
               </p>
 
               <SmallHeader>Acceptance</SmallHeader>
@@ -131,7 +131,7 @@ export default function LegalPage() {
 
               <SmallHeader>Governing Law & Dispute Resolution</SmallHeader>
               <p>These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and construed in accordance with the laws of India.</p>
-              <p>All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Rupnagar and Punjab.</p>
+              <p>All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in SAS Nager (Punjab).</p>
 
               <SmallHeader>Contact</SmallHeader>
               <p>All concerns or communications relating to these Terms must be communicated to us using the contact information provided on this website.</p>
@@ -139,7 +139,7 @@ export default function LegalPage() {
           )}
 
           {tab === "privacy" && (
-            <div id="privacy-content" className="prose max-w-none">
+            <div id="privacy-content" className="prose max-w-none [&_p]:text-justify">
               <h2>Privacy Policy</h2>
 
               <p>This Privacy Policy describes how NITIN and its affiliates (collectively NITIN, we, our, us) collect, use, share, protect or otherwise process your information/ personal data through our website https://startupmela.com/ (hereinafter referred to as Platform).</p>
@@ -171,7 +171,7 @@ export default function LegalPage() {
           )}
 
           {tab === "refund" && (
-            <div id="refund-content" className="prose max-w-none">
+            <div id="refund-content" className="prose max-w-none [&_p]:text-justify">
               <h2>Refund Policy</h2>
               <p>We are not providing any kind of refund.</p>
             </div>
