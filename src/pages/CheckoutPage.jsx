@@ -176,6 +176,37 @@ const CheckoutPage = () => {
    * Returns "confirmed" | "failed" | "pending" so the caller knows whether
    * there is any point polling again.
    */
+  // Clears the form after a booking succeeds, so the page is not left showing
+  // details that have already been submitted.
+  const resetForm = () => {
+    setAttendees([
+      {
+        name: "",
+        email: "",
+        phone: "",
+        profession: "",
+        professionOther: "",
+        startupName: "",
+      },
+    ]);
+    setQuantity(1);
+    setStudentIdFile(null);
+    setStudentIdPreview(null);
+    setFounderProofFile(null);
+    setFounderProofPreview(null);
+    setCoFounderStudentIdFile(null);
+    setCoFounderStudentIdPreview(null);
+    setLinkedinProfile("");
+    setHasCoFounder("");
+    setTermsAccepted(false);
+    setError("");
+  };
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false);
+    setSuccessData(null);
+  };
+
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
