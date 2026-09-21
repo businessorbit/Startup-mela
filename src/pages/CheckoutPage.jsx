@@ -52,6 +52,13 @@ const CheckoutPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState(null);
 
+  // Outcome of the gateway round trip.
+  //   idle       — not returning from the gateway
+  //   verifying  — back from the gateway, confirming with the server
+  //   failed     — gateway reported a terminal failure or cancellation
+  //   unresolved — still unconfirmed when polling ran out; payment may yet land
+  const [verificationState, setVerificationState] = useState("idle");
+
   // Student Special Stall specific fields
   const isStudentStall = isStall && selectedStall?.id === 1;
   const [studentIdFile, setStudentIdFile] = useState(null);
@@ -70,52 +77,72 @@ const CheckoutPage = () => {
     window.scrollTo(0, 0);
     const isRealtimeCheckoutEnabled = !import.meta.env.PROD;
 
-    // Check for payment success
-    if (paymentStatus === "success" && orderId) {
-      let socket = null;
-      let handlePaymentConfirmed = null;
+    // "return" is what the gateway sends now; "success" is the legacy value and
+    // is still accepted so payments in flight across a deploy resolve correctly.
+    // Neither one means the payment succeeded — only the status endpoint does.
+    const isGatewayReturn =
+      paymentStatus === "return" || paymentStatus === "success";
 
-      if (isRealtimeCheckoutEnabled) {
-        socket = initializeCheckoutSocket();
+    if (!isGatewayReturn || !orderId) return;
 
-        // Join order tracking room
-        joinOrderTracking(orderId);
+    let socket = null;
+    let handlePaymentConfirmed = null;
+    let stopped = false;
+    let fallbackInterval = null;
+    let fallbackTimeout = null;
 
-        // Set up socket listener for payment confirmation
-        handlePaymentConfirmed = (data) => {
-          console.log("💳 Payment confirmed via WebSocket:", data);
-          checkPaymentStatus(orderId);
-        };
+    setVerificationState("verifying");
 
-        // Subscribe to payment:confirmed event directly on socket instance
-        socket.on("payment:confirmed", handlePaymentConfirmed);
-        console.log(
-          "👂 Subscribed to 'payment:confirmed' event for order:",
-          orderId,
-        );
-      }
+    const stopPolling = () => {
+      stopped = true;
+      if (fallbackInterval) clearInterval(fallbackInterval);
+      if (fallbackTimeout) clearTimeout(fallbackTimeout);
+    };
 
-      // Also do an immediate check in case socket is slow
-      checkPaymentStatus(orderId);
+    const poll = async () => {
+      if (stopped) return;
+      const outcome = await checkPaymentStatus(orderId);
+      // Stop as soon as the server gives a definitive answer either way.
+      if (outcome === "confirmed" || outcome === "failed") stopPolling();
+    };
 
-      // Fallback: Poll every 3 seconds for 30 seconds if socket doesn't come through
-      const fallbackInterval = setInterval(() => {
-        checkPaymentStatus(orderId);
-      }, 3000);
+    if (isRealtimeCheckoutEnabled) {
+      socket = initializeCheckoutSocket();
+      joinOrderTracking(orderId);
 
-      const fallbackTimeout = setTimeout(() => {
-        clearInterval(fallbackInterval);
-      }, 30000);
-
-      // Cleanup
-      return () => {
-        clearInterval(fallbackInterval);
-        clearTimeout(fallbackTimeout);
-        if (socket && handlePaymentConfirmed) {
-          socket.off("payment:confirmed", handlePaymentConfirmed);
-        }
+      handlePaymentConfirmed = (data) => {
+        console.log("💳 Payment confirmed via WebSocket:", data);
+        poll();
       };
+
+      socket.on("payment:confirmed", handlePaymentConfirmed);
+      console.log(
+        "👂 Subscribed to 'payment:confirmed' event for order:",
+        orderId,
+      );
     }
+
+    // Immediate check, then poll in case the socket is slow or unavailable.
+    poll();
+
+    fallbackInterval = setInterval(poll, 3000);
+
+    // Give up polling after 45s. The payment is NOT lost at this point — the
+    // server-side webhook and reconcile sweep still confirm it and the invoice
+    // still goes out — so say that rather than showing a failure.
+    fallbackTimeout = setTimeout(() => {
+      stopPolling();
+      setVerificationState((current) =>
+        current === "verifying" ? "unresolved" : current,
+      );
+    }, 45000);
+
+    return () => {
+      stopPolling();
+      if (socket && handlePaymentConfirmed) {
+        socket.off("payment:confirmed", handlePaymentConfirmed);
+      }
+    };
   }, [paymentStatus, orderId]);
 
   // Update attendees array when quantity changes
@@ -141,6 +168,11 @@ const CheckoutPage = () => {
     }
   }, [quantity]);
 
+  /**
+   * Asks the server what actually happened to a payment.
+   * Returns "confirmed" | "failed" | "pending" so the caller knows whether
+   * there is any point polling again.
+   */
   const checkPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(
@@ -151,14 +183,28 @@ const CheckoutPage = () => {
       if (data.success) {
         setSuccessData(data);
         setShowSuccessModal(true);
+        setVerificationState("idle");
         // Clean up URL parameters
         const newParams = new URLSearchParams(searchParams);
         newParams.delete("paymentStatus");
         newParams.delete("orderId");
         setSearchParams(newParams);
+        return "confirmed";
       }
+
+      // `terminal` means the gateway has definitively finished — a cancelled or
+      // declined payment. Anything else is still in flight, so keep polling
+      // instead of telling the customer it failed.
+      if (data.terminal) {
+        setVerificationState("failed");
+        return "failed";
+      }
+
+      return "pending";
     } catch (err) {
       console.error("Error checking payment status:", err);
+      // A network blip says nothing about the payment — keep polling.
+      return "pending";
     }
   };
 
@@ -1243,6 +1289,101 @@ const CheckoutPage = () => {
       </main>
 
       {/* Success Modal */}
+      {/* Gateway round-trip states: confirming, failed, or unconfirmed in time.
+          Previously a failed or cancelled payment returned the customer to a
+          silent, untouched form with no indication anything had happened. */}
+      <AnimatePresence>
+        {verificationState !== "idle" && !showSuccessModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl"
+            >
+              {verificationState === "verifying" && (
+                <div className="text-center">
+                  <div className="mx-auto mb-5 h-12 w-12 rounded-full border-4 border-[#00C2FF]/25 border-t-[#00C2FF] animate-spin" />
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Confirming your payment
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    This usually takes a few seconds. Please don&apos;t close
+                    this page or press back.
+                  </p>
+                </div>
+              )}
+
+              {verificationState === "failed" && (
+                <div className="text-center">
+                  <div className="mx-auto mb-5 h-12 w-12 rounded-full bg-red-100 flex items-center justify-center text-2xl">
+                    ✕
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Payment not completed
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-1">
+                    Your payment was cancelled or declined, so no booking was
+                    made.
+                  </p>
+                  <p className="text-gray-500 text-xs mb-5">
+                    You have not been charged. If your bank shows a deduction,
+                    it will be reversed automatically.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setVerificationState("idle");
+                      const newParams = new URLSearchParams(searchParams);
+                      newParams.delete("paymentStatus");
+                      newParams.delete("orderId");
+                      setSearchParams(newParams);
+                    }}
+                    className="w-full py-3 rounded-lg bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
+                  >
+                    Try again
+                  </button>
+                </div>
+              )}
+
+              {verificationState === "unresolved" && (
+                <div className="text-center">
+                  <div className="mx-auto mb-5 h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center text-2xl">
+                    ⏳
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Still confirming your payment
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Your bank is taking longer than usual. If the payment went
+                    through, your tickets will be emailed to you automatically —
+                    you don&apos;t need to pay again.
+                  </p>
+                  {orderId && (
+                    <p className="text-gray-500 text-xs mb-5">
+                      Order ID:{" "}
+                      <span className="font-mono text-gray-700">{orderId}</span>
+                      <br />
+                      Quote this if you need to contact support.
+                    </p>
+                  )}
+                  <button
+                    onClick={() => setVerificationState("idle")}
+                    className="w-full py-3 rounded-lg bg-linear-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B] text-white font-bold hover:shadow-lg transition-all"
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {showSuccessModal && (
           <motion.div
