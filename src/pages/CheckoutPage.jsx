@@ -10,6 +10,8 @@ import {
   initializeCheckoutSocket,
   joinOrderTracking,
 } from "../utils/socketClient";
+import SEO from "../components/SEO/SEO";
+import { pageSEO } from "../data/seo";
 
 const PROFESSION_OPTIONS = [
   "Student",
@@ -35,6 +37,7 @@ const CheckoutPage = () => {
   const selectedPass = passId ? passes.find((p) => p.id === passId) : null;
   const selectedStall = stallId ? stalls.find((s) => s.id === stallId) : null;
   const selectedItem = isStall ? selectedStall : selectedPass;
+  const checkoutSeo = pageSEO.checkout;
 
   const [quantity, setQuantity] = useState(isStall ? 1 : 1);
   const [attendees, setAttendees] = useState([
@@ -534,7 +537,13 @@ const CheckoutPage = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to initiate payment");
+        const msg = data.message || "Failed to initiate payment";
+        if (/not configured/i.test(msg)) {
+          throw new Error(
+            "Payment gateway is not configured on the server. Free tickets still work. For paid tickets, add PhonePe keys on the backend, or set VITE_TEST_MODE=true for local testing.",
+          );
+        }
+        throw new Error(msg);
       }
 
       // Handle free ticket success (no redirect needed)
@@ -542,12 +551,25 @@ const CheckoutPage = () => {
         setSuccessData(data);
         setShowSuccessModal(true);
         setIsProcessing(false);
+        resetForm();
         return;
       }
 
-      // Redirect to PhonePe Gateway for paid tickets
+      // Redirect to payment gateway (PhonePe live, or test callback URL)
       if (data && data.redirectUrl) {
-        window.location.href = data.redirectUrl;
+        let redirectUrl = data.redirectUrl;
+        // In local test mode, keep the user on this origin instead of production domain
+        if (IS_TEST_MODE && typeof window !== "undefined") {
+          try {
+            const parsed = new URL(redirectUrl);
+            parsed.protocol = window.location.protocol;
+            parsed.host = window.location.host;
+            redirectUrl = parsed.toString();
+          } catch {
+            // keep original redirectUrl
+          }
+        }
+        window.location.href = redirectUrl;
       } else {
         throw new Error("Invalid response from server");
       }
@@ -561,8 +583,102 @@ const CheckoutPage = () => {
   };
 
   if (!selectedItem) {
+    // After PhonePe redirect, URL is often /checkout?paymentStatus=success&orderId=...
+    // without passId/stallId — still show confirmation UI instead of "not found".
+    const isPaymentReturn = paymentStatus === "success" && !!orderId;
+    if (isPaymentReturn || showSuccessModal) {
+      return (
+        <div className="relative min-h-dvh w-full bg-black text-white font-sans">
+          <SEO
+            title={checkoutSeo.title}
+            description={checkoutSeo.description}
+            path={checkoutSeo.path}
+            noindex
+          />
+          <AnimatedBg />
+          <Navbar />
+          <main className="relative z-10 min-h-dvh flex flex-col items-center justify-center px-4 pt-24 pb-12">
+            {!showSuccessModal && (
+              <div className="text-center">
+                <div className="w-12 h-12 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-neutral-300 text-sm sm:text-base">
+                  Confirming your payment…
+                </p>
+              </div>
+            )}
+          </main>
+          <AnimatePresence>
+            {showSuccessModal && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                onClick={closeSuccessModal}
+              >
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl"
+                >
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg
+                        className="w-8 h-8 text-green-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-black mb-2">
+                      Payment Successful!
+                    </h3>
+                    <p className="text-neutral-600 mb-6">
+                      Your booking has been confirmed. Confirmation emails with
+                      unique verification codes have been sent to all attendees.
+                    </p>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                      <p className="text-sm text-blue-900">
+                        <strong>Order ID:</strong>{" "}
+                        {successData?.tickets?.[0]?.orderId || orderId}
+                      </p>
+                      <p className="text-sm text-blue-900 mt-1">
+                        <strong>Tickets:</strong>{" "}
+                        {successData?.tickets?.length ?? "—"}
+                      </p>
+                    </div>
+                    <button
+                      onClick={closeSuccessModal}
+                      className="w-full py-3 rounded-full bg-black text-white font-bold hover:bg-neutral-800 transition-colors"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      );
+    }
+
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4">
+      <div className="min-h-dvh bg-black flex flex-col items-center justify-center text-white px-4">
+        <SEO
+          title={checkoutSeo.title}
+          description={checkoutSeo.description}
+          path={checkoutSeo.path}
+          noindex
+        />
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
           {isStall ? "Stall" : "Pass"} not found
         </h2>
@@ -601,16 +717,22 @@ const CheckoutPage = () => {
 
   return (
     <div
-      className="relative min-h-screen w-full selection:bg-[#00C2FF]/30 text-white font-sans"
+      className="relative min-h-dvh w-full selection:bg-[#00C2FF]/30 text-white font-sans"
       style={{
         backgroundColor: "#0a0a0a",
         fontFamily: '"TT Chocolates", sans-serif',
       }}
     >
+      <SEO
+        title={checkoutSeo.title}
+        description={checkoutSeo.description}
+        path={checkoutSeo.path}
+        noindex
+      />
       <AnimatedBg />
       <Navbar />
 
-      <main className="relative z-10 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col items-center min-h-screen justify-center">
+      <main className="relative z-10 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col items-center min-h-dvh justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start">
           {/* --- LEFT: Pass Preview Card --- */}
           <motion.div
@@ -619,7 +741,7 @@ const CheckoutPage = () => {
             transition={{ duration: 0.6 }}
             className="relative lg:sticky lg:top-32"
           >
-            <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-105 sm:min-h-120 md:min-h-130 shadow-2xl shadow-blue-900/10 border border-white/10">
+            <div className="relative flex flex-col p-6 sm:p-7 md:p-8 rounded-4xl overflow-hidden min-h-0 sm:min-h-120 md:min-h-130 shadow-2xl shadow-blue-900/10 border border-white/10">
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay z-0" />
               {selectedItem?.popular && (
@@ -956,7 +1078,7 @@ const CheckoutPage = () => {
                           setStudentIdPreview,
                         )
                       }
-                      className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      className="w-full max-w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-2 sm:file:mr-4 file:py-2 file:px-2 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {studentIdPreview && (
                       <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
@@ -1003,7 +1125,7 @@ const CheckoutPage = () => {
                           setFounderProofPreview,
                         )
                       }
-                      className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      className="w-full max-w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-2 sm:file:mr-4 file:py-2 file:px-2 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     {founderProofPreview && (
                       <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">
@@ -1116,7 +1238,7 @@ const CheckoutPage = () => {
                             setCoFounderStudentIdPreview,
                           )
                         }
-                        className="w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                        className="w-full max-w-full p-3 text-sm bg-white rounded-lg border-2 border-neutral-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all file:mr-2 sm:file:mr-4 file:py-2 file:px-2 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       />
                       {coFounderStudentIdPreview && (
                         <div className="mt-3 p-3 bg-white rounded-lg border border-neutral-200">

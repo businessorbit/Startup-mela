@@ -63,7 +63,7 @@ const PassesSection = () => {
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
               // Adjusted padding and min-height for mobile screens
-              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[480px] group"
+              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-[400px] sm:min-h-[480px] group"
             >
               {/* Dark Gradient Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-950 z-0" />
@@ -100,7 +100,7 @@ const PassesSection = () => {
                 {/* Adjusted vertical margins */}
                 <div className="mt-4 mb-6 sm:mb-8">
                   {pass.comingSoon ? (
-                    <p className="text-2xl sm:text-3xl font-bold text-neutral-500 tracking-tight">
+                    <p className="text-3xl sm:text-4xl font-bold text-neutral-500 tracking-tight">
                       Price TBA
                     </p>
                   ) : pass.price ? (

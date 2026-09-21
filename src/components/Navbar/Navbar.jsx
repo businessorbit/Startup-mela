@@ -5,11 +5,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 
 // Links (use section ids or routes as needed)
 const navLinks = [
-  { label: "About", href: "/" },
-  {
-    label: "Event",
-    href: "/Start Up mela 2027 new.pdf",
-  },
+  { label: "Event", href: "/event" },
   { label: "Spotlight", href: "/spotlight" },
   { label: "Exhibition Stalls", href: "/exhibition-stalls" },
   { label: "Sponsors", href: "/sponsors" },
@@ -19,85 +15,75 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState("light"); // "light" => dark text, "dark" => white text
+  // Match hero (dark) so white logo shows on first paint — avoids blank "Startup"
+  const [theme, setTheme] = useState("dark");
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleGetTickets = (e) => {
     e.preventDefault();
     setIsOpen(false);
-    
-    if (location.pathname === "/") {
-      const el = document.getElementById("passes");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        const el = document.getElementById("passes");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 150);
+
+    if (location.pathname === "/" && location.hash === "#passes") {
+      document.getElementById("passes")?.scrollIntoView({ behavior: "smooth" });
+      return;
     }
+
+    if (location.pathname === "/") {
+      document.getElementById("passes")?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    navigate({ pathname: "/", hash: "passes" });
   };
 
   useEffect(() => {
-    // Re-observe all data-theme sections whenever the page/route changes.
-    // Using a small timeout to wait for the new page's DOM to be rendered
-    // before we query for [data-theme] elements.
-    const setup = () => {
-      // Set initial theme from the first visible [data-theme] element
-      const firstSection = document.querySelector("[data-theme]");
-      if (firstSection) {
-        setTheme(firstSection.getAttribute("data-theme") || "dark");
-      }
+    let removeListeners = null;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          // Find the most-visible intersecting entry
-          const intersecting = entries
-            .filter((e) => e.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-          if (intersecting.length > 0) {
-            const t = intersecting[0].target.getAttribute("data-theme");
-            if (t) setTheme(t);
-          }
-        },
-        { threshold: [0.2, 0.5], rootMargin: "-60px 0px 0px 0px" }
-      );
-
-      document
-        .querySelectorAll("[data-theme]")
-        .forEach((el) => observer.observe(el));
-
-      return observer;
-    };
-
-    let observer;
     const timer = setTimeout(() => {
-      observer = setup();
+      const sections = Array.from(document.querySelectorAll("[data-theme]"));
+      if (sections.length === 0) return;
+
+      const themeAtNavbar = () => {
+        // Sample the band under the fixed navbar (where the logo sits)
+        const probeY = 72;
+        let current = "dark";
+        for (const el of sections) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= probeY && rect.bottom > probeY) {
+            current = el.getAttribute("data-theme") || "dark";
+            break;
+          }
+        }
+        setTheme(current);
+      };
+
+      themeAtNavbar();
+      window.addEventListener("scroll", themeAtNavbar, { passive: true });
+      window.addEventListener("resize", themeAtNavbar);
+      removeListeners = () => {
+        window.removeEventListener("scroll", themeAtNavbar);
+        window.removeEventListener("resize", themeAtNavbar);
+      };
     }, 50);
 
     return () => {
       clearTimeout(timer);
-      if (observer) observer.disconnect();
+      if (removeListeners) removeListeners();
     };
   }, [location.pathname]);
 
-  const textColorClass = theme === "dark" ? "text-white" : "text-black";
-
   return (
     <nav
-      // Adjusted vertical padding: py-4 for mobile, increasing to py-7 for desktop
-      className={`fixed left-0 w-full z-[9998] bg-transparent py-4 sm:py-6 md:py-7 transition-all uppercase`}
+      className="fixed left-0 top-0 w-full z-[9998] bg-transparent uppercase"
       aria-label="Main navigation"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* Adjusted horizontal padding: px-4 mobile -> px-6 sm -> px-8 md -> px-12 desktop */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex justify-between">
-        {/* Logo */}
+      <div className="max-w-[1600px] mx-auto h-16 sm:h-[4.5rem] md:h-20 px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-between">
+        {/* Fixed logo slot — both assets stacked so theme swap never changes size */}
         <a
           href="/"
-          className={`flex items-end gap-2 select-none ${textColorClass}`}
+          className="relative block shrink-0 select-none h-10 w-[168px] sm:h-11 sm:w-[188px] md:h-12 md:w-[210px]"
           onClick={(e) => {
             e.preventDefault();
             if (location.pathname === "/") {
@@ -108,17 +94,23 @@ const Navbar = () => {
             }
           }}
         >
-          {/* Logo Text: responsive sizing */}
-          <span className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight pb-2">
-            Startup
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] via-[#0070FF] to-[#00E29B]">
-              Mela
-            </span>
-          </span>
-          {/* Year Text: responsive sizing */}
-          <span className="ml-2 text-xs sm:text-sm lg:text-base font-semibold text-neutral-400 align-top pb-2 lg:pb-5">
-            2027
-          </span>
+          <img
+            src="/logo-light.png?v=5"
+            alt=""
+            aria-hidden={theme !== "dark"}
+            className={`absolute inset-0 h-full w-full object-contain object-left pointer-events-none transition-opacity duration-200 ${
+              theme === "dark" ? "opacity-100" : "opacity-0"
+            }`}
+            draggable={false}
+          />
+          <img
+            src="/logo-dark.png?v=5"
+            alt="Startup Mela"
+            className={`absolute inset-0 h-full w-full object-contain object-left pointer-events-none transition-opacity duration-200 ${
+              theme === "dark" ? "opacity-0" : "opacity-100"
+            }`}
+            draggable={false}
+          />
         </a>
 
         {/* Desktop Links */}
@@ -167,11 +159,10 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 bg-black z-9999 flex flex-col w-screen h-dvh overflow-hidden"
+              className="fixed inset-0 bg-black z-9999 flex flex-col w-full h-dvh overflow-hidden"
             >
               {/* Close Button Header */}
-              {/* Adjusted padding: p-4 mobile -> p-6 sm -> p-12 md */}
-              <div className="flex justify-end p-4 sm:p-6 md:p-12">
+              <div className="flex justify-end p-4 sm:p-6 md:p-12 pt-[max(1rem,env(safe-area-inset-top))]">
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 text-white hover:text-neutral-300 transition-colors"
@@ -181,10 +172,9 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* Menu Links Container */}
-              <div className="flex flex-col items-center justify-center grow w-full pb-20 overflow-y-auto">
-                {/* Adjusted gap: gap-6 mobile -> gap-8 sm -> gap-10 md */}
-                <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-10">
+              {/* Menu Links Container — min-h-0 + my-auto avoids top clipping when content overflows */}
+              <div className="flex flex-col items-center grow min-h-0 w-full overflow-y-auto overscroll-contain px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+                <div className="flex flex-col items-center gap-5 sm:gap-7 md:gap-9 my-auto py-4">
                   {navLinks.map((link, index) => (
                     <motion.a
                       key={link.label}
@@ -192,9 +182,24 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
-                      onClick={() => setIsOpen(false)}
-                      // Responsive text size: text-3xl mobile -> text-4xl sm -> text-6xl md
-                      className="text-3xl sm:text-4xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        if (link.href.startsWith("/#")) {
+                          e.preventDefault();
+                          const hash = link.href.slice(1);
+                          if (location.pathname === "/") {
+                            document
+                              .querySelector(hash)
+                              ?.scrollIntoView({ behavior: "smooth" });
+                          } else {
+                            navigate({
+                              pathname: "/",
+                              hash: hash.replace(/^#/, ""),
+                            });
+                          }
+                        }
+                      }}
+                      className="text-2xl sm:text-3xl md:text-6xl font-bold text-white uppercase tracking-wider hover:text-transparent hover:bg-clip-text hover:bg-linear-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 transition-all text-center"
                     >
                       {link.label}
                     </motion.a>
@@ -205,7 +210,7 @@ const Navbar = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-8"
+                    className="mt-6 sm:mt-8"
                   >
                     <button onClick={handleGetTickets} className="px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-white text-black text-lg sm:text-xl font-bold uppercase tracking-wider flex items-center gap-3 shadow-xl active:scale-95 transition-transform cursor-pointer">
                       Get Tickets

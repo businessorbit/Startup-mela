@@ -2,13 +2,18 @@ export const stalls = [
   {
     id: 3,
     title: "8 × 8 ft Premium Exhibition Stall",
-    basePrice: 25000,
-    price: "₹25,000",
+    basePrice: 30000,
+    price: "₹30,000",
     gstRate: 0.18, // 18% GST
-    gstAmount: 4500, // 25000 * 0.18
-    totalPrice: 29500, // 25000 + 4500
-    displayPrice: "₹29,500",
+    gstAmount: 5400, // 30000 * 0.18
+    totalPrice: 35400, // 30000 + 5400
+    displayPrice: "₹35,400",
     oldPrice: null,
+    paymentStructure: [
+      "40% Booking amount",
+      "30% Before 1st January 2027",
+      "30% Before 1st March 2027",
+    ],
     features: [
       "8 × 8 feet stall space",
       "Canopy with fabrication",
@@ -16,8 +21,8 @@ export const stalls = [
       "1 LED screen",
       "2 promotional videos on Instagram",
       "2 All-Access Passes",
-      "Power supply included"
+      "Power supply included",
     ],
-    popular: false
-  }
+    popular: false,
+  },
 ];

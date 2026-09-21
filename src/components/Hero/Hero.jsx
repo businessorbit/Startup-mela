@@ -26,7 +26,7 @@ const Hero = () => {
   return (
     <section
       data-theme="dark"
-      className="relative h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12 py-8"
+      className="relative min-h-dvh h-auto md:h-dvh w-full flex items-center justify-center overflow-x-hidden md:overflow-hidden px-4 sm:px-6 lg:px-12 py-24 sm:py-16 md:py-8"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
       {/* --- Animated Background (Particle Canvas) --- */}
@@ -96,7 +96,7 @@ const Hero = () => {
         {/* --- Tagline & Stats --- */}
         <motion.p
           variants={itemVariants}
-          className="text-xl md:text-3xl font-light text-neutral-300 mb-10 tracking-wide max-w-3xl"
+          className="text-base sm:text-xl md:text-3xl font-light text-neutral-300 mb-8 sm:mb-10 tracking-wide max-w-3xl px-2"
         >
           Chandigarh's largest entrepreneurship summit <br className="md:hidden" />
         </motion.p>
@@ -107,7 +107,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative px-12 py-5 rounded-full bg-white text-black font-bold text-xl shadow-lg shadow-white/10 hover:shadow-white/25 transition-all duration-300 overflow-hidden flex items-center gap-3"
+              className="group relative px-8 py-4 sm:px-12 sm:py-5 rounded-full bg-white text-black font-bold text-base sm:text-xl shadow-lg shadow-white/10 hover:shadow-white/25 transition-all duration-300 overflow-hidden flex items-center gap-3"
             >
               <span className="relative z-10">Get passes</span>
               <svg
@@ -132,7 +132,7 @@ const Hero = () => {
       </motion.div>
 
       {/* --- Bottom Corner Info --- */}
-      <div className="absolute bottom-4 left-0 right-0 sm:bottom-6 md:bottom-8 z-10 px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="absolute bottom-4 left-0 right-0 sm:bottom-6 md:bottom-8 z-10 px-4 sm:px-6 md:px-8 lg:px-12 pb-[env(safe-area-inset-bottom)]">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3 sm:gap-4">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -141,7 +141,7 @@ const Hero = () => {
             className="text-center sm:text-left"
           >
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white tracking-wide">
-              27th, 28th and 29th March
+              25th, 26th and 27th March
             </p>
           </motion.div>
 

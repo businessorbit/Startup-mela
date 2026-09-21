@@ -1,7 +1,10 @@
 import { useState } from "react";
 import AnimatedBg from "../components/AnimatedBg/AnimatedBg";
+import SEO from "../components/SEO/SEO";
+import { pageSEO } from "../data/seo";
 
 const PrivateFreePassPage = () => {
+  const seo = pageSEO.privatePass;
   const [quantity, setQuantity] = useState(1);
   const [attendees, setAttendees] = useState([
     {
@@ -138,6 +141,12 @@ const PrivateFreePassPage = () => {
 
   return (
     <div className="relative min-h-screen w-full selection:bg-[#00C2FF]/30 text-white font-sans bg-black">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        noindex
+      />
       <AnimatedBg />
 
       <main className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">

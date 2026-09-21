@@ -46,7 +46,7 @@ const ExhibitionStalls = () => {
               }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-130 sm:min-h-140 group"
+              className="relative flex flex-col p-5 sm:p-6 rounded-3xl overflow-hidden min-h-0 sm:min-h-140 group"
             >
               {/* Dark Gradient Background */}
               <div className="absolute inset-0 bg-linear-to-br from-neutral-900 via-black to-neutral-950 z-0" />
@@ -115,6 +115,38 @@ const ExhibitionStalls = () => {
                   </div>
                 </div>
 
+                {/* Payment structure */}
+                {stall.paymentStructure?.length > 0 && (
+                  <div className="mb-6 sm:mb-8 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3">
+                      Payment structure
+                    </p>
+                    <ul className="space-y-2">
+                      {stall.paymentStructure.map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start text-sm text-neutral-200"
+                        >
+                          <svg
+                            className="w-4 h-4 text-blue-500 mr-3 mt-0.5 shrink-0"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          <span className="leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {/* Divider */}
                 <div className="h-px w-full bg-white/10 mb-6 sm:mb-8" />
 
@@ -171,6 +203,26 @@ const ExhibitionStalls = () => {
             Important Information
           </h3>
           <ul className="space-y-4 text-neutral-700">
+            <li className="flex items-start">
+              <svg
+                className="w-5 h-5 text-blue-600 mr-3 mt-0.5 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span className="text-sm sm:text-base">
+                <strong>Pricing:</strong> INR 30,000 + 18% GST per stall.
+                Payment — 40% booking amount, 30% before 1st January 2027,
+                30% before 1st March 2027.
+              </span>
+            </li>
             <li className="flex items-start">
               <svg
                 className="w-5 h-5 text-blue-600 mr-3 mt-0.5 shrink-0"
@@ -281,7 +333,7 @@ const ExhibitionStalls = () => {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block px-10 py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg shadow-lg shadow-white/10 hover:bg-neutral-200 transition-all duration-300"
+              className="inline-block px-8 sm:px-10 py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg shadow-lg shadow-white/10 hover:bg-neutral-200 transition-all duration-300"
             >
               Get in Touch
             </motion.a>
